@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><myplugin.generator.options.ProjectOptions>
 	<generatorOptions>
-		<option><string>EJBGenerator</string><myplugin.generator.options.GeneratorOptions>
+		<option><string>DTOGenerator</string><myplugin.generator.options.GeneratorOptions>
 				
-				<outputPath>C:/temp</outputPath><templateName>ejbclass</templateName>
-				<templateDir>templates</templateDir>
-				<outputFileName>{0}.java</outputFileName>
+				<outputPath>C:/temp/dto</outputPath><templateName>dto</templateName>
+				<templateDir>templates/dto</templateDir>
+				<outputFileName>{0}DTO.java</outputFileName>
 				<overwrite>true</overwrite>
-				<filePackage>ejb</filePackage></myplugin.generator.options.GeneratorOptions></option></generatorOptions></myplugin.generator.options.ProjectOptions>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option></generatorOptions></myplugin.generator.options.ProjectOptions>
