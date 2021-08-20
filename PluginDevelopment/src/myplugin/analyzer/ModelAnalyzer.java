@@ -1,13 +1,21 @@
 package myplugin.analyzer;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMEnumeration;
+import myplugin.generator.fmmodel.FMIdentityProperty;
 import myplugin.generator.fmmodel.FMModel;
+import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
+import myplugin.generator.fmmodel.Strategy;
 
+import com.nomagic.magicdraw.uml.symbols.reflect.PersistentProperty;
 import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
 import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Element;
@@ -17,6 +25,7 @@ import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Property;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Type;
+import com.nomagic.uml2.ext.magicdraw.mdprofiles.Stereotype;
 
 
 /** Model Analyzer takes necessary metadata from the MagicDraw model and puts it in 
@@ -79,16 +88,16 @@ public class ModelAnalyzer {
 					FMModel.getInstance().getEnumerations().add(fmEnumeration);
 				}								
 			}
-			
-			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
-				Element ownedElement = it.next();
-				if (ownedElement instanceof Package) {					
-					Package ownedPackage = (Package)ownedElement;
-					if (StereotypesHelper.getAppliedStereotypeByString(ownedPackage, "BusinessApp") != null)
-						//only packages with stereotype BusinessApp are candidates for metadata extraction and code generation:
-						processPackage(ownedPackage, packageName);
-				}
-			}
+//			
+//			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
+//				Element ownedElement = it.next();
+//				if (ownedElement instanceof Package) {					
+//					Package ownedPackage = (Package)ownedElement;
+//					if (StereotypesHelper.getAppliedStereotypeByString(ownedPackage, "BusinessApp") != null)
+//						//only packages with stereotype BusinessApp are candidates for metadata extraction and code generation:
+//						processPackage(ownedPackage, packageName);
+//				}
+//			}
 			
 			/** @ToDo:
 			  * Process other package elements, as needed */ 
@@ -132,9 +141,90 @@ public class ModelAnalyzer {
 		
 		FMProperty prop = new FMProperty(attName, typeName, p.getVisibility().toString(), 
 				lower, upper);
+		
+		prop = checkTypeOfProperty(p, prop);
+		
 		return prop;		
 	}	
 	
+	private FMProperty checkTypeOfProperty(Property prop, FMProperty fmProp) {
+		Stereotype persistentPropStereotype = StereotypesHelper.getAppliedStereotypeByString(prop, "PersistentProperty");
+		if(persistentPropStereotype != null) {
+			fmProp = addPersistentPropData(persistentPropStereotype, prop, fmProp);
+		}
+		
+		Stereotype identityPropStereotype = StereotypesHelper.getAppliedStereotypeByString(prop, "IdentityProperty");
+		if(identityPropStereotype != null) {
+			fmProp = addIdentityPropData(identityPropStereotype, prop, fmProp);
+		}
+						
+		return fmProp;
+	}
+
+	private FMProperty addIdentityPropData(Stereotype identityPropStereotype, Property prop, FMProperty fmProp) {
+		FMIdentityProperty identityProperty = new FMIdentityProperty(new FMPersistentProperty(fmProp));
+		
+		manageTags(identityPropStereotype, prop, identityProperty, "IdentityProperty");
+				
+		return identityProperty;
+	}
+
+	private void manageTags(Stereotype stereotype, Property prop, FMProperty fmProp, String propType) {
+		List<Property> tags = stereotype.getOwnedAttribute();
+		
+		for(Property tag: tags) {
+			String name = tag.getName();
+			
+			List value = StereotypesHelper.getStereotypePropertyValue(prop, stereotype, name);
+
+			if(value.size() > 0) {
+				setTag(name, value, fmProp, propType);
+			}
+		}
+	}
+
+	private FMProperty addPersistentPropData(Stereotype persistentPropStereotype, Property prop, FMProperty fmProp) {
+		FMPersistentProperty persistentProperty = new FMPersistentProperty(fmProp);
+		
+		manageTags(persistentPropStereotype, prop, persistentProperty, "PersistentProperty");
+		
+		return persistentProperty;
+	}
+
+	private void setTag(String name, List value, FMProperty property, String propType) {
+		if(propType == "PersistentProperty") {
+			switch(name) {
+				case "columnName":{
+					String columnName = (String) value.get(0);
+					((FMPersistentProperty)property).setColumnName(columnName);
+				}
+				break;
+				case "precision":{
+					Integer precision = (Integer) value.get(0);
+					((FMPersistentProperty)property).setPrecision(precision);
+				}
+				break;
+				case "length":{
+					Integer length = (Integer) value.get(0);
+					((FMPersistentProperty)property).setLength(length);
+				}
+				break;
+				default: break;
+			}
+		}
+		 if(propType == "IdentityProperty") {
+			switch(name) {
+				case "strategy":{
+					EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
+					Strategy strategy = Strategy.valueOf(enumLit.getName().toLowerCase());
+					((FMIdentityProperty)property).setStrategy(strategy);
+				}
+				break;
+				default: break;
+			}
+		}
+	}
+
 	private FMEnumeration getEnumerationData(Enumeration enumeration, String packageName) throws AnalyzeException {
 		FMEnumeration fmEnum = new FMEnumeration(enumeration.getName(), packageName);
 		List<EnumerationLiteral> list = enumeration.getOwnedLiteral();
