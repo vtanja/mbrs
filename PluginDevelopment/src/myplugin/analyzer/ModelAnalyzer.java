@@ -10,9 +10,11 @@ import javax.swing.JOptionPane;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMEnumeration;
 import myplugin.generator.fmmodel.FMIdentityProperty;
+import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
+import myplugin.generator.fmmodel.FetchType;
 import myplugin.generator.fmmodel.Strategy;
 
 import com.nomagic.magicdraw.uml.symbols.reflect.PersistentProperty;
@@ -157,8 +159,19 @@ public class ModelAnalyzer {
 		if(identityPropStereotype != null) {
 			fmProp = addIdentityPropData(identityPropStereotype, prop, fmProp);
 		}
+		
+		Stereotype linkedPropStereotype = StereotypesHelper.getAppliedStereotypeByString(prop, "LinkedProperty");
+		if (linkedPropStereotype != null) {
+			fmProp = addLinkedPropData(linkedPropStereotype, prop, fmProp);
+		}
 						
 		return fmProp;
+	}
+
+	private FMProperty addLinkedPropData(Stereotype linkedPropStereotype, Property prop, FMProperty fmProp) {
+		FMLinkedProperty linkedProperty = new FMLinkedProperty(fmProp);
+		manageTags(linkedPropStereotype, prop, linkedProperty, "LinkedProperty");
+		return linkedProperty;
 	}
 
 	private FMProperty addIdentityPropData(Stereotype identityPropStereotype, Property prop, FMProperty fmProp) {
@@ -223,6 +236,16 @@ public class ModelAnalyzer {
 				default: break;
 			}
 		}
+		 if(propType == "LinkedProperty") {
+			 switch(name) {
+				 case "fetchType":{
+					 EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
+					 FetchType fetchType = FetchType.valueOf(enumLit.getName().toUpperCase());
+					 ((FMLinkedProperty)property).setFetchType(fetchType);
+					 JOptionPane.showMessageDialog(null, "fetch type set!");
+				 }
+			 }
+		 }
 	}
 
 	private FMEnumeration getEnumerationData(Enumeration enumeration, String packageName) throws AnalyzeException {
