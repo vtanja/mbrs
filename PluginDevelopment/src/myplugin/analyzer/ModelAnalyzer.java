@@ -242,7 +242,6 @@ public class ModelAnalyzer {
 					 EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
 					 FetchType fetchType = FetchType.valueOf(enumLit.getName().toUpperCase());
 					 ((FMLinkedProperty)property).setFetchType(fetchType);
-					 JOptionPane.showMessageDialog(null, "fetch type set!");
 				 }
 			 }
 		 }
