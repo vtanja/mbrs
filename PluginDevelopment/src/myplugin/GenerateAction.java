@@ -23,6 +23,7 @@ import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.BasicGenerator;
 import myplugin.generator.EJBGenerator;
 import myplugin.generator.GeneratorFactory;
+import myplugin.generator.InitialProjectGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
@@ -49,6 +50,9 @@ class GenerateAction extends MDAction{
 			analyzer.prepareModel();
 			
 			Map<String, GeneratorOptions> options = ProjectOptions.getProjectOptions().getGeneratorOptions();
+			
+			InitialProjectGenerator projGenerator = new InitialProjectGenerator();
+			projGenerator.generate();
 			
 			for (Map.Entry<String,GeneratorOptions> entry : options.entrySet()) {
 				BasicGenerator generator = GeneratorFactory.GetGenerator(entry);
