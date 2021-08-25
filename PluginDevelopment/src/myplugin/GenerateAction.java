@@ -44,7 +44,7 @@ class GenerateAction extends MDAction{
 		
 		if (root == null) return;
 	
-		ModelAnalyzer analyzer = new ModelAnalyzer(root, "ejb");	
+		ModelAnalyzer analyzer = new ModelAnalyzer(root, "");	
 		
 		try {
 			analyzer.prepareModel();
@@ -62,18 +62,9 @@ class GenerateAction extends MDAction{
 	                        ", package: " + entry.getValue().getFilePackage());
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Could not find geenrator: " + entry.getKey());
+					JOptionPane.showMessageDialog(null, "Could not find generator: " + entry.getKey());
 				}
-				
-//				if(entry.getKey().equals("EJBGenerator")) {
-//					EJBGenerator generator = new EJBGenerator(entry.getValue());
-//					generator.generate();
-//					
-//					JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + entry.getValue().getOutputPath() +
-//	                         ", package: " + entry.getValue().getFilePackage());
-//					exportToXml();
-//				}
-				
+								
 			}		
 			
 			
