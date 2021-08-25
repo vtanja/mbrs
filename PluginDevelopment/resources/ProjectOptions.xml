@@ -6,4 +6,13 @@
 				<templateDir>templates/dto</templateDir>
 				<outputFileName>{0}DTO.java</outputFileName>
 				<overwrite>true</overwrite>
-				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option></generatorOptions></myplugin.generator.options.ProjectOptions>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>FrontDTOGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage></filePackage>
+				<outputFileName>{0}DTO.ts</outputFileName>
+				<outputPath>C:/temp/dto</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/FrontDTO</templateDir>
+				<templateName>frontDto</templateName></myplugin.generator.options.GeneratorOptions></option></generatorOptions></myplugin.generator.options.ProjectOptions>
