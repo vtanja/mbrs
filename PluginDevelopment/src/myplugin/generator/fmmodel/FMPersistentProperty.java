@@ -10,7 +10,7 @@ public class FMPersistentProperty extends FMProperty{
 				fmProperty.getLower(), fmProperty.getUpper());
 	}
 	
-	public FMPersistentProperty(String name, String type, String visibility, Integer lower, Integer upper,
+	public FMPersistentProperty(String name, FMType type, String visibility, Integer lower, Integer upper,
 			String columnName, Integer precision, Integer length) {
 		super(name, type, visibility, lower, upper);
 		this.columnName = columnName;

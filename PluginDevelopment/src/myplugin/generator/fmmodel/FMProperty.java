@@ -3,7 +3,7 @@ package myplugin.generator.fmmodel;
 
 public class FMProperty extends FMElement  {
 	//Property type
-	private String type;
+	private FMType type;
 	// Property visibility (public, private, protected, package)
 	private String visibility;
 	//Multiplicity (lower value)
@@ -16,7 +16,7 @@ public class FMProperty extends FMElement  {
 	 * stereotype */
 
 	
-	public FMProperty(String name, String type, String visibility, int lower, int upper) {
+	public FMProperty(String name, FMType type, String visibility, int lower, int upper) {
 		super(name);
 		this.type = type;
 		this.visibility = visibility;
@@ -25,10 +25,10 @@ public class FMProperty extends FMElement  {
 		this.upper = upper;		
 	}
 	
-	public String getType() {
+	public FMType getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(FMType type) {
 		this.type = type;
 	}
 	public String getVisibility() {
