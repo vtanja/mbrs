@@ -15,6 +15,10 @@ public class TypeMapping {
 		this.destType = destType;
 		this.libraryName = libraryName;
 	}
+	
+	public TypeMapping() {
+		super();
+	}
 
 	public String getuMLType() {
 		return uMLType;

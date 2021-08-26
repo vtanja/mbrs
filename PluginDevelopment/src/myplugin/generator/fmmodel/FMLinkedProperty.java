@@ -8,7 +8,7 @@ public class FMLinkedProperty extends FMProperty{
 				fmProperty.getLower(), fmProperty.getUpper());
 	}
 	
-	public FMLinkedProperty(String name, String type, String visibility, Integer lower,
+	public FMLinkedProperty(String name, FMType type, String visibility, Integer lower,
 			Integer upper, FetchType fetchType){
 		super(name, type, visibility, lower, upper);
 		this.fetchType = fetchType;
