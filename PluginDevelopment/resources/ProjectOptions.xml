@@ -1,9 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?><myplugin.generator.options.ProjectOptions>
-	<generatorOptions>
+	<typeMappings>
+		
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>int</uMLType><destType>int</destType>
+			<libraryName>java.lang</libraryName>
+			</myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>Integer</uMLType><destType>Integer</destType>
+			<libraryName>java.lang</libraryName>
+		</myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>long</uMLType>
+			<destType>long</destType>
+			<libraryName>java.lang</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>float</uMLType>
+			<destType>float</destType>
+			<libraryName>java.lang</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>double</uMLType>
+			<destType>double</destType>
+			<libraryName>java.lang</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>boolean</uMLType>
+			<destType>boolean</destType>
+			<libraryName>java.lang</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>Boolean</uMLType>
+			<destType>Boolean</destType>
+			<libraryName>java.lang</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>byte</uMLType>
+			<destType>byte</destType>
+			<libraryName>java.lang</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>char</uMLType>
+			<destType>Char</destType>
+			<libraryName>java.lang</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>String</uMLType>
+			<destType>String</destType>
+			<libraryName>java.lang</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>date</uMLType>
+			<destType>Date</destType>
+			<libraryName>java.util</libraryName></myplugin.generator.options.TypeMapping></typeMappings><generatorOptions>
 		<option><string>DTOGenerator</string><myplugin.generator.options.GeneratorOptions>
 				
-				<outputPath>C:/temp/dto</outputPath><templateName>dto</templateName>
+				<outputPath>C:/temp/demo/src/main/java/demo/dto</outputPath><templateName>dto</templateName>
 				<templateDir>templates/dto</templateDir>
 				<outputFileName>{0}DTO.java</outputFileName>
 				<overwrite>true</overwrite>
-				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option></generatorOptions></myplugin.generator.options.ProjectOptions>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option></generatorOptions>
+	</myplugin.generator.options.ProjectOptions>
