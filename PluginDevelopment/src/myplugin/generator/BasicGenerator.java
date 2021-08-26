@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import javax.swing.JOptionPane;
+
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.Template;
@@ -56,19 +58,27 @@ public abstract class BasicGenerator {
 		cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);		
 
 		final String tName = templateName + ".ftl";
+		
+		
 		try {
 			cfg.setDirectoryForTemplateLoading(new File(templateDir));
 			template = cfg.getTemplate(tName);
 			DefaultObjectWrapperBuilder builder = 
 					new DefaultObjectWrapperBuilder(cfg.getIncompatibleImprovements());
 			cfg.setObjectWrapper(builder.build());
+			
+		} catch (IOException e) {
+			throw new IOException("Can't find template " + tName + ".", e);
+		}
+		
+		try {
 			File op = new File(outputPath);
 			if (!op.exists() && !op.mkdirs()) {
 					throw new IOException(
 							"An error occurred during folder creation " + outputPath);
 			}
-		} catch (IOException e) {
-			throw new IOException("Can't find template " + tName + ".", e);
+		} catch (Exception e) {
+			throw new IOException("Error creating output file");
 		}
 
 	}
