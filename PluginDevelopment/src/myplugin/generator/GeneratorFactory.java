@@ -10,6 +10,9 @@ public class GeneratorFactory {
 		if(entry.getKey().equals("DTOGenerator")) {
 			return new DTOGenerator(entry.getValue());
 		}
+		else if(entry.getKey().equals("FrontDTOGenerator")) {
+			return new FrontDTOGenerator(entry.getValue());
+		}
 		
 		return null;
 		
