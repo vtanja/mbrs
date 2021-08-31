@@ -1,4 +1,4 @@
-package com.example.${ name }.controller;
+package com.example.demo.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import com.example.${ name?lower_case }.dto.${ name }DTO;
-import com.example.${ name?lower_case }.service.${ name }Service;
+import com.example.demo.dto.${ name }DTO;
+import com.example.demo.service.${ name }Service;
 
 
 @CrossOrigin
