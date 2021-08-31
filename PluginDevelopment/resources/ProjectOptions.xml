@@ -47,7 +47,7 @@
 			<libraryName>java.util</libraryName></myplugin.generator.options.TypeMapping></typeMappings><generatorOptions>
 		<option><string>DTOGenerator</string><myplugin.generator.options.GeneratorOptions>
 				
-				<outputPath>C:/temp/demo/src/main/java/demo/dto</outputPath><templateName>dto</templateName>
+				<outputPath>C:\temp\backend\demo\src\main\java\com\example\demo\dto</outputPath><templateName>dto</templateName>
 				<templateDir>templates/dto</templateDir>
 				<outputFileName>{0}DTO.java</outputFileName>
 				<overwrite>true</overwrite>
