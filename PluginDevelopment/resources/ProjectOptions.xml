@@ -44,14 +44,28 @@
 		<myplugin.generator.options.TypeMapping>
 			<uMLType>date</uMLType>
 			<destType>Date</destType>
-			<libraryName>java.util</libraryName></myplugin.generator.options.TypeMapping></typeMappings><generatorOptions>
+			<libraryName>java.util</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<uMLType>long</uMLType>
+			<destType>number</destType>
+			<libraryName>lib</libraryName></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<destType>string</destType>
+			<libraryName>lib</libraryName>
+			<uMLType>String</uMLType></myplugin.generator.options.TypeMapping>
+		<myplugin.generator.options.TypeMapping>
+			<destType>number</destType>
+			<libraryName>lib</libraryName>
+			<uMLType>int</uMLType></myplugin.generator.options.TypeMapping>
+			
+			</typeMappings><generatorOptions>
 		<option><string>DTOGenerator</string><myplugin.generator.options.GeneratorOptions>
 				
 				<outputPath>C:/temp/demo/src/main/java/demo/dto</outputPath><templateName>dto</templateName>
 				<templateDir>templates/dto</templateDir>
 				<outputFileName>{0}DTO.java</outputFileName>
 				<overwrite>true</overwrite>
-				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option></generatorOptions>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
 		<option>
 			<string>FrontDTOGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
@@ -60,5 +74,5 @@
 				<outputPath>C:/temp/dto</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/frontDTO</templateDir>
-				<templateName>frontDto</templateName></myplugin.generator.options.GeneratorOptions></option>
+				<templateName>frontDto</templateName></myplugin.generator.options.GeneratorOptions></option></generatorOptions>
 	</myplugin.generator.options.ProjectOptions>
