@@ -17,6 +17,10 @@ public class TypeMapping implements Serializable {
 		this.destType = destType;
 		this.libraryName = libraryName;
 	}
+	
+	public TypeMapping() {
+		super();
+	}
 
 	public String getuMLType() {
 		return uMLType;

@@ -2,8 +2,12 @@ package myplugin.analyzer;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -14,8 +18,11 @@ import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
+import myplugin.generator.fmmodel.FMType;
 import myplugin.generator.fmmodel.FetchType;
 import myplugin.generator.fmmodel.Strategy;
+import myplugin.generator.options.ProjectOptions;
+import myplugin.generator.options.TypeMapping;
 
 import com.nomagic.magicdraw.uml.symbols.reflect.PersistentProperty;
 import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
@@ -119,7 +126,17 @@ public class ModelAnalyzer {
 		}	
 		
 		/** @ToDo:
-		 * Add import declarations etc. */		
+		 * Add import declarations etc. */	
+		
+		Map<String, FMType> imports = new HashMap<String, FMType>();
+		for (FMProperty fmProp : fmClass.getProperties()) {
+			FMType fmType = fmProp.getType();
+			if (!imports.containsKey(fmType.getName())){
+				imports.put(fmType.getName(), fmType);
+				fmClass.addImportedPackage(fmType);
+			}
+		}
+		
 		return fmClass;
 	}
 	
@@ -128,20 +145,23 @@ public class ModelAnalyzer {
 		if (attName == null) 
 			throw new AnalyzeException("Properties of the class: " + cl.getName() +
 					" must have names!");
-		Type attType = p.getType();
-		if (attType == null)
-			throw new AnalyzeException("Property " + cl.getName() + "." +
-			p.getName() + " must have type!");
 		
-		String typeName = attType.getName();
-		if (typeName == null)
-			throw new AnalyzeException("Type ot the property " + cl.getName() + "." +
-			p.getName() + " must have name!");		
+		String attTypeName = p.getType().getName();
+		String typePackage = "";
+		
+		TypeMapping typeMapping = getType(attTypeName); 
+				
+		if(typeMapping != null) {
+			attTypeName = typeMapping.getDestType();
+			typePackage = typeMapping.getLibraryName();
+		}
+		
+		FMType fmType = new FMType(attTypeName, typePackage);
 			
 		int lower = p.getLower();
 		int upper = p.getUpper();
 		
-		FMProperty prop = new FMProperty(attName, typeName, p.getVisibility().toString(), 
+		FMProperty prop = new FMProperty(attName, fmType, p.getVisibility().toString(), 
 				lower, upper);
 		
 		prop = checkTypeOfProperty(p, prop);
@@ -149,6 +169,16 @@ public class ModelAnalyzer {
 		return prop;		
 	}	
 	
+	private TypeMapping getType(String attType) {
+		List<TypeMapping> typeMappings = ProjectOptions.getProjectOptions().getTypeMappings();
+		for(TypeMapping typeMapping:typeMappings) {
+			if(typeMapping.getuMLType().equals(attType)) {
+				return typeMapping;
+			}
+		}
+		return null;
+	}
+
 	private FMProperty checkTypeOfProperty(Property prop, FMProperty fmProp) {
 		Stereotype persistentPropStereotype = StereotypesHelper.getAppliedStereotypeByString(prop, "PersistentProperty");
 		if(persistentPropStereotype != null) {
