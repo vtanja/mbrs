@@ -1,8 +1,10 @@
 package myplugin.generator.options;
 
+import java.io.Serializable;
+
 /** TypeMapping: UML 2.0 to java (or any other destination language) type mapping */
 
-public class TypeMapping {
+public class TypeMapping implements Serializable {
 	private String uMLType;
 	private String destType;
 	
