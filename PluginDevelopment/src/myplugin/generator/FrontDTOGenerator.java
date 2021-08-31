@@ -18,10 +18,13 @@ import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.options.GeneratorOptions;
+import myplugin.generator.options.TypeMapping;
 
 public class FrontDTOGenerator extends BasicGenerator {
-	public FrontDTOGenerator(GeneratorOptions generatorOptions) {
+	List<TypeMapping> typeMappings;
+	public FrontDTOGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
 		super(generatorOptions);
+		this.typeMappings = typeMappings;
 	}
 	
 	public void generate() {
@@ -44,6 +47,8 @@ public class FrontDTOGenerator extends BasicGenerator {
 					context.put("name", cl.getName());
 					context.put("properties", cl.getProperties());
 					context.put("importedPackages", cl.getImportedPackages());
+					
+					JOptionPane.showMessageDialog(null, typeMappings.size());
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
@@ -53,9 +58,11 @@ public class FrontDTOGenerator extends BasicGenerator {
 							linkedProps.add(prop);
 						}
 						else if (prop instanceof FMIdentityProperty) {
+							prop.setType(getCorrectType(prop.getType()));
 							context.put("identityProp", (FMIdentityProperty)prop);
 						}
 						else if (prop instanceof FMPersistentProperty) {
+							prop.setType(getCorrectType(prop.getType()));
 							persistentProps.add(prop);
 						}
 						
@@ -73,5 +80,17 @@ public class FrontDTOGenerator extends BasicGenerator {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 		}
+	}
+	
+
+	private String getCorrectType(String type) {
+		String ret = "nepoznato";
+		for (TypeMapping tm : typeMappings) {
+			if(tm.getuMLType().equalsIgnoreCase(type)) {
+				ret = tm.getDestType();
+				break;
+			}
+		}
+		return ret;
 	}
 }
