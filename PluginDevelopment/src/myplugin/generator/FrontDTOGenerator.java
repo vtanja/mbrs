@@ -22,6 +22,7 @@ import myplugin.generator.options.TypeMapping;
 
 public class FrontDTOGenerator extends BasicGenerator {
 	List<TypeMapping> typeMappings;
+	
 	public FrontDTOGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
 		super(generatorOptions);
 		this.typeMappings = typeMappings;
@@ -40,15 +41,13 @@ public class FrontDTOGenerator extends BasicGenerator {
 			Writer out;
 			Map<String, Object> context = new HashMap<String, Object>();
 			try {
-				out = getWriter(cl.getName(), cl.getTypePackage());
+				out = getWriter(cl.getName().toLowerCase(), cl.getTypePackage());
 				if (out != null) {
 					context.clear();
 					context.put("class", cl);
 					context.put("name", cl.getName());
 					context.put("properties", cl.getProperties());
 					context.put("importedPackages", cl.getImportedPackages());
-					
-					JOptionPane.showMessageDialog(null, typeMappings.size());
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
@@ -58,11 +57,11 @@ public class FrontDTOGenerator extends BasicGenerator {
 							linkedProps.add(prop);
 						}
 						else if (prop instanceof FMIdentityProperty) {
-							prop.setType(getCorrectType(prop.getType()));
+							prop.getType().setName(getCorrectType(prop.getType().getName()));
 							context.put("identityProp", (FMIdentityProperty)prop);
 						}
 						else if (prop instanceof FMPersistentProperty) {
-							prop.setType(getCorrectType(prop.getType()));
+							prop.getType().setName(getCorrectType(prop.getType().getName()));
 							persistentProps.add(prop);
 						}
 						
@@ -84,9 +83,9 @@ public class FrontDTOGenerator extends BasicGenerator {
 	
 
 	private String getCorrectType(String type) {
-		String ret = "nepoznato";
+		String ret = type;
 		for (TypeMapping tm : typeMappings) {
-			if(tm.getuMLType().equalsIgnoreCase(type)) {
+			if(tm.getDestination().equalsIgnoreCase("frontend") && tm.getuMLType().equalsIgnoreCase(type)) {
 				ret = tm.getDestType();
 				break;
 			}
