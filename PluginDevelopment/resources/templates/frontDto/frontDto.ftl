@@ -1,6 +1,6 @@
 <#list importedPackages as import>
 <#if import.typePackage == "">
-import putanja.${import.name?lower_case}.model;
+import { I${import.name} } from 'src/app/shared/model/${import.name?lower_case}.model;
 </#if>
 </#list>
 
