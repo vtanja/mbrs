@@ -16,7 +16,7 @@ public class GeneratorFactory {
 		}
 		
 		if(entry.getKey().equals("DTODetailGenerator")) {
-			return new DTOGenerator(entry.getValue());
+			return new DTODetailGenerator(entry.getValue());
 		}
 		
 		return null;
