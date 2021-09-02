@@ -46,22 +46,13 @@ public class DTOGenerator extends BasicGenerator {
 					context.put("importedPackages", cl.getImportedPackages());
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
-					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
-						if (prop instanceof FMLinkedProperty) {
-							linkedProps.add(prop);
-						}
-						else if (prop instanceof FMIdentityProperty) {
-							context.put("identityProp", (FMIdentityProperty)prop);
-						}
-						else if (prop instanceof FMPersistentProperty) {
+						if (prop instanceof FMPersistentProperty) {
 							persistentProps.add(prop);
 						}
 						
 					}
-					
-					context.put("linkedProps", linkedProps);
 					context.put("persistentProps", persistentProps);
 					
 					getTemplate().process(context, out);
