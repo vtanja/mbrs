@@ -21,7 +21,6 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.BasicGenerator;
-import myplugin.generator.EJBGenerator;
 import myplugin.generator.GeneratorFactory;
 import myplugin.generator.InitialProjectGenerator;
 import myplugin.generator.fmmodel.FMModel;
@@ -58,14 +57,14 @@ class GenerateAction extends MDAction{
 				BasicGenerator generator = GeneratorFactory.GetGenerator(entry);
 				if(generator != null) {
 					generator.generate();
-					JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + entry.getValue().getOutputPath() +
-	                        ", package: " + entry.getValue().getFilePackage());
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Could not find generator: " + entry.getKey());
 				}
 								
-			}		
+			}
+			
+			JOptionPane.showMessageDialog(null, "Code is successfully generated!");
 			
 			
 		} catch (AnalyzeException e) {

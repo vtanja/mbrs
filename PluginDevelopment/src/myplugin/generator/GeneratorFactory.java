@@ -11,6 +11,10 @@ public class GeneratorFactory {
 			return new DTOGenerator(entry.getValue());
 		}
 		
+		if(entry.getKey().equals("ControllerGenerator")) {
+			return new ControllerGenerator(entry.getValue());
+		}
+		
 		return null;
 		
 	}
