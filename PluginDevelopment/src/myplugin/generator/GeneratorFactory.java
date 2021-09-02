@@ -16,6 +16,10 @@ public class GeneratorFactory {
 			return new FrontDTOGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("ControllerGenerator")) {
+			return new ControllerGenerator(entry.getValue());
+		}
+		
 		return null;
 		
 	}

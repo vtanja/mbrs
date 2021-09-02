@@ -105,7 +105,7 @@
 	</typeMappings><generatorOptions>
 		<option><string>DTOGenerator</string><myplugin.generator.options.GeneratorOptions>
 				
-				<outputPath>backend/demo/src/main/java/demo/dto</outputPath><templateName>dto</templateName>
+				<outputPath>backend/demo/src/main/java/com/example/demo/dto</outputPath><templateName>dto</templateName>
 				<templateDir>templates/dto</templateDir>
 				<outputFileName>{0}DTO.java</outputFileName>
 				<overwrite>true</overwrite>
@@ -118,5 +118,15 @@
 				<outputPath>frontend/demo/src/app/shared/model</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/frontDTO</templateDir>
-				<templateName>frontDto</templateName></myplugin.generator.options.GeneratorOptions></option></generatorOptions>
+				<templateName>frontDto</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>ControllerGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>backend/demo/src/main/java/com/example/demo/controller</outputPath>
+				<templateName>controller</templateName>
+				<templateDir>templates/controller</templateDir>
+				<outputFileName>{0}Controller.java</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+		</generatorOptions>
 	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath></myplugin.generator.options.ProjectOptions>
