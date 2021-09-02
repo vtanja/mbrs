@@ -11,18 +11,18 @@ import javax.swing.JOptionPane;
 
 public class InitialProjectGenerator {
 	public void generate() throws IOException{
-		String sourceLocation = "C:\\Users\\tanja\\OneDrive\\Documents\\GitHub\\mbrs\\PluginDevelopment\\resources\\initialProjects\\backend";
+		String sourceLocation = "D:\\mbrs\\PluginDevelopment\\resources\\initialProjects\\backend";
 		File srcDir = new File(sourceLocation);
 
-		String destinationLocation = "C:\\temp\\backend";
+		String destinationLocation = "D:\\temp\\backend";
 		File destDir = new File(destinationLocation);
 		
 		copyDirectory(srcDir, destDir);
 		
-		sourceLocation = "C:\\Users\\tanja\\OneDrive\\Documents\\GitHub\\mbrs\\PluginDevelopment\\resources\\initialProjects\\frontend";
+		sourceLocation = "D:\\mbrs\\PluginDevelopment\\resources\\initialProjects\\frontend";
 		srcDir = new File(sourceLocation);
 
-		destinationLocation = "C:\\temp\\frontend";
+		destinationLocation = "D:\\temp\\frontend";
 		destDir = new File(destinationLocation);
 		
 		copyDirectory(srcDir, destDir);
