@@ -51,5 +51,14 @@
 				<templateDir>templates/dto</templateDir>
 				<outputFileName>{0}DTO.java</outputFileName>
 				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>ControllerGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>C:\temp\backend\demo\src\main\java\com\example\demo\controller</outputPath>
+				<templateName>controller</templateName>
+				<templateDir>templates/controller</templateDir>
+				<outputFileName>{0}Controller.java</outputFileName>
+				<overwrite>true</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option></generatorOptions>
 	</myplugin.generator.options.ProjectOptions>
