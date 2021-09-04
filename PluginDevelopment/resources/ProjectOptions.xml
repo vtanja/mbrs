@@ -128,5 +128,14 @@
 				<outputFileName>{0}Controller.java</outputFileName>
 				<overwrite>true</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
-		</generatorOptions>
+		<option>
+			<string>FrontModelGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage></filePackage>
+				<outputFileName>{0}.ts</outputFileName>
+				<outputPath>frontend/demo/src/app/shared/model</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/frontModel</templateDir>
+				<templateName>frontmodel</templateName></myplugin.generator.options.GeneratorOptions></option>
+</generatorOptions>
 	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath></myplugin.generator.options.ProjectOptions>
