@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import com.example.demo.dto.${ name }DTO;
+import com.example.demo.dto.${ name }DetailDTO;
 import com.example.demo.service.${ name }Service;
 
 
@@ -24,18 +25,18 @@ public class ${ name }Controller {
     }
 
     @GetMapping(path="/{id}")
-    public ResponseEntity<${ name }DTO> get${ name }(@PathVariable Long id) {
+    public ResponseEntity<${ name }DetailDTO> get${ name }(@PathVariable Long id) {
 
         return ${ name?lower_case }Service.get${ name }(id);
     }
 
     @PostMapping()
-    public ResponseEntity<${ name }DTO> create(@RequestBody ${ name }DTO ${ name?lower_case }Dto) {
+    public ResponseEntity<${ name }DetailDTO> create(@RequestBody ${ name }DetailDTO ${ name?lower_case }Dto) {
         return ${ name?lower_case }Service.create(${name?lower_case}Dto);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<${ name }DTO> update(@PathVariable Long id, @RequestBody ${ name }DTO ${ name?lower_case }Dto) {
+    public ResponseEntity<${ name }DetailDTO> update(@PathVariable Long id, @RequestBody ${ name }DetailDTO ${ name?lower_case }Dto) {
         return ${ name?lower_case }Service.update${ name}(id, ${ name?lower_case }Dto);
     }
 

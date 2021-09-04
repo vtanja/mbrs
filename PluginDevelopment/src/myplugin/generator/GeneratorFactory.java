@@ -20,6 +20,10 @@ public class GeneratorFactory {
 			return new ControllerGenerator(entry.getValue());
 		}
 		
+		if(entry.getKey().equals("DTODetailGenerator")) {
+			return new DTODetailGenerator(entry.getValue());
+		}
+		
 		return null;
 		
 	}

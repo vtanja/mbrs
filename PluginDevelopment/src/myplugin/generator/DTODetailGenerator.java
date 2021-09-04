@@ -2,25 +2,24 @@ package myplugin.generator;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
 
 import freemarker.template.TemplateException;
-
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMIdentityProperty;
-import myplugin.generator.fmmodel.FMModel;
-import myplugin.generator.fmmodel.FMProperty;
-import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
+import myplugin.generator.fmmodel.FMModel;
+import myplugin.generator.fmmodel.FMPersistentProperty;
+import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.options.GeneratorOptions;
 
-public class DTOGenerator extends BasicGenerator {
-	public DTOGenerator(GeneratorOptions generatorOptions) {
+public class DTODetailGenerator extends BasicGenerator{
+	public DTODetailGenerator(GeneratorOptions generatorOptions) {
 		super(generatorOptions);
 	}
 	
@@ -46,13 +45,22 @@ public class DTOGenerator extends BasicGenerator {
 					context.put("importedPackages", cl.getImportedPackages());
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
+					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
-						if (prop instanceof FMPersistentProperty) {
+						if (prop instanceof FMLinkedProperty) {
+							linkedProps.add(prop);
+						}
+						else if (prop instanceof FMIdentityProperty) {
+							context.put("identityProp", (FMIdentityProperty)prop);
+						}
+						else if (prop instanceof FMPersistentProperty) {
 							persistentProps.add(prop);
 						}
 						
 					}
+					
+					context.put("linkedProps", linkedProps);
 					context.put("persistentProps", persistentProps);
 					
 					getTemplate().process(context, out);
