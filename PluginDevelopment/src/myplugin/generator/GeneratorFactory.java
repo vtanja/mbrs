@@ -20,6 +20,10 @@ public class GeneratorFactory {
 			return new ControllerGenerator(entry.getValue());
 		}
 		
+		if(entry.getKey().equals("FrontModelGenerator")) {
+			return new ControllerGenerator(entry.getValue());
+		}
+		
 		return null;
 		
 	}
