@@ -6,18 +6,18 @@ import java.io.Serializable;
 
 public class TypeMapping implements Serializable {
 	private String uMLType;
-	private String destType;
-	private String destination;
+	private String javaType;
+	private String jsType;
 	
 	//libraryName: name used for import declaration  
 	private String libraryName;
 	
-	public TypeMapping(String uMLType, String destType, String libraryName, String destination) {
+	public TypeMapping(String uMLType, String javaType, String libraryName, String jsType) {
 		super();
 		this.uMLType = uMLType;
-		this.destType = destType;
+		this.javaType = javaType;
 		this.libraryName = libraryName;
-		this.destination = destination;
+		this.jsType = jsType;
 	}
 	
 	public TypeMapping() {
@@ -32,16 +32,16 @@ public class TypeMapping implements Serializable {
 		this.uMLType = uMLType;
 	}
 
-	public String getDestType() {
-		return destType;
+	public String getJavaType() {
+		return javaType;
 	}
 	
-	public String getDestination() {
-		return destination;
+	public String getJsType() {
+		return jsType;
 	}
 
-	public void setDestType(String destType) {
-		this.destType = destType;
+	public void setJavaType(String javaType) {
+		this.javaType = javaType;
 	}
 
 	public String getLibraryName() {
@@ -52,8 +52,8 @@ public class TypeMapping implements Serializable {
 		this.libraryName = libraryName;
 	}
 	
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setJsType(String jsType) {
+		this.jsType = jsType;
 	}
 	
 	
