@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFileChooser;
@@ -26,6 +27,7 @@ import myplugin.generator.InitialProjectGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
+import myplugin.generator.options.TypeMapping;
 
 /** Action that activate code generation */
 @SuppressWarnings("serial")
@@ -49,12 +51,13 @@ class GenerateAction extends MDAction{
 			analyzer.prepareModel();
 			
 			Map<String, GeneratorOptions> options = ProjectOptions.getProjectOptions().getGeneratorOptions();
+			List<TypeMapping> typeMappings = ProjectOptions.getProjectOptions().getTypeMappings();
 			
 			InitialProjectGenerator projGenerator = new InitialProjectGenerator();
 			projGenerator.generate();
 			
 			for (Map.Entry<String,GeneratorOptions> entry : options.entrySet()) {
-				BasicGenerator generator = GeneratorFactory.GetGenerator(entry);
+				BasicGenerator generator = GeneratorFactory.GetGenerator(entry, typeMappings);
 				if(generator != null) {
 					generator.generate();
 				}
