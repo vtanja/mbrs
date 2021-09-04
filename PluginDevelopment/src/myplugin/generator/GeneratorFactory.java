@@ -20,6 +20,10 @@ public class GeneratorFactory {
 			return new ControllerGenerator(entry.getValue());
 		}
 		
+		if(entry.getKey().equals("FrontModelGenerator")) {
+			return new FrontModelGenerator(entry.getValue());
+    }
+    
 		if(entry.getKey().equals("DTODetailGenerator")) {
 			return new DTODetailGenerator(entry.getValue());
 		}

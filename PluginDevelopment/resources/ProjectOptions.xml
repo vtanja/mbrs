@@ -128,7 +128,17 @@
 				<outputFileName>{0}Controller.java</outputFileName>
 				<overwrite>true</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
-		<option><string>DTODetailGenerator</string>
+		<option>
+			<string>FrontModelGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage></filePackage>
+				<outputFileName>{0}.ts</outputFileName>
+				<outputPath>frontend/demo/src/app/shared/model</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/frontModel</templateDir>
+				<templateName>frontmodel</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+      <string>DTODetailGenerator</string>
 				<myplugin.generator.options.GeneratorOptions>
 					<outputPath>backend/demo/src/main/java/com/example/demo/dto</outputPath><templateName>detailDto</templateName>
 					<templateDir>templates/dto</templateDir>
