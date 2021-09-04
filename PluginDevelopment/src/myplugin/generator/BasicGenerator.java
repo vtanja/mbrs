@@ -12,6 +12,8 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.Template;
 import myplugin.generator.options.GeneratorOptions;
+import myplugin.generator.options.ProjectOptions;
+
 
 /**
  * Abstract generator that creates necessary environment for code generation 
@@ -33,7 +35,7 @@ public abstract class BasicGenerator {
 	
 	public BasicGenerator(GeneratorOptions generatorOptions) {
 		this.generatorOptions = generatorOptions;
-		this.outputPath = generatorOptions.getOutputPath();
+		this.outputPath = ProjectOptions.getProjectOptions().getGeneratedPath() + File.separator + generatorOptions.getOutputPath();
 		this.templateName = generatorOptions.getTemplateName();
 		this.templateDir = generatorOptions.getTemplateDir();
 		this.outputFileName = generatorOptions.getOutputFileName();

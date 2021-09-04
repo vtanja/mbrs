@@ -33,6 +33,8 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 			
 			ProjectOptions.getProjectOptions().setGeneratorOptions(projectOptions.getGeneratorOptions());
 			ProjectOptions.getProjectOptions().setTypeMappings(projectOptions.getTypeMappings());
+			ProjectOptions.getProjectOptions().setGeneratedPath(projectOptions.getGeneratedPath());
+
 		}
 		catch(FileNotFoundException fe){
 			JOptionPane.showMessageDialog(null, "Loading project options failed.");
