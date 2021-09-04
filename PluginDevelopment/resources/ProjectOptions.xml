@@ -2,105 +2,56 @@
 	<typeMappings>
 		
 		<myplugin.generator.options.TypeMapping>
-			<uMLType>int</uMLType><destType>int</destType>
+			<uMLType>int</uMLType>
+			<javaType>int</javaType>
 			<libraryName>java.lang</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
+			<jsType>number</jsType></myplugin.generator.options.TypeMapping>
 		<myplugin.generator.options.TypeMapping>
-			<uMLType>Integer</uMLType><destType>Integer</destType>
+			<uMLType>Integer</uMLType><javaType>Integer</javaType>
 			<libraryName>java.lang</libraryName>
-			<destination>backend</destination>
+			<jsType>number</jsType>
 		</myplugin.generator.options.TypeMapping>
 		<myplugin.generator.options.TypeMapping>
 			<uMLType>long</uMLType>
-			<destType>long</destType>
+			<javaType>long</javaType>
 			<libraryName>java.lang</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
+			<jsType>number</jsType></myplugin.generator.options.TypeMapping>
 		<myplugin.generator.options.TypeMapping>
 			<uMLType>float</uMLType>
-			<destType>float</destType>
+			<javaType>float</javaType>
 			<libraryName>java.lang</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
+			<jsType>number</jsType></myplugin.generator.options.TypeMapping>
 		<myplugin.generator.options.TypeMapping>
 			<uMLType>double</uMLType>
-			<destType>double</destType>
+			<javaType>double</javaType>
 			<libraryName>java.lang</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
+			<jsType>number</jsType></myplugin.generator.options.TypeMapping>
 		<myplugin.generator.options.TypeMapping>
 			<uMLType>boolean</uMLType>
-			<destType>boolean</destType>
+			<javaType>boolean</javaType>
 			<libraryName>java.lang</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
+			<jsType>boolean</jsType></myplugin.generator.options.TypeMapping>
 		<myplugin.generator.options.TypeMapping>
 			<uMLType>Boolean</uMLType>
-			<destType>Boolean</destType>
+			<javaType>Boolean</javaType>
 			<libraryName>java.lang</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<uMLType>byte</uMLType>
-			<destType>byte</destType>
-			<libraryName>java.lang</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
+			<jsType>boolean</jsType></myplugin.generator.options.TypeMapping>
 		<myplugin.generator.options.TypeMapping>
 			<uMLType>char</uMLType>
-			<destType>Char</destType>
+			<javaType>Char</javaType>
 			<libraryName>java.lang</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
+			<jsType>string</jsType></myplugin.generator.options.TypeMapping>
 		<myplugin.generator.options.TypeMapping>
 			<uMLType>String</uMLType>
-			<destType>String</destType>
+			<javaType>String</javaType>
 			<libraryName>java.lang</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
+			<jsType>string</jsType></myplugin.generator.options.TypeMapping>
 		<myplugin.generator.options.TypeMapping>
 			<uMLType>date</uMLType>
-			<destType>Date</destType>
+			<javaType>Date</javaType>
 			<libraryName>java.util</libraryName>
-			<destination>backend</destination></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<uMLType>long</uMLType>
-			<destType>number</destType>
-			<libraryName></libraryName>
-			<destination>frontend</destination></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<destType>string</destType>
-			<libraryName></libraryName>
-			<uMLType>String</uMLType>
-			<destination>frontend</destination></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<destination>frontend</destination>
-			<destType>string</destType>
-			<libraryName></libraryName>
-			<uMLType>char</uMLType></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<destType>number</destType>
-			<libraryName></libraryName>
-			<uMLType>int</uMLType>
-			<destination>frontend</destination></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<destination>frontend</destination>
-			<destType>number</destType>
-			<libraryName></libraryName>
-			<uMLType>double</uMLType></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<destination>frontend</destination>
-			<destType>number</destType>
-			<libraryName></libraryName>
-			<uMLType>float</uMLType></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<destination>frontend</destination>
-			<destType>number</destType>
-			<libraryName></libraryName>
-			<uMLType>short</uMLType></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<destination>frontend</destination>
-			<destType>boolean</destType>
-			<libraryName></libraryName>
-			<uMLType>Boolean</uMLType></myplugin.generator.options.TypeMapping>
-		<myplugin.generator.options.TypeMapping>
-			<destination>frontend</destination>
-			<destType>Date</destType>
-			<libraryName></libraryName>
-			<uMLType>date</uMLType></myplugin.generator.options.TypeMapping>
-			
+			<jsType>Date</jsType></myplugin.generator.options.TypeMapping>
+		
 
 	</typeMappings><generatorOptions>
 		<option><string>DTOGenerator</string><myplugin.generator.options.GeneratorOptions>
@@ -138,5 +89,5 @@
 				</myplugin.generator.options.GeneratorOptions>
 		</option>
 	</generatorOptions>
-	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
+	<generatedPath>C:/temp</generatedPath>
 </myplugin.generator.options.ProjectOptions>
