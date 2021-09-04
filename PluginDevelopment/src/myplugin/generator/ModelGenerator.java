@@ -22,7 +22,6 @@ public class ModelGenerator extends BasicGenerator {
 
 	public ModelGenerator(GeneratorOptions generatorOptions) {
 		super(generatorOptions);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void generate() {

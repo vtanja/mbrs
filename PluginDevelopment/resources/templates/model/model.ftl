@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.model;
 
 import java.util.Set;
 
@@ -18,4 +18,5 @@ import ${import.typePackage}.${import.name};
 @AllArgsConstructor;
 @NoArgsConstructor;
 public class ${name}{
+
 }
