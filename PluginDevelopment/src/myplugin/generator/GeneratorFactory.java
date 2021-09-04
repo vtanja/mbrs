@@ -21,7 +21,7 @@ public class GeneratorFactory {
 		}
 		
 		if(entry.getKey().equals("FrontModelGenerator")) {
-			return new ControllerGenerator(entry.getValue());
+			return new FrontModelGenerator(entry.getValue());
 		}
 		
 		return null;
