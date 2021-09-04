@@ -1,8 +1,10 @@
+<#if importedPackages??>
 <#list importedPackages as import>
 <#if import.typePackage == "">
-import { ${import.name} } from 'src/app/${import.name}Model';
+import { ${import.name} } from 'src/app/${import.name}';
 </#if>
 </#list>
+</#if>
 
 export class ${class.name} {
 <#if persistentProps??>
