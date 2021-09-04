@@ -137,5 +137,16 @@
 				<overwrite>true</overwrite>
 				<templateDir>templates/frontModel</templateDir>
 				<templateName>frontmodel</templateName></myplugin.generator.options.GeneratorOptions></option>
-</generatorOptions>
-	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath></myplugin.generator.options.ProjectOptions>
+		<option>
+      <string>DTODetailGenerator</string>
+				<myplugin.generator.options.GeneratorOptions>
+					<outputPath>backend/demo/src/main/java/com/example/demo/dto</outputPath><templateName>detailDto</templateName>
+					<templateDir>templates/dto</templateDir>
+					<outputFileName>{0}DetailDTO.java</outputFileName>
+					<overwrite>true</overwrite>
+					<filePackage></filePackage>
+				</myplugin.generator.options.GeneratorOptions>
+		</option>
+	</generatorOptions>
+	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
+</myplugin.generator.options.ProjectOptions>
