@@ -9,6 +9,12 @@ public class FMOneToMany extends FMLinkedProperty{
 				fmProp.getLower(), fmProp.getUpper(), fmProp.getFetchType());
 	}
 	
+	public FMOneToMany(String name, FMType type, String visibility, Integer lower,
+			Integer upper,FetchType fetchtype, String mappedBy){
+		super(name, type, visibility, lower, upper, fetchtype);
+		this.mappedBy = mappedBy;
+	}
+	
 	public CascadeType getCascade() {
 		return cascade;
 	}

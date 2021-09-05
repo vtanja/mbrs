@@ -7,6 +7,12 @@ public class FMManytoOne extends FMLinkedProperty {
 		super(fmProp.getName(), fmProp.getType(), fmProp.getVisibility(),
 				fmProp.getLower(), fmProp.getUpper(), fmProp.getFetchType());
 	}
+	
+	public FMManytoOne(String name, FMType type, String visibility, Integer lower,
+			Integer upper,FetchType fetchtype, String columname){
+		super(name, type, visibility, lower, upper, fetchtype);
+		this.columnName = columname;
+	}
 
 	public String getColumnName() {
 		return columnName;
