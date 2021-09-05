@@ -69,7 +69,7 @@
 				<outputPath>D:\temp\backend\demo\src\main\java\com\example\demo\model</outputPath>
 				<templateName>model</templateName>
 				<templateDir>templates/model</templateDir>
-				<outputFileName>{0}Model.java</outputFileName>
+				<outputFileName>{0}.java</outputFileName>
 				<overwrite>true</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option></generatorOptions>
 	</myplugin.generator.options.ProjectOptions>

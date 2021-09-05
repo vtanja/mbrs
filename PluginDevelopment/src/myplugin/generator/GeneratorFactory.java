@@ -15,6 +15,10 @@ public class GeneratorFactory {
 			return new ControllerGenerator(entry.getValue());
 		}
 		
+		if(entry.getKey().equals("ModelGenerator")) {
+			return new ModelGenerator(entry.getValue());
+		}
+		
 		return null;
 		
 	}
