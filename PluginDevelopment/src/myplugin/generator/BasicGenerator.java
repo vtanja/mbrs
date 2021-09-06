@@ -5,14 +5,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.Template;
+import myplugin.generator.fmmodel.FMType;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
+import myplugin.generator.options.TypeMapping;
 
 
 /**
@@ -32,8 +35,10 @@ public abstract class BasicGenerator {
 	private String filePackage;
 	private Configuration cfg;
 	private Template template;	
+	private List<TypeMapping> typeMappings;
 	
-	public BasicGenerator(GeneratorOptions generatorOptions) {
+	
+	public BasicGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
 		this.generatorOptions = generatorOptions;
 		this.outputPath = ProjectOptions.getProjectOptions().getGeneratedPath() + File.separator + generatorOptions.getOutputPath();
 		this.templateName = generatorOptions.getTemplateName();
@@ -41,6 +46,7 @@ public abstract class BasicGenerator {
 		this.outputFileName = generatorOptions.getOutputFileName();
 		this.overwrite = generatorOptions.getOverwrite();
 		this.filePackage = generatorOptions.getFilePackage();
+		this.typeMappings = typeMappings;
 	}
 
 	public void generate() throws IOException {		
@@ -119,6 +125,22 @@ public abstract class BasicGenerator {
 	protected String packageToPath(String pack) {
 		return pack.replace(".", File.separator);
 	}
+	
+	protected FMType getCorrectType(FMType type, String destination) {
+		FMType newType = new FMType(type.getName(), type.getTypePackage());
+		for (TypeMapping tm : typeMappings) {
+			if(destination.equals("frontend") && tm.getuMLType().equalsIgnoreCase(type.getName())) {
+				newType.setName(tm.getJsType()); 
+				break;
+			}
+			else if(destination.equals("backend") && tm.getuMLType().equalsIgnoreCase(type.getName())) {
+				newType.setName(tm.getJavaType()); 
+				newType.setTypePackage(tm.getLibraryName());
+				break;
+			}
+		}
+		return newType;
+	}
 
 	public boolean isOverwrite() {
 		return overwrite;
@@ -187,6 +209,14 @@ public abstract class BasicGenerator {
 
 	public void setFilePackage(String filePackage) {
 		this.filePackage = filePackage;
+	}
+	
+	public List<TypeMapping> getTypeMappings() {
+		return typeMappings;
+	}
+
+	public void setTypeMappings(List<TypeMapping> typeMappings) {
+		this.typeMappings = typeMappings;
 	}
 
 }

@@ -17,11 +17,12 @@ import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.options.GeneratorOptions;
+import myplugin.generator.options.TypeMapping;
 
 public class ControllerGenerator extends BasicGenerator {
 	
-	public ControllerGenerator(GeneratorOptions generatorOptions) {
-		super(generatorOptions);
+	public ControllerGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
+		super(generatorOptions, typeMappings);
 	}
 	
 	public void generate() {

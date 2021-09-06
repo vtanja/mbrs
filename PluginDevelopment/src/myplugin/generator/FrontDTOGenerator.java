@@ -21,11 +21,9 @@ import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.TypeMapping;
 
 public class FrontDTOGenerator extends BasicGenerator {
-	List<TypeMapping> typeMappings;
 	
 	public FrontDTOGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
-		super(generatorOptions);
-		this.typeMappings = typeMappings;
+		super(generatorOptions, typeMappings);
 	}
 	
 	public void generate() {
@@ -53,20 +51,25 @@ public class FrontDTOGenerator extends BasicGenerator {
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
+
+						FMProperty copy = new FMProperty(prop);
+						
 						if (prop instanceof FMLinkedProperty) {
 							linkedProps.add(prop);
 						}
 						else if (prop instanceof FMIdentityProperty) {
-							prop.getType().setName(getCorrectType(prop.getType().getName()));
-							context.put("identityProp", (FMIdentityProperty)prop);
+							FMIdentityProperty idCopy = new FMIdentityProperty((FMPersistentProperty)prop);
+							idCopy.setStrategy(((FMIdentityProperty) prop).getStrategy());
+							idCopy.setType(getCorrectType(prop.getType(), "frontend"));
+							context.put("identityProp", idCopy);
 						}
 						else if (prop instanceof FMPersistentProperty) {
-							prop.getType().setName(getCorrectType(prop.getType().getName()));
-							persistentProps.add(prop);
+							copy.setType(getCorrectType(prop.getType(), "frontend")); 
+							persistentProps.add(copy);
 						}
 						
 					}
-					
+										
 					context.put("linkedProps", linkedProps);
 					context.put("persistentProps", persistentProps);
 					
@@ -82,14 +85,5 @@ public class FrontDTOGenerator extends BasicGenerator {
 	}
 	
 
-	private String getCorrectType(String type) {
-		String ret = type;
-		for (TypeMapping tm : typeMappings) {
-			if(tm.getDestination().equalsIgnoreCase("frontend") && tm.getuMLType().equalsIgnoreCase(type)) {
-				ret = tm.getDestType();
-				break;
-			}
-		}
-		return ret;
-	}
+	
 }

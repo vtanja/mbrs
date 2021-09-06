@@ -18,10 +18,11 @@ import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.options.GeneratorOptions;
+import myplugin.generator.options.TypeMapping;
 
 public class DTOGenerator extends BasicGenerator {
-	public DTOGenerator(GeneratorOptions generatorOptions) {
-		super(generatorOptions);
+	public DTOGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
+		super(generatorOptions, typeMappings);
 	}
 	
 	public void generate() {
@@ -48,8 +49,11 @@ public class DTOGenerator extends BasicGenerator {
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
+						FMProperty copy = new FMProperty(prop);
+						
 						if (prop instanceof FMPersistentProperty) {
-							persistentProps.add(prop);
+							copy.setType(getCorrectType(prop.getType(), "backend")); 
+							persistentProps.add(copy);
 						}
 						
 					}

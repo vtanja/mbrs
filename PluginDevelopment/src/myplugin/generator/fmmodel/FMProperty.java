@@ -25,6 +25,15 @@ public class FMProperty extends FMElement  {
 		this.upper = upper;		
 	}
 	
+	public FMProperty(FMProperty fmProp) {
+		super(fmProp.getName());
+		this.type = fmProp.getType();
+		this.visibility = fmProp.getVisibility();
+		
+		this.lower = fmProp.getLower();
+		this.upper = fmProp.getUpper();		
+	}
+	
 	public FMType getType() {
 		return type;
 	}

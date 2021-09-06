@@ -17,10 +17,11 @@ import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.options.GeneratorOptions;
+import myplugin.generator.options.TypeMapping;
 
 public class DTODetailGenerator extends BasicGenerator{
-	public DTODetailGenerator(GeneratorOptions generatorOptions) {
-		super(generatorOptions);
+	public DTODetailGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
+		super(generatorOptions, typeMappings);
 	}
 	
 	public void generate() {
@@ -48,14 +49,20 @@ public class DTODetailGenerator extends BasicGenerator{
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
+						FMProperty copy = new FMProperty(prop);
+						
 						if (prop instanceof FMLinkedProperty) {
 							linkedProps.add(prop);
 						}
 						else if (prop instanceof FMIdentityProperty) {
-							context.put("identityProp", (FMIdentityProperty)prop);
+							FMIdentityProperty idCopy = new FMIdentityProperty((FMPersistentProperty)prop);
+							idCopy.setStrategy(((FMIdentityProperty) prop).getStrategy());
+							idCopy.setType(getCorrectType(prop.getType(), "backend"));
+							context.put("identityProp", idCopy);
 						}
 						else if (prop instanceof FMPersistentProperty) {
-							persistentProps.add(prop);
+							copy.setType(getCorrectType(prop.getType(), "backend")); 
+							persistentProps.add(copy);
 						}
 						
 					}
