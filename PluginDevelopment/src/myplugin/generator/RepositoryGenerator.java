@@ -12,11 +12,8 @@ import javax.swing.JOptionPane;
 import freemarker.template.TemplateException;
 
 import myplugin.generator.fmmodel.FMClass;
-import myplugin.generator.fmmodel.FMIdentityProperty;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMProperty;
-import myplugin.generator.fmmodel.FMPersistentProperty;
-import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.TypeMapping;
 
@@ -46,25 +43,6 @@ public class RepositoryGenerator extends BasicGenerator {
 					context.put("properties", cl.getProperties());
 					context.put("importedPackages", cl.getImportedPackages());
 									
-					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
-					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
-					
-					for (FMProperty prop : cl.getProperties()) {
-						if (prop instanceof FMLinkedProperty) {
-							linkedProps.add(prop);
-						}
-						else if (prop instanceof FMIdentityProperty) {
-							context.put("identityProp", (FMIdentityProperty)prop);
-						}
-						else if (prop instanceof FMPersistentProperty) {
-							persistentProps.add(prop);
-						}
-						
-					}
-					
-					context.put("linkedProps", linkedProps);
-					context.put("persistentProps", persistentProps);
-					
 					getTemplate().process(context, out);
 					out.flush();
 				}
