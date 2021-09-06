@@ -21,11 +21,15 @@ public class GeneratorFactory {
 		}
 		
 		if(entry.getKey().equals("FrontModelGenerator")) {
-			return new FrontModelGenerator(entry.getValue());
-    }
+			return new FrontModelGenerator(entry.getValue(),typeMappings );
+		}
     
 		if(entry.getKey().equals("DTODetailGenerator")) {
 			return new DTODetailGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("RepositoryGenerator")) {
+			return new RepositoryGenerator(entry.getValue(), typeMappings);
 		}
 		
 		return null;
