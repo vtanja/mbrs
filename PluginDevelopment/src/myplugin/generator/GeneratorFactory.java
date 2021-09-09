@@ -16,18 +16,21 @@ public class GeneratorFactory {
 			return new FrontDTOGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("ControllerGenerator")) {
+		else if(entry.getKey().equals("ControllerGenerator")) {
 			return new ControllerGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("FrontModelGenerator")) {
-			return new FrontModelGenerator(entry.getValue());
-    }
+		else if(entry.getKey().equals("FrontModelGenerator")) {
+			return new FrontModelGenerator(entry.getValue(), typeMappings);
+		}
     
-		if(entry.getKey().equals("DTODetailGenerator")) {
+		else if(entry.getKey().equals("DTODetailGenerator")) {
 			return new DTODetailGenerator(entry.getValue(), typeMappings);
 		}
 		
+		else if(entry.getKey().equals("ServiceGenerator")) {
+			return new ServiceGenerator(entry.getValue(), typeMappings);
+		}
 		return null;
 		
 	}
