@@ -98,6 +98,15 @@
 					<filePackage></filePackage>
 				</myplugin.generator.options.GeneratorOptions>
 		</option>
-	</generatorOptions>
+		<option>
+			<string>RepositoryGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>backend/demo/src/main/java/com/example/demo/repository</outputPath>
+				<templateName>repository</templateName>
+				<templateDir>templates/repository</templateDir>
+				<outputFileName>{0}Repository.java</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+</generatorOptions>
 	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
 </myplugin.generator.options.ProjectOptions>
