@@ -14,7 +14,11 @@ public class FMOneToMany extends FMLinkedProperty{
 		super(name, type, visibility, lower, upper, fetchtype);
 		this.mappedBy = mappedBy;
 	}
-	
+
+	public FMOneToMany(FMProperty fmProperty) {
+		super(fmProperty);
+	}
+
 	public CascadeType getCascade() {
 		return cascade;
 	}

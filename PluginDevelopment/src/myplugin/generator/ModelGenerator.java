@@ -16,6 +16,10 @@ import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
+import myplugin.generator.fmmodel.FMOneToMany;
+import myplugin.generator.fmmodel.FMManytoOne;
+import myplugin.generator.fmmodel.FMManytoMany;
+import myplugin.generator.fmmodel.FMOnetoOne;
 import myplugin.generator.options.GeneratorOptions;
 
 public class ModelGenerator extends BasicGenerator {
@@ -47,10 +51,23 @@ public class ModelGenerator extends BasicGenerator {
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
+					List<FMProperty> oneToManyProps = new ArrayList<FMProperty>();
+					List<FMProperty> manyToOneProps = new ArrayList<FMProperty>();
+					List<FMProperty> manyToManyProps = new ArrayList<FMProperty>();
+					List<FMProperty> oneToOneProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
-						if (prop instanceof FMLinkedProperty) {
-							linkedProps.add(prop);
+						if (prop instanceof FMOneToMany) {
+							oneToManyProps.add(prop);
+						}
+						else if (prop instanceof FMManytoOne) {
+							manyToOneProps.add(prop);
+						}
+						else if (prop instanceof FMManytoMany) {
+							manyToManyProps.add(prop);
+						}
+						else if (prop instanceof FMOnetoOne) {
+							oneToOneProps.add(prop);
 						}
 						else if (prop instanceof FMIdentityProperty) {
 							context.put("identityProp", (FMIdentityProperty)prop);
@@ -58,11 +75,18 @@ public class ModelGenerator extends BasicGenerator {
 						else if (prop instanceof FMPersistentProperty) {
 							persistentProps.add(prop);
 						}
+						else if (prop instanceof FMLinkedProperty) {
+							linkedProps.add(prop);
+						}
 						
 					}
 					
 					context.put("linkedProps", linkedProps);
 					context.put("persistentProps", persistentProps);
+					context.put("oneToManyProps", oneToManyProps);
+					context.put("manyToOneProps", manyToOneProps);
+					context.put("manyToManyProps", manyToManyProps);
+					context.put("oneToOneProps", oneToOneProps);
 					
 					getTemplate().process(context, out);
 					out.flush();
