@@ -17,6 +17,9 @@ import ${import.typePackage}.${import.name};
 @AllArgsConstructor;
 @NoArgsConstructor;
 public class ${name}DTO{
+<#if identityProp??>
+	${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
+</#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
 	${prop.visibility} ${prop.type.name} ${prop.name};
@@ -24,4 +27,9 @@ public class ${name}DTO{
 	${prop.visibility} Set<${prop.type.name}> ${prop.name};
 	</#if>
 </#list>
+<#if identityProp??>
+	public ${identityProp.type.name} GetId(){
+		return ${identityProp.name};
+	}
+</#if>
 }
