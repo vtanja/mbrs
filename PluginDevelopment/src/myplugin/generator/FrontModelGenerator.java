@@ -18,11 +18,12 @@ import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.options.GeneratorOptions;
+import myplugin.generator.options.TypeMapping;
 
 public class FrontModelGenerator extends BasicGenerator {
 	
-	public FrontModelGenerator(GeneratorOptions generatorOptions) {
-		super(generatorOptions);
+	public FrontModelGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
+		super(generatorOptions, typeMappings);
 	}
 
 	public void generate() {
