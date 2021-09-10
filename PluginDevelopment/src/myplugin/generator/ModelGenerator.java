@@ -60,14 +60,14 @@ public class ModelGenerator extends BasicGenerator {
 						if (prop instanceof FMOneToMany) {
 							oneToManyProps.add(prop);
 						}
+						else if (prop instanceof FMOnetoOne) {
+							oneToOneProps.add(prop);
+						}
 						else if (prop instanceof FMManytoOne) {
 							manyToOneProps.add(prop);
 						}
 						else if (prop instanceof FMManytoMany) {
 							manyToManyProps.add(prop);
-						}
-						else if (prop instanceof FMOnetoOne) {
-							oneToOneProps.add(prop);
 						}
 						else if (prop instanceof FMIdentityProperty) {
 							context.put("identityProp", (FMIdentityProperty)prop);
