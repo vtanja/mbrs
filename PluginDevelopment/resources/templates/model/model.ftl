@@ -16,27 +16,21 @@ import javax.persistence.*;
 @Entity
 public class ${name}{
 <#if identityProp??>
-  <#if identityProp.strategy == "identity" >
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
-  <#elseif identityProp.strategy == "table" >
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
-  <#elseif identityProp.strategy == "auto" >
-	@Id
-    @GeneratedValue
-    ${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
-   <#else>
     @Id
+  <#if identityProp.strategy == "identity" >
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+  <#elseif identityProp.strategy == "table" >
+	@GeneratedValue(strategy = GenerationType.TABLE)
+  <#elseif identityProp.strategy == "auto" >
+    @GeneratedValue
+   <#else>
 	@GeneratedValue(generator = "sequence-generator")
 	@GenericGenerator(
 		name = "sequence-generator",
 		strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator"
-	)
-    ${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};	 
+	)	 
   </#if>
+    ${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
@@ -60,7 +54,7 @@ public class ${name}{
    ${prop.visibility} ${prop.type.name} ${prop.name};
 </#list>
 <#list manyToManyProps as prop>
-   <#if prop.mappedBy == "" >
+   <#if prop.mappedBy?? && prop.mappedBy == "">
    @ManyToMany
    @JoinTable
    ${prop.visibility} Set<${prop.type.name}> ${prop.name};
