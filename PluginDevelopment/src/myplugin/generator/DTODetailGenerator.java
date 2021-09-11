@@ -19,9 +19,8 @@ import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.TypeMapping;
 
-public class ControllerGenerator extends BasicGenerator {
-	
-	public ControllerGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
+public class DTODetailGenerator extends BasicGenerator{
+	public DTODetailGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
 		super(generatorOptions, typeMappings);
 	}
 	
@@ -41,8 +40,36 @@ public class ControllerGenerator extends BasicGenerator {
 				out = getWriter(cl.getName(), cl.getTypePackage());
 				if (out != null) {
 					context.clear();
+					context.put("class", cl);
 					context.put("name", cl.getName());
-															
+					context.put("properties", cl.getProperties());
+					context.put("importedPackages", cl.getImportedPackages());
+										
+					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
+					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
+					
+					for (FMProperty prop : cl.getProperties()) {
+						FMProperty copy = new FMProperty(prop);
+						
+						if (prop instanceof FMLinkedProperty) {
+							linkedProps.add(prop);
+						}
+						else if (prop instanceof FMIdentityProperty) {
+							FMIdentityProperty idCopy = new FMIdentityProperty((FMPersistentProperty)prop);
+							idCopy.setStrategy(((FMIdentityProperty) prop).getStrategy());
+							idCopy.setType(getCorrectType(prop.getType(), "backend"));
+							context.put("identityProp", idCopy);
+						}
+						else if (prop instanceof FMPersistentProperty) {
+							copy.setType(getCorrectType(prop.getType(), "backend")); 
+							persistentProps.add(copy);
+						}
+						
+					}
+					
+					context.put("linkedProps", linkedProps);
+					context.put("persistentProps", persistentProps);
+					
 					getTemplate().process(context, out);
 					out.flush();
 				}

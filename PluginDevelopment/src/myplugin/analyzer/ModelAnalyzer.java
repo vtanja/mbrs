@@ -1,5 +1,6 @@
 package myplugin.analyzer;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -138,6 +139,7 @@ public class ModelAnalyzer {
 		 * Add import declarations etc. */	
 		
 		Map<String, FMType> imports = new HashMap<String, FMType>();
+		
 		for (FMProperty fmProp : fmClass.getProperties()) {
 			FMType fmType = fmProp.getType();
 			if (!imports.containsKey(fmType.getName())){
@@ -158,11 +160,12 @@ public class ModelAnalyzer {
 		String attTypeName = p.getType().getName();
 		String typePackage = "";
 		
-		TypeMapping typeMapping = getType(attTypeName); 
-				
-		if(typeMapping != null) {
-			attTypeName = typeMapping.getDestType();
-			typePackage = typeMapping.getLibraryName();
+		List<TypeMapping> typeMappings = ProjectOptions.getProjectOptions().getTypeMappings();
+		for(TypeMapping tm : typeMappings){
+			if(tm.getuMLType().equals(attTypeName)) {
+				typePackage = tm.getLibraryName();
+				break;
+			}
 		}
 		
 		FMType fmType = new FMType(attTypeName, typePackage);
@@ -178,16 +181,6 @@ public class ModelAnalyzer {
 		return prop;		
 	}	
 	
-	private TypeMapping getType(String attType) {
-		List<TypeMapping> typeMappings = ProjectOptions.getProjectOptions().getTypeMappings();
-		for(TypeMapping typeMapping:typeMappings) {
-			if(typeMapping.getuMLType().equals(attType)) {
-				return typeMapping;
-			}
-		}
-		return null;
-	}
-
 	private FMProperty checkTypeOfProperty(Property prop, FMProperty fmProp) {
 		Stereotype persistentPropStereotype = StereotypesHelper.getAppliedStereotypeByString(prop, "PersistentProperty");
 		if(persistentPropStereotype != null) {

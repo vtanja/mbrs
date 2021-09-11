@@ -1,9 +1,13 @@
 package myplugin.generator;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
@@ -11,18 +15,19 @@ import javax.swing.JOptionPane;
 
 public class InitialProjectGenerator {
 	public void generate() throws IOException{
-		String sourceLocation = "D:\\mbrs\\PluginDevelopment\\resources\\initialProjects\\backend";
+		
+		String sourceLocation = "putanja do lokalnog repozitorijuma\\PluginDevelopment\\resources\\initialProjects\\backend";
 		File srcDir = new File(sourceLocation);
 
-		String destinationLocation = "D:\\temp\\backend";
+		String destinationLocation = "putanja do foldera gdje se generise backend app\\backend";
 		File destDir = new File(destinationLocation);
 		
 		copyDirectory(srcDir, destDir);
 		
-		sourceLocation = "D:\\mbrs\\PluginDevelopment\\resources\\initialProjects\\frontend";
+		sourceLocation = "putanja do lokalnog repozitorijuma\\PluginDevelopment\\resources\\initialProjects\\frontend";
 		srcDir = new File(sourceLocation);
 
-		destinationLocation = "D:\\temp\\frontend";
+		destinationLocation = "putanja do foldera gdje se generise frontend app\\frontend";
 		destDir = new File(destinationLocation);
 		
 		copyDirectory(srcDir, destDir);

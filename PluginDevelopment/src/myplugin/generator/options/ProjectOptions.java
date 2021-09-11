@@ -25,6 +25,17 @@ public class ProjectOptions implements Serializable{
 	//Hash map for linking generators with its options
 	private Map<String, GeneratorOptions> generatorOptions = new HashMap<String, GeneratorOptions>();
 	
+	//path to generated folders
+	private String generatedPath = "";
+	
+	public String getGeneratedPath() {
+		return generatedPath;
+	}
+
+	public void setGeneratedPath(String generatedPath) {
+		this.generatedPath = generatedPath;
+	}
+
 	private static ProjectOptions projectOptions = null; 
 	
 	public List<TypeMapping> getTypeMappings() {

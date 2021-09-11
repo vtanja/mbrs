@@ -20,8 +20,9 @@ import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.TypeMapping;
 
-public class DTOGenerator extends BasicGenerator {
-	public DTOGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
+public class FrontDTOGenerator extends BasicGenerator {
+	
+	public FrontDTOGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
 		super(generatorOptions, typeMappings);
 	}
 	
@@ -38,7 +39,7 @@ public class DTOGenerator extends BasicGenerator {
 			Writer out;
 			Map<String, Object> context = new HashMap<String, Object>();
 			try {
-				out = getWriter(cl.getName(), cl.getTypePackage());
+				out = getWriter(cl.getName().toLowerCase(), cl.getTypePackage());
 				if (out != null) {
 					context.clear();
 					context.put("class", cl);
@@ -47,16 +48,29 @@ public class DTOGenerator extends BasicGenerator {
 					context.put("importedPackages", cl.getImportedPackages());
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
+					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
+
 						FMProperty copy = new FMProperty(prop);
 						
-						if (prop instanceof FMPersistentProperty) {
-							copy.setType(getCorrectType(prop.getType(), "backend")); 
+						if (prop instanceof FMLinkedProperty) {
+							linkedProps.add(prop);
+						}
+						else if (prop instanceof FMIdentityProperty) {
+							FMIdentityProperty idCopy = new FMIdentityProperty((FMPersistentProperty)prop);
+							idCopy.setStrategy(((FMIdentityProperty) prop).getStrategy());
+							idCopy.setType(getCorrectType(prop.getType(), "frontend"));
+							context.put("identityProp", idCopy);
+						}
+						else if (prop instanceof FMPersistentProperty) {
+							copy.setType(getCorrectType(prop.getType(), "frontend")); 
 							persistentProps.add(copy);
 						}
 						
 					}
+										
+					context.put("linkedProps", linkedProps);
 					context.put("persistentProps", persistentProps);
 					
 					getTemplate().process(context, out);
@@ -69,4 +83,7 @@ public class DTOGenerator extends BasicGenerator {
 			}
 		}
 	}
+	
+
+	
 }
