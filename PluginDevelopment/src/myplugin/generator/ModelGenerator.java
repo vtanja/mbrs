@@ -21,11 +21,12 @@ import myplugin.generator.fmmodel.FMManytoOne;
 import myplugin.generator.fmmodel.FMManytoMany;
 import myplugin.generator.fmmodel.FMOnetoOne;
 import myplugin.generator.options.GeneratorOptions;
+import myplugin.generator.options.TypeMapping;
 
 public class ModelGenerator extends BasicGenerator {
 
-	public ModelGenerator(GeneratorOptions generatorOptions) {
-		super(generatorOptions);
+	public ModelGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
+		super(generatorOptions, typeMappings);
 	}
 	
 	public void generate() {

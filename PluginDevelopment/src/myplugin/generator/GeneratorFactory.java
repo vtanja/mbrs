@@ -33,7 +33,7 @@ public class GeneratorFactory {
 		}
 		
 		if(entry.getKey().equals("ModelGenerator")) {
-			return new ModelGenerator(entry.getValue());
+			return new ModelGenerator(entry.getValue(), typeMappings);
 		}
 		
 		return null;

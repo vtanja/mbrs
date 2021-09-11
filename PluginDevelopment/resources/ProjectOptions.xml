@@ -113,9 +113,9 @@
 				<outputPath>backend/demo/src/main/java/com/example/demo/model</outputPath>
 				<templateName>model</templateName>
 				<templateDir>templates/model</templateDir>
-				<outputFileName>{}.java</outputFileName>
+				<outputFileName>{0}.java</outputFileName>
 				<overwrite>true</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
-	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
+	<generatedPath>D:\\temp</generatedPath>
 </myplugin.generator.options.ProjectOptions>
