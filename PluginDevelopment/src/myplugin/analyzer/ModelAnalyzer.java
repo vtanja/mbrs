@@ -1,7 +1,9 @@
 package myplugin.analyzer;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -35,6 +37,7 @@ import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
 import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Element;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.EnumerationLiteral;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.NamedElement;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Package;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
@@ -275,6 +278,13 @@ public class ModelAnalyzer {
 				setTag(name, value, fmProp, propType);
 			}
 		}
+		
+		Collection<NamedElement> inheritedTags = stereotype.getInheritedMember();
+		for (NamedElement inheritedTag : inheritedTags) {
+			String name = inheritedTag.getName();
+			List value = StereotypesHelper.getStereotypePropertyValue(prop, stereotype, name);
+			setTag(name, value, fmProp, propType);
+		}
 	}
 
 	private FMProperty addPersistentPropData(Stereotype persistentPropStereotype, Property prop, FMProperty fmProp) {
@@ -286,7 +296,7 @@ public class ModelAnalyzer {
 	}
 
 	private void setTag(String name, List value, FMProperty property, String propType) {
-		if(propType == "PersistentProperty") {
+		if(propType == "PersistentProperty" || propType == "IdentityProperty") {
 			switch(name) {
 				case "columnName":{
 					String columnName = (String) value.get(0);
@@ -317,7 +327,10 @@ public class ModelAnalyzer {
 				default: break;
 			}
 		}
-		 if(propType == "LinkedProperty") {
+		 
+		 List<String> relations = Arrays.asList("OneToMany", "ManyToMany", "OneToOne", "ManyToOne");
+		 
+		 if(propType == "LinkedProperty" || relations.contains(propType)) {
 			 switch(name) {
 				 case "fetchType":{
 					 EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
@@ -355,9 +368,13 @@ public class ModelAnalyzer {
 		 if(propType == "ManyToMany") {
 			 switch(name) {
 			 	case "mappedBy":{
-			 			String mappedBy = (String) value.get(0);
-			 			((FMManytoMany)property).setMappedBy(mappedBy);
+			 		String mappedBy = (String) value.get(0);
+			 		((FMManytoMany)property).setMappedBy(mappedBy);
 				}
+			 	case "joinTable":{
+		 			String joinTable = (String) value.get(0);
+		 			((FMManytoMany)property).setJoinTable(joinTable);
+			 	}
 			 	break;
 			 	default: break;
 			 }

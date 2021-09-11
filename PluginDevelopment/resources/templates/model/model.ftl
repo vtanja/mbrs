@@ -16,52 +16,68 @@ import javax.persistence.*;
 @Entity
 public class ${name}{
 <#if identityProp??>
-    @Id
-  <#if identityProp.strategy == "identity" >
+	@Id
+ 	<#if identityProp.strategy == "identity" >
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-  <#elseif identityProp.strategy == "table" >
+  	<#elseif identityProp.strategy == "table" >
 	@GeneratedValue(strategy = GenerationType.TABLE)
-  <#elseif identityProp.strategy == "auto" >
+  	<#elseif identityProp.strategy == "auto" >
     @GeneratedValue
-   <#else>
-	@GeneratedValue(generator = "sequence-generator")
-	@GenericGenerator(
+   	<#else>
+	@SequenceGenerator(
 		name = "sequence-generator",
-		strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator"
+		sequenceName = "sequence-generator",
+		allocationSize = 1
+	)
+	@GeneratedValue(
+		generator = "sequence-generator",
+		strategy = GenerationType.SEQUENCE
 	)	 
-  </#if>
+  	</#if>
     ${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
+    
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
 	@Column
 	${prop.visibility} ${prop.type.name} ${prop.name};
+	
 	<#else>
 	${prop.visibility} Set<${prop.type.name}> ${prop.name};
+	
 	</#if>
 </#list>
 <#list oneToManyProps as prop>
-   @OneToMany(mappedBy = "${prop.mappedBy}", cascade = CascadeType.${prop.cascade})
-   ${prop.visibility} Set<${prop.type.name}> ${prop.name};
+   	@OneToMany(mappedBy = "${prop.mappedBy}" <#if prop.cascade??>, cascade = CascadeType.${prop.cascade} </#if>)
+   	${prop.visibility} Set<${prop.type.name}> ${prop.name};
+   	
 </#list>
 <#list manyToOneProps as prop>
-   @ManyToOne
-   @JoinColumn(name = "${prop.columnName}")
-   ${prop.visibility} ${prop.type.name} ${prop.name};
-</#list>
-<#list oneToOneProps as prop>
-   @OneToOne
-   ${prop.visibility} ${prop.type.name} ${prop.name};
+	@ManyToOne
+    @JoinColumn(name="${prop.columnName}_id")
+    ${prop.visibility} ${prop.type.name} ${prop.name};
+    
 </#list>
 <#list manyToManyProps as prop>
-   <#if prop.mappedBy?? && prop.mappedBy == "">
-   @ManyToMany
-   @JoinTable
-   ${prop.visibility} Set<${prop.type.name}> ${prop.name};
-   <#else>
-   @ManyToMany(mappedBy = "${prop.mappedBy}")
-   ${prop.visibility} Set<${prop.type.name}> ${prop.name};
-   </#if>
+	<#if prop.joinTable?? && !prop.mappedBy??>
+	@ManyToMany(fetch = FetchType.${prop.fetchType?upper_case})
+    @JoinTable(name = "${prop.joinTable}",
+            joinColumns = { @JoinColumn(name = "${name?uncap_first}_id") },
+            inverseJoinColumns = { @JoinColumn(name = "${prop.type.name?uncap_first}_id") })
+	<#else>
+	@ManyToMany(fetch = FetchType.${prop.fetchType?upper_case},
+            mappedBy = "${prop.mappedBy}")
+   	</#if>
+   	${prop.visibility} Set<${prop.type.name}> ${prop.name};
+   	
 </#list>
-
+<#list oneToOneProps as prop>
+<#if prop.columnName??>
+	@OneToOne
+    @JoinColumn(name = "${prop.name?uncap_first}_id")
+<#else>
+	@OneToOne(mappedBy = "${name?uncap_first}")
+</#if>
+	${prop.visibility} ${prop.type.name} ${prop.name};
+</#list>
 }
