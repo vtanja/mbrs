@@ -35,7 +35,10 @@ public class ${name}{
 	)	 
   	</#if>
     ${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
-    
+<#else>
+    @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
@@ -74,7 +77,7 @@ public class ${name}{
 <#list oneToOneProps as prop>
 <#if prop.columnName??>
 	@OneToOne
-    @JoinColumn(name = "${prop.name?uncap_first}_id")
+    @JoinColumn(name = "${prop.columnName}_id")
 <#else>
 	@OneToOne(mappedBy = "${name?uncap_first}")
 </#if>

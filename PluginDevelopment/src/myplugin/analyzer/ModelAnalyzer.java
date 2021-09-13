@@ -348,11 +348,13 @@ public class ModelAnalyzer {
 				 default: break;
 			 }
 		 }
-		 if(propType == "ManyToOne") {
+		 if(propType == "ManyToOne" || propType == "OneToOne") {
 			 switch(name) {
 			 	case "columnName":{
-			 			String columnName = (String) value.get(0);
-			 			((FMManytoOne)property).setColumnName(columnName);
+			 		   if(value.size() > 0) {
+			 			 String columnName = (String) value.get(0);
+			 			 ((FMManytoOne)property).setColumnName(columnName);
+			 		   }
 				}
 			 	break;
 			 	default: break;

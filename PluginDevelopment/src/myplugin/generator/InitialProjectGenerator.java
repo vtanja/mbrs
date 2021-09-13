@@ -16,18 +16,18 @@ import javax.swing.JOptionPane;
 public class InitialProjectGenerator {
 	public void generate() throws IOException{
 		
-		String sourceLocation = "putanja do lokalnog repozitorijuma\\PluginDevelopment\\resources\\initialProjects\\backend";
+		String sourceLocation = "D:\\mbrs\\PluginDevelopment\\resources\\initialProjects\\backend";
 		File srcDir = new File(sourceLocation);
 
-		String destinationLocation = "putanja do foldera gdje se generise backend app\\backend";
+		String destinationLocation = "D:\\temp\\backend";
 		File destDir = new File(destinationLocation);
 		
 		copyDirectory(srcDir, destDir);
 		
-		sourceLocation = "putanja do lokalnog repozitorijuma\\PluginDevelopment\\resources\\initialProjects\\frontend";
+		sourceLocation = "D:\\mbrs\\PluginDevelopment\\resources\\initialProjects\\frontend";
 		srcDir = new File(sourceLocation);
 
-		destinationLocation = "putanja do foldera gdje se generise frontend app\\frontend";
+		destinationLocation = "D:\\temp\\frontend";
 		destDir = new File(destinationLocation);
 		
 		copyDirectory(srcDir, destDir);
