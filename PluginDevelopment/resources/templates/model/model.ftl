@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity<#if tableName != "">(name="${tableName}")</#if>
 public class ${name}{
 <#if identityProp??>
 	@Id

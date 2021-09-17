@@ -90,14 +90,16 @@ public class ModelAnalyzer {
 		if (pack != root) {
 			packageName += "." + pack.getName();
 		}
-		
+	
 		if (pack.hasOwnedElement()) {
 			
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
 				Element ownedElement = it.next();
 				if (ownedElement instanceof Class) {
 					Class cl = (Class)ownedElement;
-					FMClass fmClass = getClassData(cl, packageName);
+					String tableName = getTableName(cl);
+					
+					FMClass fmClass = getClassData(cl, packageName, tableName);
 					FMModel.getInstance().getClasses().add(fmClass);
 				}
 				
@@ -123,11 +125,36 @@ public class ModelAnalyzer {
 		}
 	}
 	
-	private FMClass getClassData(Class cl, String packageName) throws AnalyzeException {
+	private String getTableName(Class cl) throws AnalyzeException {
 		if (cl.getName() == null) 
 			throw new AnalyzeException("Classes must have names!");
 		
-		FMClass fmClass = new FMClass(cl.getName(), packageName, cl.getVisibility().toString());
+		String tableName = "";
+		Stereotype entityStereoType = StereotypesHelper.getAppliedStereotypeByString(cl, "Entity");
+		if (entityStereoType != null) {
+			List<Property> tags = entityStereoType.getOwnedAttribute();
+			
+			for(Property tag: tags) {
+				String name = tag.getName();
+				
+				List value = StereotypesHelper.getStereotypePropertyValue(cl,entityStereoType, name);
+
+				if(value.size() > 0) {
+					if(name.equals("tableName")) {
+						tableName = (String)value.get(0);
+					}
+				}
+			}
+		}
+		
+		return tableName;
+	}
+	
+	private FMClass getClassData(Class cl, String packageName, String tableName) throws AnalyzeException {
+		if (cl.getName() == null) 
+			throw new AnalyzeException("Classes must have names!");
+		
+		FMClass fmClass = new FMClass(cl.getName(), packageName, cl.getVisibility().toString(), tableName);
 		Iterator<Property> it = ModelHelper.attributes(cl);
 		while (it.hasNext()) {
 			Property p = it.next();
