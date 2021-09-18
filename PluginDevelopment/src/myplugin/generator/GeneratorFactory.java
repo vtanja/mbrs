@@ -32,6 +32,10 @@ public class GeneratorFactory {
 			return new RepositoryGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("ModelGenerator")) {
+			return new ModelGenerator(entry.getValue(), typeMappings);
+		}
+		
 		return null;
 		
 	}
