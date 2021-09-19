@@ -23,13 +23,13 @@ import myplugin.generator.fmmodel.FMManytoMany;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMOneToMany;
 import myplugin.generator.fmmodel.FMManytoOne;
-import myplugin.generator.fmmodel.FMManytoMany;
 import myplugin.generator.fmmodel.FMOnetoOne;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.fmmodel.FMType;
 import myplugin.generator.fmmodel.FetchType;
 import myplugin.generator.fmmodel.Strategy;
+import myplugin.generator.fmmodel.FMApplication;
 import myplugin.generator.options.ProjectOptions;
 import myplugin.generator.options.TypeMapping;
 
@@ -92,6 +92,43 @@ public class ModelAnalyzer {
 		}
 	
 		if (pack.hasOwnedElement()) {
+			
+			FMApplication fmApp = null;
+			Stereotype appStereotype = StereotypesHelper.getAppliedStereotypeByString(pack, "BackendApplication");
+			if(appStereotype != null) {
+				List<Property> props = appStereotype.getOwnedAttribute();
+				String name = "demo";
+				String description = "";
+
+				List<Property> tags = appStereotype.getOwnedAttribute();
+				
+				for(Property tag: tags) {
+					String tagName = tag.getName();
+					
+					List value = StereotypesHelper.getStereotypePropertyValue(pack, appStereotype, tagName);
+					
+					if(tagName.equals("appName")) {
+						if(value.size() > 0) {
+							name = (String)value.get(0);
+						}
+					}
+					else if(tagName.equals("appDescription")) {
+						if(value.size() > 0) {
+							description = (String)value.get(0);
+						}
+					}
+					
+				}
+								
+				fmApp = new FMApplication(name, description);
+				
+				FMModel.getInstance().setApplication(fmApp);
+				
+				JOptionPane.showMessageDialog(null, "Name:" + fmApp.getName() + " Description: " + fmApp.getDescription());
+			}
+			else {
+				throw new AnalyzeException("Packaage must have stereotype \"BackendApplication\" applied");
+			}
 			
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
 				Element ownedElement = it.next();
