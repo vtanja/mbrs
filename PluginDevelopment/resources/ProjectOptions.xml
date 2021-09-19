@@ -115,7 +115,18 @@
 				<templateDir>templates/model</templateDir>
 				<outputFileName>{0}.java</outputFileName>
 				<overwrite>true</overwrite>
-				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
+		<option>
+			<string>FrontServiceGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>frontend/demo/src/app/shared/services</outputPath>
+				<templateName>frontService</templateName>
+				<templateDir>templates/frontService</templateDir>
+				<outputFileName>{0}Service.ts</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
 </generatorOptions>
 	<generatedPath>D:\\temp</generatedPath>
 </myplugin.generator.options.ProjectOptions>
