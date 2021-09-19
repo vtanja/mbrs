@@ -36,6 +36,10 @@ public class GeneratorFactory {
 			return new ModelGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("FrontServiceGenerator")) {
+			return new FrontServiceGenerator(entry.getValue(), typeMappings);
+		}
+		
 		return null;
 		
 	}
