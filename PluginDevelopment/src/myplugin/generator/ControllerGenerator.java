@@ -42,7 +42,9 @@ public class ControllerGenerator extends BasicGenerator {
 				if (out != null) {
 					context.clear();
 					context.put("name", cl.getName());
-															
+									
+					context.put("appName", FMModel.getInstance().getApplication().getName());
+					
 					getTemplate().process(context, out);
 					out.flush();
 				}

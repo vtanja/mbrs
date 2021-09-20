@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.${appName}.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;

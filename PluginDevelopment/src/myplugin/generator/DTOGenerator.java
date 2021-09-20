@@ -46,6 +46,8 @@ public class DTOGenerator extends BasicGenerator {
 					context.put("properties", cl.getProperties());
 					context.put("importedPackages", cl.getImportedPackages());
 										
+					context.put("appName", FMModel.getInstance().getApplication().getName());
+					
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
