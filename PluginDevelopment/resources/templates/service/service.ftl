@@ -1,18 +1,21 @@
-package com.example.demo.dto;
+package com.example.demo.service;
 
-import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import javassist.NotFoundException;
 import java.util.*;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.example.demo.dto.${name}DetailDTO;
 import com.example.demo.dto.${name}DTO;
 import com.example.demo.model.${name};
 import com.example.demo.repository.${name}Repository;
-import com.example.demo.exception.NotFoundException;
 
 <#list importedPackages as import>
 <#if import.typePackage == "">
@@ -27,8 +30,6 @@ import com.example.demo.service.${import.name}Service;
 public class  ${name}Service {
     @Autowired
     private  ${name}Repository  ${repository};
-    @Autowired
-    private ModelMapper modelMapper;
     
     <#list importedPackages as import>
 	<#if import.typePackage == "">
@@ -38,6 +39,7 @@ public class  ${name}Service {
 	</#list>
 
     public ResponseEntity<List<${name}DTO>> get${name}Page(int pageNo, int pageSize){
+    	ModelMapper modelMapper = new ModelMapper();
         List<${name}DTO> dtoList = new ArrayList<${name}DTO>();
         Pageable paging = PageRequest.of(pageNo, pageSize);
         Page<${name}> pagedResult = ${repository}.findAll(paging);
@@ -63,13 +65,19 @@ public class  ${name}Service {
     }
 
     public ResponseEntity<${name}DetailDTO> get${name}(Long id){
-        ${name} ${name?uncap_first} = ${repository}.findById(id).orElseThrow(
-            () -> new NotFoundException("${name} with given id was not found."));
-        ${name}DetailDTO dto = modelMapper.map(${name?uncap_first}, ${name}DetailDTO.class);
-        return new ResponseEntity<>(sto, HttpStatus.OK);
+    	ModelMapper modelMapper = new ModelMapper();
+    	if(${repository}.findById(id).isPresent()){
+    		${name} ${name?uncap_first} = ${repository}.findById(id).get();
+    		${name}DetailDTO dto = modelMapper.map(${name?uncap_first}, ${name}DetailDTO.class);
+        	return new ResponseEntity<>(dto, HttpStatus.OK);
+    	}
+    	else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     public List<${name}DTO>getAll(){
+    	ModelMapper modelMapper = new ModelMapper();
         List<${name}> list = ${repository}.findAll();
         List<${name}DTO> dtoList = new LinkedList<>();
         for(${name} ${name?uncap_first}: list) {
@@ -88,46 +96,47 @@ public class  ${name}Service {
         }
         else {
     		<#list persistentProps as prop>
-			${name?uncap_first}.Set${prop.name?cap_first}(${name?uncap_first}Dto.Get${prop.name?cap_first}());
+			${name?uncap_first}.set${prop.name?cap_first}(${name?uncap_first}Dto.get${prop.name?cap_first}());
 			</#list>
 			<#list linkedProps as prop>
 			<#if prop.upper == 1 >
-			${name?uncap_first}.Set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.GetById(${name?uncap_first}Dto.Get${prop.name?cap_first}().GetId()));
+			${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.getById(${name?uncap_first}Dto.get${prop.name?cap_first}().getId()));
 			<#else>
 			Set<${prop.type.name}> ${prop.name}Set = new HashSet<>();
-			for(${prop.type.name}DTO item : ${name?uncap_first}Dto.Get${prop.name?cap_first}()){
-				${prop.type.name} ${prop.type.name?uncap_first} = item.GetId();
+			for(${prop.type.name}DTO item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
+				${prop.type.name} ${prop.type.name?uncap_first} = ${prop.type.name?uncap_first}Service.getById(item.getId());
 				${prop.name}Set.add(${prop.type.name?uncap_first});
 			}
-			${name?uncap_first}.Set${prop.type.name}(${prop.name}Set);
+			${name?uncap_first}.set${prop.name?cap_first}(${prop.name}Set);
 			</#if>
 			</#list>
 			${repository}.save(${name?uncap_first});
-            return new ResponseEntity<>(retDto, HttpStatus.OK); 
+            return new ResponseEntity<>(modelMapper.map(${name?uncap_first}, ${name}DetailDTO.class), HttpStatus.OK); 
         }
     }
 
     public ResponseEntity<${name}DetailDTO> create(${name}DetailDTO ${name?uncap_first}Dto){
+    	ModelMapper modelMapper = new ModelMapper();
         ${name} ${name?uncap_first} = new ${name}();
         <#list persistentProps as prop>
-		${name?uncap_first}.Set${prop.name?cap_first}(${name?uncap_first}Dto.Get${prop.name?cap_first}());
+		${name?uncap_first}.set${prop.name?cap_first}(${name?uncap_first}Dto.get${prop.name?cap_first}());
 		</#list>
 		<#list linkedProps as prop>
 		<#if prop.upper == 1 >
-		${name?uncap_first}.Set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.GetById(${name?uncap_first}Dto.Get${prop.name?cap_first}().GetId()));
+		${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.getById(${name?uncap_first}Dto.get${prop.name?cap_first}().getId()));
 		<#else>
 		Set<${prop.type.name}> ${prop.name}Set = new HashSet<>();
-		for(${prop.type.name}DTO item : ${name?uncap_first}Dto.Get${prop.name?cap_first}()){
-			${prop.type.name} ${prop.type.name?uncap_first} = item.GetId();
+		for(${prop.type.name}DTO item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
+			${prop.type.name} ${prop.type.name?uncap_first} = ${prop.type.name?uncap_first}Service.getById(item.getId());
 			${prop.name}Set.add(${prop.type.name?uncap_first});
 		}
-		${name?uncap_first}.Set${prop.type.name}(${prop.name}Set);
+		${name?uncap_first}.set${prop.name?cap_first}(${prop.name}Set);
 		</#if>
 		</#list>
 		
 		${repository}.save(${name?uncap_first});
     
-        return new ResponseEntity<>(HttpStatus.OK); 
+        return new ResponseEntity<>(modelMapper.map(${name?uncap_first}, ${name}DetailDTO.class), HttpStatus.OK); 
     }
 
     public ResponseEntity<Void> delete${name}(Long id){
