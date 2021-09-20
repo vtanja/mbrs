@@ -36,7 +36,7 @@ public class ApplicationGenerator extends BasicGenerator{
 		Writer out;
 		Map<String, Object> context = new HashMap<String, Object>();
 		try {
-			out = getWriter(fmApp.getName(), "");
+			out = getWriter(fmApp.getName().substring(0, 1).toUpperCase() + fmApp.getName().substring(1), "");
 			if (out != null) {
 				context.clear();
 										
