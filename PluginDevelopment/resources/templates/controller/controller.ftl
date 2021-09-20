@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import com.example.demo.dto.${ name }DTO;
-import com.example.demo.dto.${ name }DetailDTO;
-import com.example.demo.service.${ name }Service;
+import com.example.${appName}.dto.${ name }DTO;
+import com.example.${appName}.dto.${ name }DetailDTO;
+import com.example.${appName}.service.${ name }Service;
 
 
 @CrossOrigin
