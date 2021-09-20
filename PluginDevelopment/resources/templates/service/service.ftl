@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +18,12 @@ import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.${import.name};
 import com.example.demo.dto.${import.name}DTO;
 import com.example.demo.dto.${import.name}DetailDTO;
-import com.example.demo.service.${import.name}Service;
+import com.example.demo.service.${import.name}ServiceImpl;
 </#if>
 </#list>
 
 @Service
-public class  ${name}Service {
+public class ${name}Service {
     @Autowired
     private  ${name}Repository  ${repository};
     @Autowired
@@ -33,7 +32,7 @@ public class  ${name}Service {
     <#list importedPackages as import>
 	<#if import.typePackage == "">
 	@Autowired
-    private ${import.name}Service ${import.name?uncap_first}Service;
+    private ${import.name}ServiceImpl ${import.name?uncap_first}Service;
 	</#if>
 	</#list>
 
@@ -140,7 +139,7 @@ public class  ${name}Service {
         }
     }
 
-    public void Save(${name} ${name?uncap_first}){
+    public final void Save(${name} ${name?uncap_first}){
         ${repository}.save(${name?uncap_first});
     }
 }

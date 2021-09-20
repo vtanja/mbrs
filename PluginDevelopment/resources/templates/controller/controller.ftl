@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.example.demo.dto.${ name }DTO;
 import com.example.demo.dto.${ name }DetailDTO;
-import com.example.demo.service.${ name }Service;
+import com.example.demo.service.${ name }ServiceImpl;
 
 
 @CrossOrigin
@@ -16,7 +16,7 @@ import com.example.demo.service.${ name }Service;
 @RequestMapping( path = "/${ name?lower_case }")
 public class ${ name }Controller {
     @Autowired
-    private ${ name }Service ${name?lower_case}Service;
+    private ${ name }ServiceImpl ${name?lower_case}Service;
 
     @GetMapping(path="/{pageNo}/{pageSize}")
     public ResponseEntity<List<${ name }DTO>> getAll(@PathVariable int pageNo, @PathVariable int pageSize) {
