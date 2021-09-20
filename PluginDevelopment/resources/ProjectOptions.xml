@@ -107,6 +107,24 @@
 				<overwrite>true</overwrite>
 				<templateDir>templates/service</templateDir>
 				<templateName>service</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>RepositoryGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>backend/demo/src/main/java/com/example/demo/repository</outputPath>
+				<templateName>repository</templateName>
+				<templateDir>templates/repository</templateDir>
+				<outputFileName>{0}Repository.java</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>ModelGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>backend/demo/src/main/java/com/example/demo/model</outputPath>
+				<templateName>model</templateName>
+				<templateDir>templates/model</templateDir>
+				<outputFileName>{0}.java</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
 	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
 </myplugin.generator.options.ProjectOptions>

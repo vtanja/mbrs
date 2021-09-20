@@ -7,16 +7,11 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-<#list importedPackages as import>
-<#if import.typePackage != "">
-import ${import.typePackage}.${import.name};
-</#if>
-</#list>
 
-@Getter;
-@Setter;
-@AllArgsConstructor;
-@NoArgsConstructor;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ${name}DetailDTO{
 <#if identityProp??>
 	${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
