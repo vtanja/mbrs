@@ -125,6 +125,15 @@
 				<templateDir>templates</templateDir>
 				<templateName>pom</templateName>
 				<overwrite>true</overwrite></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>ApplicationGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage></filePackage>
+				<outputFileName>{0}Application.java</outputFileName>
+				<outputPath>backend\{1}\src\main\java\com\example\{1}</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates</templateDir>
+				<templateName>application</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
 	<generatedPath>C:\\temp</generatedPath>
 </myplugin.generator.options.ProjectOptions>

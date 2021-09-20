@@ -40,6 +40,10 @@ public class GeneratorFactory {
 			return new PomXmlGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("ApplicationGenerator")) {
+			return new ApplicationGenerator(entry.getValue(), typeMappings);
+		}
+		
 		return null;
 		
 	}
