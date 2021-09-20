@@ -17,7 +17,7 @@ import ${import.typePackage}.${import.name};
 @Setter;
 @AllArgsConstructor;
 @NoArgsConstructor;
-public class ${name}DTO{
+public class ${name}DetailDTO{
 <#if identityProp??>
 	${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
 </#if>
