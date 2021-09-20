@@ -21,7 +21,7 @@ public class ${ name }Controller {
     @GetMapping(path="/{pageNo}/{pageSize}")
     public ResponseEntity<List<${ name }DTO>> getAll(@PathVariable int pageNo, @PathVariable int pageSize) {
 
-        return ${ name?lower_case }Service.getAll(pageNo, pageSize);
+        return ${ name?lower_case }Service.get${name}Page(pageNo, pageSize);
     }
 
     @GetMapping(path="/{id}")
