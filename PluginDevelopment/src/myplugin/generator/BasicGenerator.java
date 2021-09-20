@@ -7,11 +7,10 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.Template;
+import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMType;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
@@ -67,6 +66,7 @@ public abstract class BasicGenerator {
 
 		final String tName = templateName + ".ftl";
 		
+		outputPath = outputPath.replace("{1}", FMModel.getInstance().getApplication().getName());
 		
 		try {
 			cfg.setDirectoryForTemplateLoading(new File(templateDir));
@@ -96,7 +96,7 @@ public abstract class BasicGenerator {
 			packageName.replace(".", File.separator);		
 			filePackage = packageName;
 		}
-			
+				
 		String fullPath = outputPath
 				+ File.separator
 				+ (filePackage.isEmpty() ? "" : packageToPath(filePackage)
