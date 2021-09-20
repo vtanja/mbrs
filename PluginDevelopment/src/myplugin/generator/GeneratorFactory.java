@@ -31,6 +31,10 @@ public class GeneratorFactory {
 		else if(entry.getKey().equals("ServiceGenerator")) {
 			return new ServiceGenerator(entry.getValue(), typeMappings);
 		}
+		
+		else if(entry.getKey().equals("ServiceImplGenerator")) {
+			return new ServiceImplGenerator(entry.getValue(), typeMappings);
+		}
 		return null;
 		
 	}
