@@ -1,5 +1,7 @@
-package com.example.${appName}.dto;
+// [ ${.now?date} ${.now?time} ]
+// This file is generated based on ${.current_template_name}
 
+package com.example.${appName}.dto;
 
 import lombok.Getter;
 import lombok.Setter;

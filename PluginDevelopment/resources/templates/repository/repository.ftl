@@ -1,3 +1,6 @@
+// [ ${.now?date} ${.now?time} ]
+// This file is generated based on ${.current_template_name}
+
 package com.example.${appName}.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
