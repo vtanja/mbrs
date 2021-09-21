@@ -44,6 +44,8 @@ public class DTODetailGenerator extends BasicGenerator{
 					context.put("name", cl.getName());
 					context.put("properties", cl.getProperties());
 					context.put("importedPackages", cl.getImportedPackages());
+					
+					context.put("appName", FMModel.getInstance().getApplication().getName());
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
