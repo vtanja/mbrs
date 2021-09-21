@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 
 import myplugin.generator.fmmodel.CascadeType;
 import myplugin.generator.fmmodel.FMClass;
+import myplugin.generator.fmmodel.FMComponent;
+import myplugin.generator.fmmodel.FMElement;
 import myplugin.generator.fmmodel.FMEnumeration;
 import myplugin.generator.fmmodel.FMIdentityProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
@@ -116,6 +118,10 @@ public class ModelAnalyzer {
 					fmClass.setTableName(getTableName(cl));
 					
 					FMModel.getInstance().getClasses().add(fmClass);
+					
+					FMComponent fmComponent = getComponentData(cl);
+					
+					FMModel.getInstance().getComponents().add(fmComponent);
 				}
 				
 				
@@ -132,6 +138,29 @@ public class ModelAnalyzer {
 		}
 	}
 	
+	private FMComponent getComponentData(Class cl) {
+		Stereotype componentStereotype = StereotypesHelper.getAppliedStereotypeByString(cl, "Component");
+		
+		FMComponent component = new FMComponent(cl.getName());
+				
+		if(componentStereotype != null) {
+			List<Property> tags = componentStereotype.getOwnedAttribute();
+			
+			for(Property tag: tags) {
+				String tagName = tag.getName();
+				
+				List value = StereotypesHelper.getStereotypePropertyValue(cl, componentStereotype, tagName);
+				
+				if(value.size() > 0) {
+					setTag(tagName, value, component, "Component");
+				}
+			}
+		}
+		
+				
+		return component;
+	}
+
 	private String getTableName(Class cl) throws AnalyzeException {
 		if (cl.getName() == null) 
 			throw new AnalyzeException("Classes must have names!");
@@ -350,7 +379,7 @@ public class ModelAnalyzer {
 		return persistentProperty;
 	}
 
-	private void setTag(String name, List value, FMProperty property, String propType) {
+	private void setTag(String name, List value, FMElement property, String propType) {
 		if(propType == "PersistentProperty" || propType == "IdentityProperty") {
 			switch(name) {
 				case "columnName":{
@@ -434,6 +463,26 @@ public class ModelAnalyzer {
 			 	}
 			 	break;
 			 	default: break;
+			 }
+		 }
+		 if(propType == "Component") {
+			 switch(name) {
+			 	case "create":{
+			 		boolean create = (boolean)value.get(0);
+			 		((FMComponent)property).setCreate(create);
+			 	}
+			 	case "delete":{
+			 		boolean delete = (boolean)value.get(0);
+			 		((FMComponent)property).setDelete(delete);
+			 	}
+			 	case "update":{
+			 		boolean update = (boolean)value.get(0);
+			 		((FMComponent)property).setUpdate(update);
+			 	}
+			 	case "details":{
+			 		boolean detail = (boolean)value.get(0);
+			 		((FMComponent)property).setDetail(detail);
+			 	}
 			 }
 		 }
 	}
