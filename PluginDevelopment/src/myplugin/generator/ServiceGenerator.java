@@ -47,6 +47,8 @@ public class ServiceGenerator extends BasicGenerator {
 					context.put("repository", cl.getName().toLowerCase() + "Repository");
 					context.put("properties", cl.getProperties());
 					context.put("importedPackages", cl.getImportedPackages());
+					
+					context.put("appName", FMModel.getInstance().getApplication().getName());
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
