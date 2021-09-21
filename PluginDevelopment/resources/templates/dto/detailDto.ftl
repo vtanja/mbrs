@@ -14,11 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ${name}DetailDTO{
 <#if identityProp??>
-	<#if identityProp.upper == 1 >
 	${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
-	<#else>
-	${identityProp.visibility} Set<${identityProp.type.name}> ${identityProp.name};
-	</#if>
+<#else>
+	private Long id;
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
@@ -34,4 +32,9 @@ public class ${name}DetailDTO{
 	${prop.visibility} Set<${prop.type.name}DTO> ${prop.name};
 	</#if>
 </#list>
+<#if identityProp??>
+	public ${identityProp.type.name} getId(){
+		return ${identityProp.name};
+	}
+</#if>
 }

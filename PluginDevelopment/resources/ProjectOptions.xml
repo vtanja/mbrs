@@ -99,6 +99,15 @@
 				</myplugin.generator.options.GeneratorOptions>
 		</option>
 		<option>
+			<string>ServiceGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage></filePackage>
+				<outputFileName>{0}Service.java</outputFileName>
+				<outputPath>backend/{1}/src/main/java/com/example/{1}/service</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/service</templateDir>
+				<templateName>service</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
 			<string>RepositoryGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
 				<outputPath>backend/{1}/src/main/java/com/example/{1}/repository</outputPath>
@@ -135,5 +144,5 @@
 				<templateDir>templates</templateDir>
 				<templateName>application</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
-	<generatedPath>C:\\temp</generatedPath>
+	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
 </myplugin.generator.options.ProjectOptions>

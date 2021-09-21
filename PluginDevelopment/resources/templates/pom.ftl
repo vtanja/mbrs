@@ -42,6 +42,11 @@
             <artifactId>spring-web</artifactId>
             <version>5.3.2</version>
         </dependency>
+        <dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.0</version>
+		</dependency>
     </dependencies>
 
     <build>

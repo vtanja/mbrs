@@ -83,4 +83,9 @@ public class ${name}{
 </#if>
 	${prop.visibility} ${prop.type.name} ${prop.name};
 </#list>
+<#if identityProp??>
+	public ${identityProp.type.name} getId(){
+		return ${identityProp.name};
+	}
+</#if>
 }
