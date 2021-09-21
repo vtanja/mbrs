@@ -39,7 +39,7 @@ public class DetailComponentGenerator extends BasicGenerator{
 				Writer out;
 				Map<String, Object> context = new HashMap<String, Object>();
 				try {
-					out = getWriter(component.getName(), "");
+					out = getWriter(component.getName().substring(0, 1).toLowerCase() + component.getName().substring(1), "");
 					if (out != null) {
 						
 						context.put("component", component);

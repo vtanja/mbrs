@@ -67,7 +67,7 @@ public abstract class BasicGenerator {
 		final String tName = templateName + ".ftl";
 		
 		outputPath = outputPath.replace("{1}", FMModel.getInstance().getApplication().getName());
-		
+				
 		try {
 			cfg.setDirectoryForTemplateLoading(new File(templateDir));
 			template = cfg.getTemplate(tName);
@@ -92,14 +92,14 @@ public abstract class BasicGenerator {
 	}
 
 	public Writer getWriter(String fileNamePart, String packageName) throws IOException {
-		if (packageName != filePackage) {
+		if (packageName != filePackage && !packageName.isEmpty()) {
 			packageName.replace(".", File.separator);		
 			filePackage = packageName;
 		}
 				
 		String fullPath = outputPath
 				+ File.separator
-				+ (filePackage.isEmpty() ? "" : packageToPath(filePackage)
+				+ (filePackage.isEmpty() ? "" : packageToPath(filePackage, fileNamePart)
 						+ File.separator)
 				+ outputFileName.replace("{0}", fileNamePart);
 
@@ -122,8 +122,13 @@ public abstract class BasicGenerator {
 
 	}
 
-	protected String packageToPath(String pack) {
-		return pack.replace(".", File.separator);
+	protected String packageToPath(String pack, String fileNamePart) {
+		pack = pack.replace(".", File.separator);
+		if(pack.contains("{0}")) {
+			return pack.replace("{0}", fileNamePart.substring(0, 1).toLowerCase() + fileNamePart.substring(1));
+		}
+		
+		return pack;
 	}
 	
 	protected FMType getCorrectType(FMType type, String destination) {
