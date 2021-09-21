@@ -1,17 +1,11 @@
 package myplugin.generator.fmmodel;
 
-public class FMComponent {
-	private String name;
+public class FMComponent extends FMElement {
 	private boolean delete;
 	private boolean update;
 	private boolean create;
 	private boolean detail;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public boolean isDelete() {
 		return delete;
 	}
@@ -37,12 +31,12 @@ public class FMComponent {
 		this.detail = detail;
 	}
 	
-	public FMComponent() {
-		
+	public FMComponent(String name) {
+		super(name);
 	}
 	
 	public FMComponent(String name, boolean delete, boolean update, boolean create, boolean detail) {
-		this.name = name;
+		super(name);
 		this.delete = delete;
 		this.update = update;
 		this.create = create;
