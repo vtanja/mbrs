@@ -57,6 +57,9 @@ public class GeneratorFactory {
 			return new DetailComponentHTMLGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("AppRoutingGenerator")) {
+			return new AppRoutingGenerator(entry.getValue(), typeMappings);
+		}
 		
 		return null;
 		
