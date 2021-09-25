@@ -78,6 +78,7 @@ public class ModelAnalyzer {
 	public void prepareModel() throws AnalyzeException {
 		FMModel.getInstance().getClasses().clear();
 		FMModel.getInstance().getEnumerations().clear();
+		FMModel.getInstance().getComponents().clear();
 		processPackage(root, filePackage);
 	}
 	
@@ -156,7 +157,6 @@ public class ModelAnalyzer {
 				}
 			}
 		}
-		
 				
 		return component;
 	}
