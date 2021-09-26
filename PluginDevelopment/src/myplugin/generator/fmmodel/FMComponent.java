@@ -40,8 +40,8 @@ public class FMComponent extends FMElement {
 		return fields;
 	}
 	
-	public void setFields(List<FMField> fields) {
-		this.fields = fields;
+	public void addField(FMField field) {
+		this.fields.add(field);
 	}
 	
 	public FMComponent(String name) {
