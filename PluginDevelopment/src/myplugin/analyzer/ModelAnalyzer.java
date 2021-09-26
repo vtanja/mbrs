@@ -19,6 +19,7 @@ import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMComponent;
 import myplugin.generator.fmmodel.FMElement;
 import myplugin.generator.fmmodel.FMEnumeration;
+import myplugin.generator.fmmodel.FMField;
 import myplugin.generator.fmmodel.FMIdentityProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.fmmodel.FMManytoMany;
@@ -30,6 +31,7 @@ import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.fmmodel.FMType;
 import myplugin.generator.fmmodel.FetchType;
+import myplugin.generator.fmmodel.FieldType;
 import myplugin.generator.fmmodel.Strategy;
 import myplugin.generator.fmmodel.FMApplication;
 import myplugin.generator.options.ProjectOptions;
@@ -157,8 +159,36 @@ public class ModelAnalyzer {
 			}
 		}
 		
+		Iterator<Property> it = ModelHelper.attributes(cl);
+		while (it.hasNext()) {
+			Property p = it.next();
+			FMField field = getFieldData(p, cl);
+			component.addField(field);	
+		}	
 				
 		return component;
+	}
+
+	private FMField getFieldData(Property p, Class cl) {
+		FMField fmField = new FMField(p.getName());
+		
+		Stereotype fieldStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Field");
+		
+		if(fieldStereotype != null) {
+			List<Property> tags = fieldStereotype.getOwnedAttribute();
+			
+			for(Property tag: tags) {
+				String tagName = tag.getName();
+				
+				List value = StereotypesHelper.getStereotypePropertyValue(p, fieldStereotype, tagName);
+				
+				if(value.size() > 0) {
+					setTag(tagName, value, fmField, "Field");
+				}
+			}
+		}
+		
+		return fmField;
 	}
 
 	private String getTableName(Class cl) throws AnalyzeException {
@@ -482,6 +512,39 @@ public class ModelAnalyzer {
 			 	case "details":{
 			 		boolean detail = (boolean)value.get(0);
 			 		((FMComponent)property).setDetail(detail);
+			 	}
+			 }
+		 }
+		 if(propType == "Field") {
+			 switch(name) {
+			 	case "label":{
+			 		String label = (String)value.get(0);
+			 		((FMField)property).setLabel(label);
+			 	}
+			 	case "type":{
+					 EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
+					 FieldType field = FieldType.valueOf(enumLit.getName().toLowerCase());
+					 ((FMField)property).setType(field);
+				 }
+			 	case "editable":{
+			 		boolean editable = (boolean)value.get(0);
+			 		((FMField)property).setEditable(editable);
+			 	}
+			 	case "calculated":{
+			 		boolean calculated = (boolean)value.get(0);
+			 		((FMField)property).setCalculated(calculated);
+			 	}
+			 	case "visible":{
+			 		boolean visible = (boolean)value.get(0);
+			 		((FMField)property).setVisible(visible);
+			 	}
+			 	case "sort":{
+			 		boolean sort = (boolean)value.get(0);
+			 		((FMField)property).setSort(sort);
+			 	}
+			 	case "filter":{
+			 		boolean filter = (boolean)value.get(0);
+			 		((FMField)property).setFilter(filter);
 			 	}
 			 }
 		 }
