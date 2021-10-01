@@ -43,7 +43,9 @@ public class DetailComponentGenerator extends BasicGenerator{
 					if (out != null) {
 						
 						context.put("component", component);
-						
+						context.put("entity_name", component.getName());
+
+						context.put("fields", component.getFields());
 						getTemplate().process(context, out);
 						out.flush();
 					}					
