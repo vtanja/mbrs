@@ -27,6 +27,7 @@ import myplugin.generator.fmmodel.FetchType;
 import myplugin.generator.fmmodel.FieldType;
 import myplugin.generator.fmmodel.Strategy;
 import myplugin.generator.fmmodel.FMApplication;
+import myplugin.generator.fmmodel.FMAssociationEnd;
 import myplugin.generator.options.ProjectOptions;
 import myplugin.generator.options.TypeMapping;
 
@@ -152,21 +153,31 @@ public class ModelAnalyzer {
 		while (it.hasNext()) {
 			Property p = it.next();
 			FMField field = getFieldData(p);
-			component.addField(field);	
+			if(field != null) {
+				component.addField(field);
+			}
+				
 		}	
 				
 		return component;
 	}
 
 	private FMField getFieldData(Property p) {
-		FMField fmField = new FMField(p.getName());
+		FMField fmField=null;
 		
 		Stereotype fieldStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Field");
 		
 		if(fieldStereotype != null) {
+			fmField = new FMField(p.getName());
 			manageTags(fieldStereotype, p, fmField, "Field");
 		}
-					
+			
+		Stereotype associationStereotype = StereotypesHelper.getAppliedStereotypeByString(p,  "AssociationEnd");
+		if(associationStereotype != null) {
+			fmField = new FMAssociationEnd(p.getName());
+			manageTags(associationStereotype, p, fmField, "AssociationEnd");
+		}
+		
 		return fmField;
 	}
 
@@ -500,7 +511,7 @@ public class ModelAnalyzer {
 			 	default:break;
 			 }
 		 }
-		 if(propType == "Field") {			 
+		 if(propType == "Field" || propType == "AssociationEnd") {			 
 			 switch(name) {
 			 	case "type":{
 					EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
