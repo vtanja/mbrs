@@ -2,7 +2,7 @@ package myplugin.generator.fmmodel;
 
 public class FMAssociationEnd extends FMField {
 
-	public FMAssociationEnd(FMField fmField) {
-		super(fmField.getName());
+	public FMAssociationEnd(String name) {
+		super(name);
 	}
 }
