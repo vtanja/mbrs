@@ -1,18 +1,11 @@
 package myplugin.analyzer;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import javax.swing.JOptionPane;
 
 import myplugin.generator.fmmodel.CascadeType;
 import myplugin.generator.fmmodel.FMClass;
@@ -37,7 +30,6 @@ import myplugin.generator.fmmodel.FMApplication;
 import myplugin.generator.options.ProjectOptions;
 import myplugin.generator.options.TypeMapping;
 
-import com.nomagic.magicdraw.uml.symbols.reflect.PersistentProperty;
 import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
 import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Element;
@@ -47,7 +39,6 @@ import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Package;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Property;
-import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Type;
 import com.nomagic.uml2.ext.magicdraw.mdprofiles.Stereotype;
 
 
@@ -103,8 +94,6 @@ public class ModelAnalyzer {
 				fmApp = getAppData(pack, appStereotype);
 				
 				FMModel.getInstance().setApplication(fmApp);
-				
-				JOptionPane.showMessageDialog(null, "Name:" + fmApp.getName() + " Description: " + fmApp.getDescription());
 			}
 			else {
 				throw new AnalyzeException("Packaage must have stereotype \"BackendApplication\" applied");
@@ -162,32 +151,22 @@ public class ModelAnalyzer {
 		Iterator<Property> it = ModelHelper.attributes(cl);
 		while (it.hasNext()) {
 			Property p = it.next();
-			FMField field = getFieldData(p, cl);
+			FMField field = getFieldData(p);
 			component.addField(field);	
 		}	
 				
 		return component;
 	}
 
-	private FMField getFieldData(Property p, Class cl) {
+	private FMField getFieldData(Property p) {
 		FMField fmField = new FMField(p.getName());
 		
 		Stereotype fieldStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Field");
 		
 		if(fieldStereotype != null) {
-			List<Property> tags = fieldStereotype.getOwnedAttribute();
-			
-			for(Property tag: tags) {
-				String tagName = tag.getName();
-				
-				List value = StereotypesHelper.getStereotypePropertyValue(p, fieldStereotype, tagName);
-				
-				if(value.size() > 0) {
-					setTag(tagName, value, fmField, "Field");
-				}
-			}
+			manageTags(fieldStereotype, p, fmField, "Field");
 		}
-		
+					
 		return fmField;
 	}
 
@@ -380,7 +359,7 @@ public class ModelAnalyzer {
 	}
 	
 
-	private void manageTags(Stereotype stereotype, Property prop, FMProperty fmProp, String propType) {
+	private void manageTags(Stereotype stereotype, Property prop, FMElement fmProp, String propType) {
 		List<Property> tags = stereotype.getOwnedAttribute();
 		
 		for(Property tag: tags) {
@@ -451,6 +430,7 @@ public class ModelAnalyzer {
 					 FetchType fetchType = FetchType.valueOf(enumLit.getName().toUpperCase());
 					 ((FMLinkedProperty)property).setFetchType(fetchType);
 				 }
+				 break;
 			 }
 		 }
 		 if(propType == "OneToMany") {
@@ -487,6 +467,7 @@ public class ModelAnalyzer {
 			 		String mappedBy = (String) value.get(0);
 			 		((FMManytoMany)property).setMappedBy(mappedBy);
 				}
+			 	break;
 			 	case "joinTable":{
 		 			String joinTable = (String) value.get(0);
 		 			((FMManytoMany)property).setJoinTable(joinTable);
@@ -501,6 +482,7 @@ public class ModelAnalyzer {
 			 		boolean create = (boolean)value.get(0);
 			 		((FMComponent)property).setCreate(create);
 			 	}
+			 	break;
 			 	case "delete":{
 			 		boolean delete = (boolean)value.get(0);
 			 		((FMComponent)property).setDelete(delete);
@@ -509,43 +491,54 @@ public class ModelAnalyzer {
 			 		boolean update = (boolean)value.get(0);
 			 		((FMComponent)property).setUpdate(update);
 			 	}
+			 	break;
 			 	case "details":{
 			 		boolean detail = (boolean)value.get(0);
 			 		((FMComponent)property).setDetail(detail);
 			 	}
+			 	break;
+			 	default:break;
 			 }
 		 }
-		 if(propType == "Field") {
+		 if(propType == "Field") {			 
 			 switch(name) {
+			 	case "type":{
+					EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
+					FieldType field = FieldType.valueOf(enumLit.getName().toLowerCase());
+					((FMField)property).setType(field);
+				}
+			 	break;	
 			 	case "label":{
 			 		String label = (String)value.get(0);
 			 		((FMField)property).setLabel(label);
 			 	}
-			 	case "type":{
-					 EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
-					 FieldType field = FieldType.valueOf(enumLit.getName().toLowerCase());
-					 ((FMField)property).setType(field);
-				 }
+			 	break;
 			 	case "editable":{
 			 		boolean editable = (boolean)value.get(0);
 			 		((FMField)property).setEditable(editable);
 			 	}
+			 	break;
 			 	case "calculated":{
 			 		boolean calculated = (boolean)value.get(0);
 			 		((FMField)property).setCalculated(calculated);
 			 	}
+			 	break;
 			 	case "visible":{
 			 		boolean visible = (boolean)value.get(0);
 			 		((FMField)property).setVisible(visible);
 			 	}
+			 	break;
 			 	case "sort":{
 			 		boolean sort = (boolean)value.get(0);
 			 		((FMField)property).setSort(sort);
 			 	}
+			 	break;
 			 	case "filter":{
 			 		boolean filter = (boolean)value.get(0);
 			 		((FMField)property).setFilter(filter);
 			 	}
+			 	break;
+			 	default:break;
 			 }
 		 }
 	}
