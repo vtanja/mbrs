@@ -40,10 +40,10 @@ export class ${entity_name}Component {
             );
         });
     }
-
+	
     delete(){
         if(this.obj != undefined){
-            this.${entity_name?uncap_first}Service.delete${entity_name}(this.obj.id).subscribe(
+            this.${entity_name?uncap_first}Service.delete${entity_name}(this.obj.<#if id=="">id<#else>${id}</#if>).subscribe(
 			data =>{
 				alert("${entity_name} has been successfully deleted!");
 			},
