@@ -1,6 +1,8 @@
 package myplugin.generator.fmmodel;
 
 public class FMField extends FMElement{
+	private FMType fmType;
+	private int upper;
 	private String label;
 	private FieldType type;
 	private Boolean editable;
@@ -8,6 +10,20 @@ public class FMField extends FMElement{
 	private Boolean filter;
 	private Boolean sort;
 	private Boolean visible;
+	
+
+	public int getUpper() {
+		return upper;
+	}
+	public void setUpper(int upper) {
+		this.upper = upper;
+	}
+	public FMType getFmType() {
+		return fmType;
+	}
+	public void setFmType(FMType fmType) {
+		this.fmType = fmType;
+	}
 	public String getLabel() {
 		return label;
 	}
