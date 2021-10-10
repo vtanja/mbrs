@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import freemarker.template.TemplateException;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMComponent;
+import myplugin.generator.fmmodel.FMField;
 import myplugin.generator.fmmodel.FMIdentityProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.fmmodel.FMModel;
@@ -42,6 +43,7 @@ public class DetailComponentGenerator extends BasicGenerator{
 					out = getWriter(component.getName().substring(0, 1).toLowerCase() + component.getName().substring(1), "");
 					if (out != null) {
 						
+						context.put("id", FMModel.getInstance().getIdNames().get(component.getName())!=null?FMModel.getInstance().getIdNames().get(component.getName()):"");
 						context.put("component", component);
 						context.put("entity_name", component.getName());
 

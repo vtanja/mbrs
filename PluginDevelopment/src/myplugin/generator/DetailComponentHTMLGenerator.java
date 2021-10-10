@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
 
@@ -46,7 +47,7 @@ public class DetailComponentHTMLGenerator extends BasicGenerator{
 						
 						List<FMField> associations = new ArrayList<FMField>();
 						List<FMField> baseFields = new ArrayList<FMField>();
-						
+												
 						for(FMField field : component.getFields()) {
 							if(field instanceof FMAssociationEnd) {
 								associations.add(field);
@@ -56,6 +57,20 @@ public class DetailComponentHTMLGenerator extends BasicGenerator{
 							}
 						}
 						
+						Map<String, String> ids = new HashMap<String, String>();
+						
+						for(FMField ass : associations) {
+							if(FMModel.getInstance().getIdNames().get(ass.getFmType().getName()) != null) {
+								ids.put(ass.getFmType().getName(), FMModel.getInstance().getIdNames().get(ass.getFmType().getName()));
+							}
+							else {
+								ids.put(ass.getFmType().getName(), "id");
+							}
+							JOptionPane.showMessageDialog(null,ass.getFmType().getName() + "---"+  ids.get(ass.getFmType().getName()));
+						}
+						
+						context.put("id", FMModel.getInstance().getIdNames().get(component.getName())!=null?FMModel.getInstance().getIdNames().get(component.getName()):"");
+						context.put("assId", ids); // id-jevi asocijacija 
 						context.put("baseFields", baseFields);
 						context.put("associations", associations);
 						
