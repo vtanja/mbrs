@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import myplugin.generator.fmmodel.CascadeType;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMComponent;
@@ -103,17 +105,18 @@ public class ModelAnalyzer {
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
 				Element ownedElement = it.next();
 				if (ownedElement instanceof Class) {
+				
 					Class cl = (Class)ownedElement;
+					
+					FMComponent fmComponent = getComponentData(cl);
+
+					FMModel.getInstance().getComponents().add(fmComponent);
 
 					FMClass fmClass = getClassData(cl, packageName);
 					
 					fmClass.setTableName(getTableName(cl));
 					
 					FMModel.getInstance().getClasses().add(fmClass);
-					
-					FMComponent fmComponent = getComponentData(cl);
-					
-					FMModel.getInstance().getComponents().add(fmComponent);
 				}
 				
 				
@@ -155,6 +158,10 @@ public class ModelAnalyzer {
 			FMField field = getFieldData(p);
 			if(field != null) {
 				component.addField(field);
+				
+				if(StereotypesHelper.getAppliedStereotypeByString(p, "IdentityProperty") != null) {
+					FMModel.getInstance().getInstance().AddIdName(component.getName(), p.getName());
+				}
 			}
 				
 		}	
@@ -163,7 +170,7 @@ public class ModelAnalyzer {
 	}
 
 	private FMField getFieldData(Property p) {
-		FMField fmField=null;
+		FMField fmField= null;
 		
 		Stereotype fieldStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Field");
 		
@@ -177,6 +184,27 @@ public class ModelAnalyzer {
 			fmField = new FMAssociationEnd(p.getName());
 			manageTags(associationStereotype, p, fmField, "AssociationEnd");
 		}
+		
+		if(fmField != null) {
+			
+			String attTypeName = p.getType().getName();
+			String typePackage = "";
+			
+			List<TypeMapping> typeMappings = ProjectOptions.getProjectOptions().getTypeMappings();
+			for(TypeMapping tm : typeMappings){
+				if(tm.getuMLType().equals(attTypeName)) {
+					typePackage = tm.getLibraryName();
+					break;
+				}
+			}
+			
+			FMType fmType = new FMType(attTypeName, typePackage);
+			
+			fmField.setFmType(fmType);
+			
+			fmField.setUpper(p.getUpper());
+		}
+		
 		
 		return fmField;
 	}
