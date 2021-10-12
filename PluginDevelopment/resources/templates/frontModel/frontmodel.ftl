@@ -1,3 +1,6 @@
+// [ ${.now?date} ${.now?time} ]
+// This file is generated based on ${.current_template_name}
+
 <#if importedPackages??>
 <#list importedPackages as import>
 <#if import.typePackage == "">

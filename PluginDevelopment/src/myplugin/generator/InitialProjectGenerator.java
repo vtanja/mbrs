@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import javax.swing.JOptionPane;
 
 import myplugin.generator.fmmodel.FMModel;
+import myplugin.generator.options.ProjectOptions;
 
 
 public class InitialProjectGenerator {
@@ -15,11 +16,15 @@ public class InitialProjectGenerator {
 		
 		String appName = FMModel.getInstance().getApplication().getName();
 		
-		generateFrontend(appName);
+		String generatePath = ProjectOptions.getProjectOptions().getGeneratedPath();
 		
-		generateResources(appName);
+		String sourcePath = ProjectOptions.getProjectOptions().getSourcesPath();
 		
-		generateFilesInSrc(appName);
+		generateFrontend(appName, generatePath, sourcePath);
+		
+		generateResources(appName, generatePath, sourcePath);
+		
+		generateFilesInSrc(appName, generatePath, sourcePath);
 		
 				
 		JOptionPane.showMessageDialog(null, "Initial project generated");
@@ -42,31 +47,31 @@ public class InitialProjectGenerator {
 	    }
 	}
 	
-	private void generateFrontend(String appName) throws IOException {
-		String sourceLocation = "C:\\Users\\tanja\\OneDrive\\Documents\\GitHub\\mbrs\\PluginDevelopment\\resources\\initialProjects\\frontend\\demo";
+	private void generateFrontend(String appName, String generatePath, String sourcePath) throws IOException {
+		String sourceLocation = sourcePath + File.separator + "frontend\\demo";
 		File srcDir = new File(sourceLocation);
 
-		String destinationLocation = "C:\\temp\\frontend\\"+appName;
+		String destinationLocation = generatePath + File.separator + "frontend\\"+appName;
 		File destDir = new File(destinationLocation);
 		
 		copyDirectory(srcDir, destDir);
 	}
 	
-	private void generateFilesInSrc(String appName) throws IOException {
-		String sourceLocation = "C:\\Users\\tanja\\OneDrive\\Documents\\GitHub\\mbrs\\PluginDevelopment\\resources\\initialProjects\\backend\\app";
+	private void generateFilesInSrc(String appName, String generatePath, String sourcePath) throws IOException {
+		String sourceLocation = sourcePath + File.separator + "backend\\app";
 		File srcDir = new File(sourceLocation);
 
-		String destinationLocation = "C:\\temp\\backend\\"+appName;
+		String destinationLocation = generatePath + File.separator + "backend\\"+appName;
 		File destDir = new File(destinationLocation);
 		
 		copyDirectory(srcDir, destDir);
 	}
 	
-	private void generateResources(String appName) throws IOException{
-		String sourceLocation = "C:\\Users\\tanja\\OneDrive\\Documents\\GitHub\\mbrs\\PluginDevelopment\\resources\\initialProjects\\backend\\resources";
+	private void generateResources(String appName, String generatePath, String sourcePath) throws IOException{
+		String sourceLocation = sourcePath + File.separator + "backend\\resources";
 		File srcDir = new File(sourceLocation);
 
-		String destinationLocation = "C:\\temp\\backend\\"+appName+"\\src\\main\\resources";
+		String destinationLocation = generatePath + File.separator + "backend\\"+appName+"\\src\\main\\resources";
 		File destDir = new File(destinationLocation);
 		
 		copyDirectory(srcDir, destDir);

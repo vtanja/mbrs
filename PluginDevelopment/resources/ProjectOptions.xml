@@ -145,4 +145,4 @@
 				<templateName>application</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
 	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
-</myplugin.generator.options.ProjectOptions>
+	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>

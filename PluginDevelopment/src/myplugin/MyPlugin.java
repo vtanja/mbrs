@@ -34,6 +34,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 			ProjectOptions.getProjectOptions().setGeneratorOptions(projectOptions.getGeneratorOptions());
 			ProjectOptions.getProjectOptions().setTypeMappings(projectOptions.getTypeMappings());
 			ProjectOptions.getProjectOptions().setGeneratedPath(projectOptions.getGeneratedPath());
+			ProjectOptions.getProjectOptions().setSourcesPath(projectOptions.getSourcesPath());
 
 		}
 		catch(FileNotFoundException fe){

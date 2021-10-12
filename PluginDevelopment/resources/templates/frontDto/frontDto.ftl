@@ -1,3 +1,6 @@
+// [ ${.now?date} ${.now?time} ]
+// This file is generated based on ${.current_template_name}
+
 <#list importedPackages as import>
 <#if import.typePackage == "">
 import { I${import.name} } from 'src/app/shared/model/${import.name?lower_case}.model;
