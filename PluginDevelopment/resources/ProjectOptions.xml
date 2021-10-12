@@ -56,7 +56,7 @@
 	</typeMappings><generatorOptions>
 		<option><string>DTOGenerator</string><myplugin.generator.options.GeneratorOptions>
 				
-				<outputPath>backend/demo/src/main/java/com/example/demo/dto</outputPath><templateName>dto</templateName>
+				<outputPath>backend/{1}/src/main/java/com/example/{1}/dto</outputPath><templateName>dto</templateName>
 				<templateDir>templates/dto</templateDir>
 				<outputFileName>{0}DTO.java</outputFileName>
 				<overwrite>true</overwrite>
@@ -66,14 +66,14 @@
 			<myplugin.generator.options.GeneratorOptions>
 				<filePackage></filePackage>
 				<outputFileName>{0}.model.ts</outputFileName>
-				<outputPath>frontend/demo/src/app/shared/model</outputPath>
+				<outputPath>frontend/{1}/src/app/shared/model</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/frontDTO</templateDir>
 				<templateName>frontDto</templateName></myplugin.generator.options.GeneratorOptions></option>
 		<option>
 			<string>ControllerGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
-				<outputPath>backend/demo/src/main/java/com/example/demo/controller</outputPath>
+				<outputPath>backend/{1}/src/main/java/com/example/{1}/controller</outputPath>
 				<templateName>controller</templateName>
 				<templateDir>templates/controller</templateDir>
 				<outputFileName>{0}Controller.java</outputFileName>
@@ -84,14 +84,14 @@
 			<myplugin.generator.options.GeneratorOptions>
 				<filePackage></filePackage>
 				<outputFileName>{0}.ts</outputFileName>
-				<outputPath>frontend/demo/src/app/shared/model</outputPath>
+				<outputPath>frontend/{1}/src/app/shared/model</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/frontModel</templateDir>
 				<templateName>frontmodel</templateName></myplugin.generator.options.GeneratorOptions></option>
 		<option>
       <string>DTODetailGenerator</string>
 				<myplugin.generator.options.GeneratorOptions>
-					<outputPath>backend/demo/src/main/java/com/example/demo/dto</outputPath><templateName>detailDto</templateName>
+					<outputPath>backend/{1}/src/main/java/com/example/{1}/dto</outputPath><templateName>detailDto</templateName>
 					<templateDir>templates/dto</templateDir>
 					<outputFileName>{0}DetailDTO.java</outputFileName>
 					<overwrite>true</overwrite>
@@ -103,7 +103,7 @@
 			<myplugin.generator.options.GeneratorOptions>
 				<filePackage></filePackage>
 				<outputFileName>{0}BaseService.java</outputFileName>
-				<outputPath>backend/demo/src/main/java/com/example/demo/service</outputPath>
+				<outputPath>backend/{1}/src/main/java/com/example/{1}/service</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/service</templateDir>
 				<templateName>service</templateName></myplugin.generator.options.GeneratorOptions></option>
@@ -112,10 +112,46 @@
 			<myplugin.generator.options.GeneratorOptions>
 				<filePackage></filePackage>
 				<outputFileName>{0}ServiceImpl.java</outputFileName>
-				<outputPath>backend/demo/src/main/java/com/example/demo/service</outputPath>
+				<outputPath>backend/{1}/src/main/java/com/example/{1}/service</outputPath>
 				<overwrite>false</overwrite>
 				<templateDir>templates/service</templateDir>
 				<templateName>serviceImpl</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>RepositoryGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>backend/{1}/src/main/java/com/example/{1}/repository</outputPath>
+				<templateName>repository</templateName>
+				<templateDir>templates/repository</templateDir>
+				<outputFileName>{0}Repository.java</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>ModelGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>backend/{1}/src/main/java/com/example/{1}/model</outputPath>
+				<templateName>model</templateName>
+				<templateDir>templates/model</templateDir>
+				<outputFileName>{0}.java</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>PomXmlGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage></filePackage>
+				<outputFileName>pom.xml</outputFileName>
+				<outputPath>backend\{1}</outputPath>
+				<templateDir>templates</templateDir>
+				<templateName>pom</templateName>
+				<overwrite>true</overwrite></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>ApplicationGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage></filePackage>
+				<outputFileName>{0}Application.java</outputFileName>
+				<outputPath>backend\{1}\src\main\java\com\example\{1}</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates</templateDir>
+				<templateName>application</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
 	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
 </myplugin.generator.options.ProjectOptions>

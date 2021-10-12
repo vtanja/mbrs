@@ -12,6 +12,7 @@ public class GeneratorFactory {
 		if(entry.getKey().equals("DTOGenerator")) {
 			return new DTOGenerator(entry.getValue(), typeMappings);
 		}
+		
 		else if(entry.getKey().equals("FrontDTOGenerator")) {
 			return new FrontDTOGenerator(entry.getValue(), typeMappings);
 		}
@@ -35,6 +36,23 @@ public class GeneratorFactory {
 		else if(entry.getKey().equals("ServiceImplGenerator")) {
 			return new ServiceImplGenerator(entry.getValue(), typeMappings);
 		}
+		
+		else if(entry.getKey().equals("RepositoryGenerator")) {
+			return new RepositoryGenerator(entry.getValue(), typeMappings);
+		}
+		
+		else if(entry.getKey().equals("ModelGenerator")) {
+			return new ModelGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("PomXmlGenerator")) {
+			return new PomXmlGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("ApplicationGenerator")) {
+			return new ApplicationGenerator(entry.getValue(), typeMappings);
+		}
+		
 		return null;
 		
 	}

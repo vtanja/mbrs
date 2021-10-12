@@ -12,7 +12,7 @@ public class FMModel {
 	
 	private List<FMClass> classes = new ArrayList<FMClass>();
 	private List<FMEnumeration> enumerations = new ArrayList<FMEnumeration>();
-	
+	private FMApplication application;
 	//....
 	/** @ToDo: Add lists of other elements, if needed */
 	private FMModel() {
@@ -41,6 +41,14 @@ public class FMModel {
 		this.enumerations = enumerations;
 	}
 
+	public FMApplication getApplication() {
+		return application;
+	}
 
+	public void setApplication(FMApplication application) {
+		this.application = application;
+	}
+
+	
 
 }

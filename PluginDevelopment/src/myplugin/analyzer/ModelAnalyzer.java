@@ -2,7 +2,9 @@ package myplugin.analyzer;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -12,16 +14,22 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 
+import myplugin.generator.fmmodel.CascadeType;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMEnumeration;
 import myplugin.generator.fmmodel.FMIdentityProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
+import myplugin.generator.fmmodel.FMManytoMany;
 import myplugin.generator.fmmodel.FMModel;
+import myplugin.generator.fmmodel.FMOneToMany;
+import myplugin.generator.fmmodel.FMManytoOne;
+import myplugin.generator.fmmodel.FMOnetoOne;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.fmmodel.FMType;
 import myplugin.generator.fmmodel.FetchType;
 import myplugin.generator.fmmodel.Strategy;
+import myplugin.generator.fmmodel.FMApplication;
 import myplugin.generator.options.ProjectOptions;
 import myplugin.generator.options.TypeMapping;
 
@@ -30,6 +38,7 @@ import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
 import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Element;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.EnumerationLiteral;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.NamedElement;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Package;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
@@ -81,16 +90,35 @@ public class ModelAnalyzer {
 		if (pack != root) {
 			packageName += "." + pack.getName();
 		}
-		
+	
 		if (pack.hasOwnedElement()) {
+			
+			FMApplication fmApp = null;
+			Stereotype appStereotype = StereotypesHelper.getAppliedStereotypeByString(pack, "BackendApplication");
+			if(appStereotype != null) {
+				fmApp = getAppData(pack, appStereotype);
+				
+				FMModel.getInstance().setApplication(fmApp);
+				
+				JOptionPane.showMessageDialog(null, "Name:" + fmApp.getName() + " Description: " + fmApp.getDescription());
+			}
+			else {
+				throw new AnalyzeException("Packaage must have stereotype \"BackendApplication\" applied");
+			}
 			
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
 				Element ownedElement = it.next();
 				if (ownedElement instanceof Class) {
 					Class cl = (Class)ownedElement;
+
 					FMClass fmClass = getClassData(cl, packageName);
+					
+					fmClass.setTableName(getTableName(cl));
+					
 					FMModel.getInstance().getClasses().add(fmClass);
 				}
+				
+				
 				
 				if (ownedElement instanceof Enumeration) {
 					Enumeration en = (Enumeration)ownedElement;
@@ -98,22 +126,65 @@ public class ModelAnalyzer {
 					FMModel.getInstance().getEnumerations().add(fmEnumeration);
 				}								
 			}
-//			
-//			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
-//				Element ownedElement = it.next();
-//				if (ownedElement instanceof Package) {					
-//					Package ownedPackage = (Package)ownedElement;
-//					if (StereotypesHelper.getAppliedStereotypeByString(ownedPackage, "BusinessApp") != null)
-//						//only packages with stereotype BusinessApp are candidates for metadata extraction and code generation:
-//						processPackage(ownedPackage, packageName);
-//				}
-//			}
-			
+
 			/** @ToDo:
 			  * Process other package elements, as needed */ 
 		}
 	}
 	
+	private String getTableName(Class cl) throws AnalyzeException {
+		if (cl.getName() == null) 
+			throw new AnalyzeException("Classes must have names!");
+		
+		String tableName = "";
+		Stereotype entityStereoType = StereotypesHelper.getAppliedStereotypeByString(cl, "Entity");
+		if (entityStereoType != null) {
+			List<Property> tags = entityStereoType.getOwnedAttribute();
+			
+			for(Property tag: tags) {
+				String name = tag.getName();
+				
+				List value = StereotypesHelper.getStereotypePropertyValue(cl,entityStereoType, name);
+
+				if(value.size() > 0) {
+					if(name.equals("tableName")) {
+						tableName = (String)value.get(0);
+					}
+				}
+			}
+		}
+		return tableName;
+	}
+
+	private FMApplication getAppData(Package pack, Stereotype appStereotype) {
+		FMApplication fmApp;
+		String name = "demo";
+		String description = "";
+
+		List<Property> tags = appStereotype.getOwnedAttribute();
+		
+		for(Property tag: tags) {
+			String tagName = tag.getName();
+			
+			List value = StereotypesHelper.getStereotypePropertyValue(pack, appStereotype, tagName);
+			
+			if(tagName.equals("appName")) {
+				if(value.size() > 0) {
+					name = (String)value.get(0);
+				}
+			}
+			else if(tagName.equals("appDescription")) {
+				if(value.size() > 0) {
+					description = (String)value.get(0);
+				}
+			}
+			
+		}
+						
+		fmApp = new FMApplication(name, description);
+		return fmApp;
+	}
+		
 	private FMClass getClassData(Class cl, String packageName) throws AnalyzeException {
 		if (cl.getName() == null) 
 			throw new AnalyzeException("Classes must have names!");
@@ -187,6 +258,27 @@ public class ModelAnalyzer {
 		if (linkedPropStereotype != null) {
 			fmProp = addLinkedPropData(linkedPropStereotype, prop, fmProp);
 		}
+		
+		
+		Stereotype oneToManyStereotype = StereotypesHelper.getAppliedStereotypeByString(prop, "OneToMany");
+		if (oneToManyStereotype != null) {
+			fmProp = addOneToManyPropData(oneToManyStereotype, prop, fmProp);
+		}
+		
+		Stereotype manyToOneStereotype = StereotypesHelper.getAppliedStereotypeByString(prop, "ManyToOne");
+		if (manyToOneStereotype != null) {
+			fmProp = addManyToOnePropData(manyToOneStereotype, prop, fmProp);
+		}
+		
+		Stereotype manyToManyStereotype = StereotypesHelper.getAppliedStereotypeByString(prop, "ManyToMany");
+		if (manyToManyStereotype != null) {
+			fmProp = addManyToManyPropData(manyToManyStereotype, prop, fmProp);
+		}
+		
+		Stereotype oneToOneStereotype = StereotypesHelper.getAppliedStereotypeByString(prop, "OneToOne");
+		if (oneToOneStereotype != null) {
+			fmProp = addOneToOnePropData(oneToOneStereotype, prop, fmProp);
+		}
 						
 		return fmProp;
 	}
@@ -201,9 +293,33 @@ public class ModelAnalyzer {
 		FMIdentityProperty identityProperty = new FMIdentityProperty(new FMPersistentProperty(fmProp));
 		
 		manageTags(identityPropStereotype, prop, identityProperty, "IdentityProperty");
-				
 		return identityProperty;
 	}
+	
+	private FMProperty addOneToManyPropData(Stereotype oneToManyPropStereotype, Property prop, FMProperty fmProp) {
+		FMOneToMany fmOneToManyProperty = new FMOneToMany(new FMLinkedProperty(fmProp));
+		manageTags(oneToManyPropStereotype, prop, fmOneToManyProperty, "OneToMany");
+		return fmOneToManyProperty;
+	}
+	
+	private FMProperty addManyToOnePropData(Stereotype manyToOneStereotype, Property prop, FMProperty fmProp) {
+		FMManytoOne fmManyToOneProperty = new FMManytoOne(new FMLinkedProperty(fmProp));
+		manageTags(manyToOneStereotype, prop, fmManyToOneProperty, "ManyToOne");
+		return fmManyToOneProperty;
+	}
+	
+	private FMProperty addManyToManyPropData(Stereotype manyToManyStereotype, Property prop, FMProperty fmProp) {
+		FMManytoMany fmManyToManyProperty = new FMManytoMany(new FMLinkedProperty(fmProp));
+		manageTags(manyToManyStereotype, prop, fmManyToManyProperty, "ManyToMany");
+		return fmManyToManyProperty;
+	}
+	
+	private FMProperty addOneToOnePropData(Stereotype oneToOneStereotype, Property prop, FMProperty fmProp) {
+		FMOnetoOne fmOneToOneProperty = new FMOnetoOne(new FMLinkedProperty(fmProp));
+		manageTags(oneToOneStereotype, prop, fmOneToOneProperty, "OneToOne");
+		return fmOneToOneProperty;
+	}
+	
 
 	private void manageTags(Stereotype stereotype, Property prop, FMProperty fmProp, String propType) {
 		List<Property> tags = stereotype.getOwnedAttribute();
@@ -217,6 +333,13 @@ public class ModelAnalyzer {
 				setTag(name, value, fmProp, propType);
 			}
 		}
+		
+		Collection<NamedElement> inheritedTags = stereotype.getInheritedMember();
+		for (NamedElement inheritedTag : inheritedTags) {
+			String name = inheritedTag.getName();
+			List value = StereotypesHelper.getStereotypePropertyValue(prop, stereotype, name);
+			setTag(name, value, fmProp, propType);
+		}
 	}
 
 	private FMProperty addPersistentPropData(Stereotype persistentPropStereotype, Property prop, FMProperty fmProp) {
@@ -228,7 +351,7 @@ public class ModelAnalyzer {
 	}
 
 	private void setTag(String name, List value, FMProperty property, String propType) {
-		if(propType == "PersistentProperty") {
+		if(propType == "PersistentProperty" || propType == "IdentityProperty") {
 			switch(name) {
 				case "columnName":{
 					String columnName = (String) value.get(0);
@@ -259,13 +382,58 @@ public class ModelAnalyzer {
 				default: break;
 			}
 		}
-		 if(propType == "LinkedProperty") {
+		 
+		 List<String> relations = Arrays.asList("OneToMany", "ManyToMany", "OneToOne", "ManyToOne");
+		 
+		 if(propType == "LinkedProperty" || relations.contains(propType)) {
 			 switch(name) {
 				 case "fetchType":{
 					 EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
 					 FetchType fetchType = FetchType.valueOf(enumLit.getName().toUpperCase());
 					 ((FMLinkedProperty)property).setFetchType(fetchType);
 				 }
+			 }
+		 }
+		 if(propType == "OneToMany") {
+			 switch(name) {
+				 case "cascade":{
+					 EnumerationLiteral enumLit = (EnumerationLiteral)value.get(0);
+					 CascadeType cascadeType = CascadeType.valueOf(enumLit.getName().toUpperCase());
+					 ((FMOneToMany)property).setCascade(cascadeType);
+				 }
+				 break;
+				 case "mappedBy":{
+						String mappedBy = (String) value.get(0);
+						((FMOneToMany)property).setMappedBy(mappedBy);
+				 }
+				 break;
+				 default: break;
+			 }
+		 }
+		 if(propType == "ManyToOne" || propType == "OneToOne") {
+			 switch(name) {
+			 	case "columnName":{
+			 		   if(value.size() > 0) {
+			 			 String columnName = (String) value.get(0);
+			 			 ((FMManytoOne)property).setColumnName(columnName);
+			 		   }
+				}
+			 	break;
+			 	default: break;
+			 }
+		 }
+		 if(propType == "ManyToMany") {
+			 switch(name) {
+			 	case "mappedBy":{
+			 		String mappedBy = (String) value.get(0);
+			 		((FMManytoMany)property).setMappedBy(mappedBy);
+				}
+			 	case "joinTable":{
+		 			String joinTable = (String) value.get(0);
+		 			((FMManytoMany)property).setJoinTable(joinTable);
+			 	}
+			 	break;
+			 	default: break;
 			 }
 		 }
 	}
@@ -281,7 +449,6 @@ public class ModelAnalyzer {
 			fmEnum.addValue(literal.getName());
 		}
 		return fmEnum;
-	}	
-	
+	}
 	
 }

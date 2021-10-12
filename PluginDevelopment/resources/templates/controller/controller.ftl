@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.${appName}.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import com.example.demo.dto.${ name }DTO;
-import com.example.demo.dto.${ name }DetailDTO;
-import com.example.demo.service.${ name }ServiceImpl;
+import com.example.${appName}.dto.${ name }DTO;
+import com.example.${appName}.dto.${ name }DetailDTO;
+import com.example.${appName}.service.${ name }Service;
 
 
 @CrossOrigin
@@ -21,7 +21,7 @@ public class ${ name }Controller {
     @GetMapping(path="/{pageNo}/{pageSize}")
     public ResponseEntity<List<${ name }DTO>> getAll(@PathVariable int pageNo, @PathVariable int pageSize) {
 
-        return ${ name?lower_case }Service.getAll(pageNo, pageSize);
+        return ${ name?lower_case }Service.get${name}Page(pageNo, pageSize);
     }
 
     @GetMapping(path="/{id}")

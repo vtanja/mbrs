@@ -46,16 +46,23 @@ public class DTOGenerator extends BasicGenerator {
 					context.put("properties", cl.getProperties());
 					context.put("importedPackages", cl.getImportedPackages());
 										
+					context.put("appName", FMModel.getInstance().getApplication().getName());
+					
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
 						FMProperty copy = new FMProperty(prop);
 						
-						if (prop instanceof FMPersistentProperty) {
+						if (prop instanceof FMIdentityProperty) {
+							FMIdentityProperty idCopy = new FMIdentityProperty((FMPersistentProperty)prop);
+							idCopy.setStrategy(((FMIdentityProperty) prop).getStrategy());
+							idCopy.setType(getCorrectType(prop.getType(), "backend"));
+							context.put("identityProp", idCopy);
+						}
+						else if (prop instanceof FMPersistentProperty) {
 							copy.setType(getCorrectType(prop.getType(), "backend")); 
 							persistentProps.add(copy);
 						}
-						
 					}
 					context.put("persistentProps", persistentProps);
 					

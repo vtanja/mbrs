@@ -53,9 +53,6 @@ class GenerateAction extends MDAction{
 			Map<String, GeneratorOptions> options = ProjectOptions.getProjectOptions().getGeneratorOptions();
 			List<TypeMapping> typeMappings = ProjectOptions.getProjectOptions().getTypeMappings();
 			
-			InitialProjectGenerator projGenerator = new InitialProjectGenerator();
-			projGenerator.generate();
-			
 			for (Map.Entry<String,GeneratorOptions> entry : options.entrySet()) {
 				BasicGenerator generator = GeneratorFactory.GetGenerator(entry, typeMappings);
 				if(generator != null) {
@@ -67,6 +64,9 @@ class GenerateAction extends MDAction{
 								
 			}
 			
+			InitialProjectGenerator projGenerator = new InitialProjectGenerator();
+			projGenerator.generate();
+						
 			JOptionPane.showMessageDialog(null, "Code is successfully generated!");
 			
 			

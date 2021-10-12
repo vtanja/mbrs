@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>${appName}</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>${appName}</name>
+    <description>${appDesc}</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -42,6 +42,11 @@
             <artifactId>spring-web</artifactId>
             <version>5.3.2</version>
         </dependency>
+        <dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.0</version>
+		</dependency>
     </dependencies>
 
     <build>
