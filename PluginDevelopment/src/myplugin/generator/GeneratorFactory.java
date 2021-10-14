@@ -49,6 +49,15 @@ public class GeneratorFactory {
 			return new ApplicationGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("DetailComponentGenerator")) {
+			return new DetailComponentGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("DetailComponentHTMLGenerator")) {
+			return new DetailComponentHTMLGenerator(entry.getValue(), typeMappings);
+		}
+		
+		
 		return null;
 		
 	}

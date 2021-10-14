@@ -143,6 +143,24 @@
 				<overwrite>true</overwrite>
 				<templateDir>templates</templateDir>
 				<templateName>application</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>DetailComponentGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-detail</filePackage>
+				<outputFileName>{0}-detail.component.ts</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/detail</templateDir>
+				<templateName>details-ts</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>DetailComponentHTMLGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-detail</filePackage>
+				<outputFileName>{0}-detail.component.html</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/detail</templateDir>
+				<templateName>details-html</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
-	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
-	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
+	<generatedPath>C:\temp</generatedPath>
+	<sourcesPath>C:\Users\tanja\OneDrive\Documents\GitHub\mbrs\PluginDevelopment\resources\initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
