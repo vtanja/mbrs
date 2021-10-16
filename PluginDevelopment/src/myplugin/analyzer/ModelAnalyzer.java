@@ -23,13 +23,13 @@ import myplugin.generator.fmmodel.FMManytoMany;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMOneToMany;
 import myplugin.generator.fmmodel.FMManytoOne;
-import myplugin.generator.fmmodel.FMManytoMany;
 import myplugin.generator.fmmodel.FMOnetoOne;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.fmmodel.FMType;
 import myplugin.generator.fmmodel.FetchType;
 import myplugin.generator.fmmodel.Strategy;
+import myplugin.generator.fmmodel.FMApplication;
 import myplugin.generator.options.ProjectOptions;
 import myplugin.generator.options.TypeMapping;
 
@@ -93,15 +93,32 @@ public class ModelAnalyzer {
 	
 		if (pack.hasOwnedElement()) {
 			
+			FMApplication fmApp = null;
+			Stereotype appStereotype = StereotypesHelper.getAppliedStereotypeByString(pack, "BackendApplication");
+			if(appStereotype != null) {
+				fmApp = getAppData(pack, appStereotype);
+				
+				FMModel.getInstance().setApplication(fmApp);
+				
+				JOptionPane.showMessageDialog(null, "Name:" + fmApp.getName() + " Description: " + fmApp.getDescription());
+			}
+			else {
+				throw new AnalyzeException("Packaage must have stereotype \"BackendApplication\" applied");
+			}
+			
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
 				Element ownedElement = it.next();
 				if (ownedElement instanceof Class) {
 					Class cl = (Class)ownedElement;
-					String tableName = getTableName(cl);
+
+					FMClass fmClass = getClassData(cl, packageName);
 					
-					FMClass fmClass = getClassData(cl, packageName, tableName);
+					fmClass.setTableName(getTableName(cl));
+					
 					FMModel.getInstance().getClasses().add(fmClass);
 				}
+				
+				
 				
 				if (ownedElement instanceof Enumeration) {
 					Enumeration en = (Enumeration)ownedElement;
@@ -109,17 +126,7 @@ public class ModelAnalyzer {
 					FMModel.getInstance().getEnumerations().add(fmEnumeration);
 				}								
 			}
-//			
-//			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
-//				Element ownedElement = it.next();
-//				if (ownedElement instanceof Package) {					
-//					Package ownedPackage = (Package)ownedElement;
-//					if (StereotypesHelper.getAppliedStereotypeByString(ownedPackage, "BusinessApp") != null)
-//						//only packages with stereotype BusinessApp are candidates for metadata extraction and code generation:
-//						processPackage(ownedPackage, packageName);
-//				}
-//			}
-			
+
 			/** @ToDo:
 			  * Process other package elements, as needed */ 
 		}
@@ -146,15 +153,43 @@ public class ModelAnalyzer {
 				}
 			}
 		}
-		
 		return tableName;
 	}
-	
-	private FMClass getClassData(Class cl, String packageName, String tableName) throws AnalyzeException {
+
+	private FMApplication getAppData(Package pack, Stereotype appStereotype) {
+		FMApplication fmApp;
+		String name = "demo";
+		String description = "";
+
+		List<Property> tags = appStereotype.getOwnedAttribute();
+		
+		for(Property tag: tags) {
+			String tagName = tag.getName();
+			
+			List value = StereotypesHelper.getStereotypePropertyValue(pack, appStereotype, tagName);
+			
+			if(tagName.equals("appName")) {
+				if(value.size() > 0) {
+					name = (String)value.get(0);
+				}
+			}
+			else if(tagName.equals("appDescription")) {
+				if(value.size() > 0) {
+					description = (String)value.get(0);
+				}
+			}
+			
+		}
+						
+		fmApp = new FMApplication(name, description);
+		return fmApp;
+	}
+		
+	private FMClass getClassData(Class cl, String packageName) throws AnalyzeException {
 		if (cl.getName() == null) 
 			throw new AnalyzeException("Classes must have names!");
 		
-		FMClass fmClass = new FMClass(cl.getName(), packageName, cl.getVisibility().toString(), tableName);
+		FMClass fmClass = new FMClass(cl.getName(), packageName, cl.getVisibility().toString());
 		Iterator<Property> it = ModelHelper.attributes(cl);
 		while (it.hasNext()) {
 			Property p = it.next();

@@ -51,6 +51,8 @@ public class ModelGenerator extends BasicGenerator {
 					context.put("importedPackages", cl.getImportedPackages());
 					context.put("tableName", cl.getTableName());
 										
+					context.put("appName", FMModel.getInstance().getApplication().getName());
+					
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
 					List<FMProperty> oneToManyProps = new ArrayList<FMProperty>();

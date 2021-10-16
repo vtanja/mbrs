@@ -1,4 +1,7 @@
-package com.example.demo.model;
+// [ ${.now?date} ${.now?time} ]
+// This file is generated based on ${.current_template_name}
+
+package com.example.${appName}.model;
 
 import java.util.Set;
 
@@ -83,4 +86,9 @@ public class ${name}{
 </#if>
 	${prop.visibility} ${prop.type.name} ${prop.name};
 </#list>
+<#if identityProp??>
+	public ${identityProp.type.name} getId(){
+		return ${identityProp.name};
+	}
+</#if>
 }

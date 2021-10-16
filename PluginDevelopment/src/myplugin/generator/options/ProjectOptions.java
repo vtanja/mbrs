@@ -27,6 +27,7 @@ public class ProjectOptions implements Serializable{
 	
 	//path to generated folders
 	private String generatedPath = "";
+	private String sourcesPath = "";
 	
 	public String getGeneratedPath() {
 		return generatedPath;
@@ -54,6 +55,15 @@ public class ProjectOptions implements Serializable{
 		this.generatorOptions = generatorOptions;
 	}
 	
+	
+	public String getSourcesPath() {
+		return sourcesPath;
+	}
+
+	public void setSourcesPath(String sourcesPath) {
+		this.sourcesPath = sourcesPath;
+	}
+
 	private ProjectOptions() {		
 		
 	}

@@ -1,8 +1,11 @@
-package com.example.demo.repository;
+// [ ${.now?date} ${.now?time} ]
+// This file is generated based on ${.current_template_name}
+
+package com.example.${appName}.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.example.demo.model.${class.name};
+import com.example.${appName}.model.${class.name};
 import java.util.List;
 
 @Repository

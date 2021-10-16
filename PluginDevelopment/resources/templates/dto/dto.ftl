@@ -1,5 +1,7 @@
-package com.example.demo.dto;
+// [ ${.now?date} ${.now?time} ]
+// This file is generated based on ${.current_template_name}
 
+package com.example.${appName}.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ${name}DTO{
+<#if identityProp??>
+	${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
+<#else>
+	private Long id;
+</#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
 	${prop.visibility} ${prop.type.name} ${prop.name};
@@ -19,4 +26,9 @@ public class ${name}DTO{
 	${prop.visibility} Set<${prop.type.name}> ${prop.name};
 	</#if>
 </#list>
+<#if identityProp??>
+	public ${identityProp.type.name} getId(){
+		return ${identityProp.name};
+	}
+</#if>
 }

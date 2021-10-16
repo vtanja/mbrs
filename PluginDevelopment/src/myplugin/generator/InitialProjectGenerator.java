@@ -1,37 +1,32 @@
 package myplugin.generator;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
+import myplugin.generator.fmmodel.FMModel;
+import myplugin.generator.options.ProjectOptions;
 
 
 public class InitialProjectGenerator {
 	public void generate() throws IOException{
 		
-		String sourceLocation = "D:\\mbrs\\PluginDevelopment\\resources\\initialProjects\\backend";
-		File srcDir = new File(sourceLocation);
-
-		String destinationLocation = "D:\\temp\\backend";
-		File destDir = new File(destinationLocation);
+		String appName = FMModel.getInstance().getApplication().getName();
 		
-		copyDirectory(srcDir, destDir);
+		String generatePath = ProjectOptions.getProjectOptions().getGeneratedPath();
 		
-		sourceLocation = "D:\\mbrs\\PluginDevelopment\\resources\\initialProjects\\frontend";
-		srcDir = new File(sourceLocation);
-
-		destinationLocation = "D:\\temp\\frontend";
-		destDir = new File(destinationLocation);
+		String sourcePath = ProjectOptions.getProjectOptions().getSourcesPath();
 		
-		copyDirectory(srcDir, destDir);
+		generateFrontend(appName, generatePath, sourcePath);
 		
+		generateResources(appName, generatePath, sourcePath);
+		
+		generateFilesInSrc(appName, generatePath, sourcePath);
+		
+				
 		JOptionPane.showMessageDialog(null, "Initial project generated");
 	}
 
@@ -52,6 +47,34 @@ public class InitialProjectGenerator {
 	    }
 	}
 	
+	private void generateFrontend(String appName, String generatePath, String sourcePath) throws IOException {
+		String sourceLocation = sourcePath + File.separator + "frontend\\demo";
+		File srcDir = new File(sourceLocation);
+
+		String destinationLocation = generatePath + File.separator + "frontend\\"+appName;
+		File destDir = new File(destinationLocation);
+		
+		copyDirectory(srcDir, destDir);
+	}
 	
+	private void generateFilesInSrc(String appName, String generatePath, String sourcePath) throws IOException {
+		String sourceLocation = sourcePath + File.separator + "backend\\app";
+		File srcDir = new File(sourceLocation);
+
+		String destinationLocation = generatePath + File.separator + "backend\\"+appName;
+		File destDir = new File(destinationLocation);
+		
+		copyDirectory(srcDir, destDir);
+	}
+	
+	private void generateResources(String appName, String generatePath, String sourcePath) throws IOException{
+		String sourceLocation = sourcePath + File.separator + "backend\\resources";
+		File srcDir = new File(sourceLocation);
+
+		String destinationLocation = generatePath + File.separator + "backend\\"+appName+"\\src\\main\\resources";
+		File destDir = new File(destinationLocation);
+		
+		copyDirectory(srcDir, destDir);
+	}
 
 }
