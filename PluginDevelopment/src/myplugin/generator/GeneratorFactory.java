@@ -41,12 +41,18 @@ public class GeneratorFactory {
 			return new ModelGenerator(entry.getValue(), typeMappings);
 		}
 		
+
+		if(entry.getKey().equals("FrontServiceGenerator")) {
+			return new FrontServiceGenerator(entry.getValue(), typeMappings);
+    }
+
 		if(entry.getKey().equals("PomXmlGenerator")) {
 			return new PomXmlGenerator(entry.getValue(), typeMappings);
 		}
 		
 		if(entry.getKey().equals("ApplicationGenerator")) {
 			return new ApplicationGenerator(entry.getValue(), typeMappings);
+
 		}
 		
 		return null;
