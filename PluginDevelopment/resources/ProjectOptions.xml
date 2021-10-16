@@ -161,6 +161,24 @@
 				<overwrite>true</overwrite>
 				<templateDir>templates/detail</templateDir>
 				<templateName>details-html</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>FormComponentTsGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-form</filePackage>
+				<outputFileName>{0}-form.component.ts</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/form-component</templateDir>
+				<templateName>form-ts</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>FormComponentHtmlGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-form</filePackage>
+				<outputFileName>{0}-form.component.html</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/form-component</templateDir>
+				<templateName>form-html</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
-	<generatedPath>C:\temp</generatedPath>
-	<sourcesPath>C:\Users\tanja\OneDrive\Documents\GitHub\mbrs\PluginDevelopment\resources\initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
+	<generatedPath>D:/faks/Master/MBRS/generated</generatedPath>
+	<sourcesPath>D:/faks/Master/MBRS/generated/mbrs/PluginDevelopment/resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
