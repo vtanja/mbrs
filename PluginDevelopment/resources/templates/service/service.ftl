@@ -1,4 +1,7 @@
-package com.example.demo.service;
+// [ ${.now?date} ${.now?time} ]
+// This file is generated based on ${.current_template_name}
+
+package com.example.${appName}.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -12,17 +15,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import com.example.demo.dto.${name}DetailDTOImpl;
-import com.example.demo.dto.${name}DTOImpl;
-import com.example.demo.model.${name};
-import com.example.demo.repository.${name}RepositoryImpl;
+import com.example.${appName}.dto.${name}DetailDTOImpl;
+import com.example.${appName}.dto.${name}DTOImpl;
+import com.example.${appName}.model.${name};
+import com.example.${appName}.repository.${name}RepositoryImpl;
 
 <#list importedPackages as import>
 <#if import.typePackage == "">
-import com.example.demo.model.${import.name};
-import com.example.demo.dto.${import.name}DTOImpl;
-import com.example.demo.dto.${import.name}DetailDTOImpl;
-import com.example.demo.service.${import.name}ServiceImpl;
+import com.example.${appName}.model.${import.name};
+import com.example.${appName}.dto.${import.name}DTOImpl;
+import com.example.${appName}.dto.${import.name}DetailDTOImpl;
+import com.example.${appName}.service.${import.name}ServiceImpl;
 </#if>
 </#list>
 
