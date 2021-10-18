@@ -57,6 +57,14 @@ public class GeneratorFactory {
 			return new DetailComponentHTMLGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("FormComponentTsGenerator")) {
+			return new FormComponentTsGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("FormComponentHtmlGenerator")) {
+			return new FormComponentHtmlGenerator(entry.getValue(), typeMappings);
+		}
+		
 		
 		return null;
 		
