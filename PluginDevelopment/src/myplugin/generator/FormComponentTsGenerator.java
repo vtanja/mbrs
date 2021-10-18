@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import freemarker.template.TemplateException;
+import myplugin.generator.fmmodel.FMAssociationEnd;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMComponent;
 import myplugin.generator.fmmodel.FMField;
@@ -47,7 +48,34 @@ public class FormComponentTsGenerator extends BasicGenerator{
 						context.put("component", component);
 						context.put("entity_name", component.getName());
 
-						context.put("fields", component.getFields());
+						List<FMField> associations = new ArrayList<FMField>();
+						List<FMField> baseFields = new ArrayList<FMField>();
+												
+						for(FMField field : component.getFields()) {
+							if(field instanceof FMAssociationEnd) {
+								associations.add(field);
+							}
+							else {
+								baseFields.add(field);
+							}
+						}
+						
+						Map<String, String> ids = new HashMap<String, String>();
+						
+						for(FMField ass : associations) {
+							if(FMModel.getInstance().getIdNames().get(ass.getFmType().getName()) != null) {
+								ids.put(ass.getFmType().getName(), FMModel.getInstance().getIdNames().get(ass.getFmType().getName()));
+							}
+							else {
+								ids.put(ass.getFmType().getName(), "id");
+							}
+							JOptionPane.showMessageDialog(null,ass.getFmType().getName() + "---"+  ids.get(ass.getFmType().getName()));
+						}
+						
+						context.put("assId", ids);
+						context.put("baseFields", baseFields);
+						context.put("associations", associations);
+						
 						getTemplate().process(context, out);
 						out.flush();
 					}					
