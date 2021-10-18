@@ -168,7 +168,7 @@
 				<outputFileName>{0}-form.component.ts</outputFileName>
 				<outputPath>frontend/{1}/src/app/components</outputPath>
 				<overwrite>true</overwrite>
-				<templateDir>templates/form-component</templateDir>
+				<templateDir>templates/form</templateDir>
 				<templateName>form-ts</templateName></myplugin.generator.options.GeneratorOptions></option>
 		<option>
 			<string>FormComponentHtmlGenerator</string>
@@ -177,7 +177,7 @@
 				<outputFileName>{0}-form.component.html</outputFileName>
 				<outputPath>frontend/{1}/src/app/components</outputPath>
 				<overwrite>true</overwrite>
-				<templateDir>templates/form-component</templateDir>
+				<templateDir>templates/form</templateDir>
 				<templateName>form-html</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
 	<generatedPath>D:/faks/Master/MBRS/generated</generatedPath>
