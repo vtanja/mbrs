@@ -130,7 +130,7 @@
 			<string>ServiceGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
 				<filePackage></filePackage>
-				<outputFileName>{0}BaseService.java</outputFileName>
+				<outputFileName>{0}Service.java</outputFileName>
 				<outputPath>backend/{1}/src/main/java/com/example/{1}/service</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/service</templateDir>
