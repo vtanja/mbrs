@@ -35,7 +35,7 @@ public class FormComponentHtmlGenerator extends BasicGenerator{
 		List<FMComponent> components = FMModel.getInstance().getComponents();
 		for (int i = 0; i < components.size(); i++) {
 			FMComponent component = components.get(i);
-			if(component.isUpdate() || component.isCreate()) {if(component.isDetail()) {
+			if(component.isUpdate() || component.isCreate()) {
 				Writer out;
 				Map<String, Object> context = new HashMap<String, Object>();
 				try {
@@ -66,7 +66,6 @@ public class FormComponentHtmlGenerator extends BasicGenerator{
 							else {
 								ids.put(ass.getFmType().getName(), "id");
 							}
-							JOptionPane.showMessageDialog(null,ass.getFmType().getName() + "---"+  ids.get(ass.getFmType().getName()));
 						}
 						
 						context.put("id", FMModel.getInstance().getIdNames().get(component.getName())!=null?FMModel.getInstance().getIdNames().get(component.getName()):"");
@@ -85,5 +84,4 @@ public class FormComponentHtmlGenerator extends BasicGenerator{
 			}
 		}
 	}
-
 }
