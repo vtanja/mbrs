@@ -39,11 +39,13 @@ public class ServiceImplGenerator extends BasicGenerator {
 			Writer out;
 			Map<String, Object> context = new HashMap<String, Object>();
 			try {
-				out = getWriter(cl.getName().toLowerCase(), cl.getTypePackage());
+				out = getWriter(cl.getName(), cl.getTypePackage());
 				if (out != null) {
 					context.clear();
 					context.put("class", cl);
 					context.put("name", cl.getName());
+					
+					context.put("appName", FMModel.getInstance().getApplication().getName());
 					
 					getTemplate().process(context, out);
 					out.flush();
