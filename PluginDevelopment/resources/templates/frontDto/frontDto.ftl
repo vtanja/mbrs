@@ -3,7 +3,7 @@
 
 <#list importedPackages as import>
 <#if import.typePackage == "">
-import { I${import.name} } from 'src/app/shared/model/${import.name?lower_case}.model;
+import { I${import.name} } from 'src/app/shared/model/${import.name?lower_case}.model';
 </#if>
 </#list>
 
@@ -14,6 +14,8 @@ export interface I${name}{
 	<#else>
 	${identityProp.name}: Array<${identityProp.type.name}> ;
 	</#if>
+<#else>
+	id: number;
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
