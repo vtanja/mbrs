@@ -129,10 +129,10 @@
 		<option>
 			<string>FrontServiceGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
-				<outputPath>frontend/demo/src/app/shared/services</outputPath>
+				<outputPath>frontend/{1}/src/app/shared/services</outputPath>
 				<templateName>frontService</templateName>
 				<templateDir>templates/frontService</templateDir>
-				<outputFileName>{0}Service.ts</outputFileName>
+				<outputFileName>{0}.service.ts</outputFileName>
 				<overwrite>true</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
 		</option>
@@ -153,8 +153,25 @@
 				<outputPath>backend\{1}\src\main\java\com\example\{1}</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates</templateDir>
-				<templateName>application</templateName></myplugin.generator.options.GeneratorOptions>
-    </option>
+				<templateName>application</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>DetailComponentGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-detail</filePackage>
+				<outputFileName>{0}-detail.component.ts</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/detail</templateDir>
+				<templateName>details-ts</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>DetailComponentHTMLGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-detail</filePackage>
+				<outputFileName>{0}-detail.component.html</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/detail</templateDir>
+				<templateName>details-html</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
 	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
 	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>

@@ -41,10 +41,9 @@ public class GeneratorFactory {
 			return new ModelGenerator(entry.getValue(), typeMappings);
 		}
 		
-
 		if(entry.getKey().equals("FrontServiceGenerator")) {
 			return new FrontServiceGenerator(entry.getValue(), typeMappings);
-    }
+		}
 
 		if(entry.getKey().equals("PomXmlGenerator")) {
 			return new PomXmlGenerator(entry.getValue(), typeMappings);
@@ -54,6 +53,15 @@ public class GeneratorFactory {
 			return new ApplicationGenerator(entry.getValue(), typeMappings);
 
 		}
+		
+		if(entry.getKey().equals("DetailComponentGenerator")) {
+			return new DetailComponentGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("DetailComponentHTMLGenerator")) {
+			return new DetailComponentHTMLGenerator(entry.getValue(), typeMappings);
+		}
+		
 		
 		return null;
 		
