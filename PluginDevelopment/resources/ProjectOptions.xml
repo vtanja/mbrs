@@ -129,10 +129,10 @@
 		<option>
 			<string>FrontServiceGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
-				<outputPath>frontend/demo/src/app/shared/services</outputPath>
+				<outputPath>frontend/{1}/src/app/shared/services</outputPath>
 				<templateName>frontService</templateName>
 				<templateDir>templates/frontService</templateDir>
-				<outputFileName>{0}Service.ts</outputFileName>
+				<outputFileName>{0}.service.ts</outputFileName>
 				<overwrite>true</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
 		</option>
