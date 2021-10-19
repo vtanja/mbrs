@@ -1,11 +1,16 @@
 package myplugin.generator.fmmodel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FMComponent extends FMElement {
 	private boolean delete;
 	private boolean update;
 	private boolean create;
 	private boolean detail;
 
+	private List<FMField> fields = new ArrayList<FMField>();
+	
 	public boolean isDelete() {
 		return delete;
 	}
@@ -29,6 +34,14 @@ public class FMComponent extends FMElement {
 	}
 	public void setDetail(boolean detail) {
 		this.detail = detail;
+	}
+	
+	public List<FMField> getFields() {
+		return fields;
+	}
+	
+	public void addField(FMField field) {
+		this.fields.add(field);
 	}
 	
 	public FMComponent(String name) {

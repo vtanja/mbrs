@@ -124,7 +124,18 @@
 				<templateDir>templates/model</templateDir>
 				<outputFileName>{0}.java</outputFileName>
 				<overwrite>true</overwrite>
-				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
+		<option>
+			<string>FrontServiceGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>frontend/{1}/src/app/shared/services</outputPath>
+				<templateName>frontService</templateName>
+				<templateDir>templates/frontService</templateDir>
+				<outputFileName>{0}.service.ts</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
 		<option>
 			<string>PomXmlGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
@@ -173,5 +184,5 @@
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
 		</option>
 </generatorOptions>
-	<generatedPath>C:\temp</generatedPath>
-	<sourcesPath>C:\Users\tanja\OneDrive\Documents\GitHub\mbrs\PluginDevelopment\resources\initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
+	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
+	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
