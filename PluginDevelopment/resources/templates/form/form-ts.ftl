@@ -5,16 +5,16 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ${entity_name}Service } from '../${entity_name?uncap_first}.service';
-import { I${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
+import { ${entity_name}Service } from 'src/app/shared/services/${entity_name}Service';
+import { ${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
 <#list associations as field>
-import { I${field.fmType.name} } from 'src/app/shared/model/${field.fmType.name?uncap_first}.model';
+import { ${field.fmType.name} } from 'src/app/shared/model/${field.fmType.name?uncap_first}.model';
 </#list>
 
 <#if associations?has_content> 
 interface ISelectLists {
 <#list associations as field>
-	${field.label?uncap_first}List: I${field.fmType.name}[],
+	${field.label?uncap_first}List: ${field.fmType.name}[],
 </#list>
 }
 </#if>
@@ -27,7 +27,7 @@ interface ISelectLists {
 export class ${entity_name}FormComponent {
 	update: boolean = false;
 	id: number = 0;
-	entity: I${entity_name} | undefined;
+	entity: ${entity_name} | undefined;
 	
 	form: FormGroup = new FormGroup({});
 
@@ -88,7 +88,7 @@ export class ${entity_name}FormComponent {
 						${field.name?uncap_first}Val = this.selectLists.${field.label?uncap_first}List.find(el => el.${assId[field.fmType.name]} == this.entity?.${field.name}.${assId[field.fmType.name]})
 					}
 					<#else>
-					let ${field.name?uncap_first}Val: (I${field.fmType.name} | undefined)[] = []
+					let ${field.name?uncap_first}Val: (${field.fmType.name} | undefined)[] = []
 					this.entity?.${field.name}.forEach(element => {
 						let el = this.selectLists.${field.label?uncap_first}List.find(e => e.${assId[field.fmType.name]} == element.${assId[field.fmType.name]})
 						${field.name?uncap_first}Val.push(el)
@@ -127,14 +127,14 @@ export class ${entity_name}FormComponent {
 		let ${field.name?uncap_first}Value = this.form.get('${field.name?uncap_first}')?.value;
 		</#list>
 
-		let dto = {
-			<#list baseFields as field>
-			${field.name}: ${field.name?uncap_first}Value,
-			</#list>
-			<#list associations as field>
-			${field.name}: ${field.name?uncap_first}Value,
-			</#list>
-		}
+		let dto : ${entity_name} = new ${entity_name}();
+		<#list baseFields as field>
+		dto.${field.name} = ${field.name?uncap_first}Value;
+		</#list>
+		<#list associations as field>
+		dto.${field.name} = ${field.name?uncap_first}Value;
+		</#list>
+			
 		console.log(dto)
 		
 		if(this.update) {
@@ -147,7 +147,7 @@ export class ${entity_name}FormComponent {
 			});
 		}
 		else {
-			this.service.create${entity_name}(dto).subscribe(
+			this.service.addNew${entity_name}(dto).subscribe(
 			(res: any) => {
 				this.form.reset();
 			},
