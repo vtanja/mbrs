@@ -13,12 +13,20 @@ public class GeneratorFactory {
 			return new DTOGenerator(entry.getValue(), typeMappings);
 		}
 		
+		else if(entry.getKey().equals("DTOImplGenerator")) {
+			return new DTOImplGenerator(entry.getValue(), typeMappings);
+		}
+		
 		else if(entry.getKey().equals("FrontDTOGenerator")) {
 			return new FrontDTOGenerator(entry.getValue(), typeMappings);
 		}
 		
 		else if(entry.getKey().equals("ControllerGenerator")) {
 			return new ControllerGenerator(entry.getValue(), typeMappings);
+		}
+		
+		else if(entry.getKey().equals("ControllerImplGenerator")) {
+			return new ControllerImplGenerator(entry.getValue(), typeMappings);
 		}
 		
 		else if(entry.getKey().equals("FrontModelGenerator")) {
@@ -29,12 +37,24 @@ public class GeneratorFactory {
 			return new DTODetailGenerator(entry.getValue(), typeMappings);
 		}
 		
+		else if(entry.getKey().equals("DTODetailImplGenerator")) {
+			return new DTODetailImplGenerator(entry.getValue(), typeMappings);
+		}
+		
 		else if(entry.getKey().equals("ServiceGenerator")) {
 			return new ServiceGenerator(entry.getValue(), typeMappings);
 		}
 		
+		else if(entry.getKey().equals("ServiceImplGenerator")) {
+			return new ServiceImplGenerator(entry.getValue(), typeMappings);
+		}
+		
 		else if(entry.getKey().equals("RepositoryGenerator")) {
 			return new RepositoryGenerator(entry.getValue(), typeMappings);
+		}
+		
+		else if(entry.getKey().equals("RepositoryImplGenerator")) {
+			return new RepositoryImplGenerator(entry.getValue(), typeMappings);
 		}
 		
 		else if(entry.getKey().equals("ModelGenerator")) {
