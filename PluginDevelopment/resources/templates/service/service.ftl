@@ -16,35 +16,35 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import com.example.${appName}.dto.${name}DetailDTO;
-import com.example.${appName}.dto.${name}DTO;
+import com.example.${appName}.dto.${name}DetailDTOImpl;
+import com.example.${appName}.dto.${name}DTOImpl;
 import com.example.${appName}.model.${name};
-import com.example.${appName}.repository.${name}Repository;
+import com.example.${appName}.repository.${name}RepositoryImpl;
 
 <#list importedPackages as import>
 <#if import.typePackage == "">
 import com.example.${appName}.model.${import.name};
-import com.example.${appName}.dto.${import.name}DTO;
-import com.example.${appName}.dto.${import.name}DetailDTO;
-import com.example.${appName}.service.${import.name}Service;
+import com.example.${appName}.dto.${import.name}DTOImpl;
+import com.example.${appName}.dto.${import.name}DetailDTOImpl;
+import com.example.${appName}.service.${import.name}ServiceImpl;
 </#if>
 </#list>
 
 @Service
-public class  ${name}Service {
+public class ${name}Service {
     @Autowired
-    private  ${name}Repository  ${repository};
+    private  ${name}RepositoryImpl  ${repository};
     
     <#list importedPackages as import>
 	<#if import.typePackage == "">
 	@Autowired
-    private ${import.name}Service ${import.name?uncap_first}Service;
+    private ${import.name}ServiceImpl ${import.name?uncap_first}Service;
 	</#if>
 	</#list>
 
-    public ResponseEntity<List<${name}DTO>> get${name}Page(int pageNo, int pageSize){
+    public ResponseEntity<List<${name}DTOImpl>> get${name}Page(int pageNo, int pageSize){
     	ModelMapper modelMapper = new ModelMapper();
-        List<${name}DTO> dtoList = new ArrayList<${name}DTO>();
+        List<${name}DTOImpl> dtoList = new ArrayList<${name}DTOImpl>();
         Pageable paging = PageRequest.of(pageNo, pageSize);
         Page<${name}> pagedResult = ${repository}.findAll(paging);
          
@@ -53,7 +53,7 @@ public class  ${name}Service {
 
             for (${name} ${name?uncap_first} : list)
             {
-                ${name}DTO ${name?uncap_first}DTO = modelMapper.map(${name?uncap_first}, ${name}DTO.class);
+                ${name}DTOImpl ${name?uncap_first}DTO = modelMapper.map(${name?uncap_first}, ${name}DTOImpl.class);
                 dtoList.add(${name?uncap_first}DTO);
             }
 
@@ -68,11 +68,11 @@ public class  ${name}Service {
             return null;
     }
 
-    public ResponseEntity<${name}DetailDTO> get${name}(Long id){
+    public ResponseEntity<${name}DetailDTOImpl> get${name}(Long id){
     	ModelMapper modelMapper = new ModelMapper();
     	if(${repository}.findById(id).isPresent()){
     		${name} ${name?uncap_first} = ${repository}.findById(id).get();
-    		${name}DetailDTO dto = modelMapper.map(${name?uncap_first}, ${name}DetailDTO.class);
+    		${name}DetailDTOImpl dto = modelMapper.map(${name?uncap_first}, ${name}DetailDTOImpl.class);
         	return new ResponseEntity<>(dto, HttpStatus.OK);
     	}
     	else {
@@ -80,18 +80,18 @@ public class  ${name}Service {
         }
     }
 
-    public List<${name}DTO>getAll(){
+    public List<${name}DTOImpl>getAll(){
     	ModelMapper modelMapper = new ModelMapper();
         List<${name}> list = ${repository}.findAll();
-        List<${name}DTO> dtoList = new LinkedList<>();
+        List<${name}DTOImpl> dtoList = new LinkedList<>();
         for(${name} ${name?uncap_first}: list) {
-            ${name}DTO ${name?uncap_first}Dto = modelMapper.map(${name?uncap_first}, ${name}DTO.class);
+            ${name}DTOImpl ${name?uncap_first}Dto = modelMapper.map(${name?uncap_first}, ${name}DTOImpl.class);
             dtoList.add(${name?uncap_first}Dto);
         }
         return dtoList;
     }
 
-    public ResponseEntity<${name}DetailDTO> update${name}(Long id, ${name}DetailDTO ${name?uncap_first}Dto){
+    public ResponseEntity<${name}DetailDTOImpl> update${name}(Long id, ${name}DetailDTOImpl ${name?uncap_first}Dto){
         ModelMapper modelMapper = new ModelMapper();
         
         ${name} ${name?uncap_first} = ${repository}.find${name}ById(id);
@@ -107,7 +107,7 @@ public class  ${name}Service {
 			${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.getById(${name?uncap_first}Dto.get${prop.name?cap_first}().getId()));
 			<#else>
 			Set<${prop.type.name}> ${prop.name}Set = new HashSet<>();
-			for(${prop.type.name}DTO item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
+			for(${prop.type.name}DTOImpl item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
 				${prop.type.name} ${prop.type.name?uncap_first} = ${prop.type.name?uncap_first}Service.getById(item.getId());
 				${prop.name}Set.add(${prop.type.name?uncap_first});
 			}
@@ -115,11 +115,11 @@ public class  ${name}Service {
 			</#if>
 			</#list>
 			${repository}.save(${name?uncap_first});
-            return new ResponseEntity<>(modelMapper.map(${name?uncap_first}, ${name}DetailDTO.class), HttpStatus.OK); 
+            return new ResponseEntity<>(modelMapper.map(${name?uncap_first}, ${name}DetailDTOImpl.class), HttpStatus.OK); 
         }
     }
 
-    public ResponseEntity<${name}DetailDTO> create(${name}DetailDTO ${name?uncap_first}Dto){
+    public ResponseEntity<${name}DetailDTOImpl> create(${name}DetailDTOImpl ${name?uncap_first}Dto){
     	ModelMapper modelMapper = new ModelMapper();
         ${name} ${name?uncap_first} = new ${name}();
         <#list persistentProps as prop>
@@ -130,7 +130,7 @@ public class  ${name}Service {
 		${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.getById(${name?uncap_first}Dto.get${prop.name?cap_first}().getId()));
 		<#else>
 		Set<${prop.type.name}> ${prop.name}Set = new HashSet<>();
-		for(${prop.type.name}DTO item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
+		for(${prop.type.name}DTOImpl item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
 			${prop.type.name} ${prop.type.name?uncap_first} = ${prop.type.name?uncap_first}Service.getById(item.getId());
 			${prop.name}Set.add(${prop.type.name?uncap_first});
 		}
@@ -140,7 +140,7 @@ public class  ${name}Service {
 		
 		${repository}.save(${name?uncap_first});
     
-        return new ResponseEntity<>(modelMapper.map(${name?uncap_first}, ${name}DetailDTO.class), HttpStatus.OK); 
+        return new ResponseEntity<>(modelMapper.map(${name?uncap_first}, ${name}DetailDTOImpl.class), HttpStatus.OK); 
     }
 
     public ResponseEntity<Void> delete${name}(Long id){
@@ -165,7 +165,7 @@ public class  ${name}Service {
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
-    public void Save(${name} ${name?uncap_first}){
+    public final void Save(${name} ${name?uncap_first}){
         ${repository}.save(${name?uncap_first});
     }
 }

@@ -13,6 +13,10 @@ public class GeneratorFactory {
 			return new DTOGenerator(entry.getValue(), typeMappings);
 		}
 		
+		else if(entry.getKey().equals("DTOImplGenerator")) {
+			return new DTOImplGenerator(entry.getValue(), typeMappings);
+		}
+		
 		else if(entry.getKey().equals("FrontDTOGenerator")) {
 			return new FrontDTOGenerator(entry.getValue(), typeMappings);
 		}
@@ -24,25 +28,41 @@ public class GeneratorFactory {
 //		else if(entry.getKey().equals("FrontModelGenerator")) {
 //			return new FrontModelGenerator(entry.getValue(), typeMappings);
 //		}
+
+		else if(entry.getKey().equals("ControllerImplGenerator")) {
+			return new ControllerImplGenerator(entry.getValue(), typeMappings);
+		}
+		
+		else if(entry.getKey().equals("FrontModelGenerator")) {
+			return new FrontModelGenerator(entry.getValue(), typeMappings);
+		}
     
 		else if(entry.getKey().equals("DTODetailGenerator")) {
 			return new DTODetailGenerator(entry.getValue(), typeMappings);
+		}
+		
+		else if(entry.getKey().equals("DTODetailImplGenerator")) {
+			return new DTODetailImplGenerator(entry.getValue(), typeMappings);
 		}
 		
 		else if(entry.getKey().equals("ServiceGenerator")) {
 			return new ServiceGenerator(entry.getValue(), typeMappings);
 		}
 		
+		else if(entry.getKey().equals("ServiceImplGenerator")) {
+			return new ServiceImplGenerator(entry.getValue(), typeMappings);
+		}
+		
 		else if(entry.getKey().equals("RepositoryGenerator")) {
 			return new RepositoryGenerator(entry.getValue(), typeMappings);
 		}
 		
-		else if(entry.getKey().equals("ModelGenerator")) {
-			return new ModelGenerator(entry.getValue(), typeMappings);
+		else if(entry.getKey().equals("RepositoryImplGenerator")) {
+			return new RepositoryImplGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("FrontServiceGenerator")) {
-			return new FrontServiceGenerator(entry.getValue(), typeMappings);
+		else if(entry.getKey().equals("ModelGenerator")) {
+			return new ModelGenerator(entry.getValue(), typeMappings);
 		}
 
 		if(entry.getKey().equals("PomXmlGenerator")) {

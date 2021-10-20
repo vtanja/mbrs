@@ -4,8 +4,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ${entity_name}Service } from '../${entity_name?uncap_first}.service';
 import { I${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
+import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
 
 @Component({
 	selector: 'app-${entity_name?uncap_first}',
@@ -28,7 +28,7 @@ export class ${entity_name}Component {
                 this.router.navigate(['/${entity_name?uncap_first}']);
             }
             this.${entity_name?uncap_first}Service.get${entity_name}(parseInt(param!)).subscribe(
-                data => { 
+                (data:any) => { 
                     this.obj = data;
                 },
                 error => {

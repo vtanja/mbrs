@@ -17,22 +17,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ${name}DetailDTO{
 <#if identityProp??>
-	${identityProp.visibility} ${identityProp.type.name} ${identityProp.name};
+	protected ${identityProp.type.name} ${identityProp.name};
 <#else>
-	private Long id;
+	protected Long id;
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
-	${prop.visibility} ${prop.type.name} ${prop.name};
+	protected ${prop.type.name} ${prop.name};
 	<#else>
-	${prop.visibility} Set<${prop.type.name}> ${prop.name};
+	protected Set<${prop.type.name}> ${prop.name};
 	</#if>
 </#list>
 <#list linkedProps as prop>
 	<#if prop.upper == 1 >
-	${prop.visibility} ${prop.type.name}DTO ${prop.name};
+	protected ${prop.type.name}DTOImpl ${prop.name};
 	<#else>
-	${prop.visibility} Set<${prop.type.name}DTO> ${prop.name};
+	protected Set<${prop.type.name}DTOImpl> ${prop.name};
 	</#if>
 </#list>
 <#if identityProp??>
