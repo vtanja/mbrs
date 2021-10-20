@@ -3,32 +3,28 @@
 
 <#list importedPackages as import>
 <#if import.typePackage == "">
-import { I${import.name} } from 'src/app/shared/model/${import.name?lower_case}.model';
+import { ${import.name} } from 'src/app/shared/model/${import.name?lower_case}.model';
 </#if>
 </#list>
 
-export interface I${name}{
+export class ${name}{
 <#if identityProp??>
-	<#if identityProp.upper == 1 >
-	${identityProp.name}: ${identityProp.type.name};
-	<#else>
-	${identityProp.name}: Array<${identityProp.type.name}> ;
-	</#if>
+	${identityProp.name}: ${identityProp.type.name} = -1;
 <#else>
-	id: number;
+	id: number = -1;
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
-	${prop.name}: ${prop.type.name};
+	${prop.name}: ${prop.type.name} = <#if prop.type.name == 'number'>-1<#elseif prop.type.name=='string'>''<#elseif prop.type.name == boolean>false<#else>new Date()</#if>;
 	<#else>
-	${prop.name}: Array<${prop.type.name}> ;
+	${prop.name}: Array<${prop.type.name}> = [];
 	</#if>
 </#list>
 <#list linkedProps as prop>
 	<#if prop.upper == 1 >
-	${prop.name}: I${prop.type.name} ;
+	${prop.name}: ${prop.type.name} = new ${prop.type.name}();
 	<#else>
-	${prop.name}: Array<I${prop.type.name}> ;
+	${prop.name}: Array<${prop.type.name}> = [];
 	</#if>
 </#list>
 }
