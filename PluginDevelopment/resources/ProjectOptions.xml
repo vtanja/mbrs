@@ -191,5 +191,5 @@
 				<templateDir>templates/form</templateDir>
 				<templateName>form-html</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
-	<generatedPath>D:/faks/Master/MBRS/generated</generatedPath>
-	<sourcesPath>D:/faks/Master/MBRS/mbrs/PluginDevelopment/resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
+	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
+	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
