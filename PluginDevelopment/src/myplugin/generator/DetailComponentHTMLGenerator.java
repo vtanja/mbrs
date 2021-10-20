@@ -66,7 +66,6 @@ public class DetailComponentHTMLGenerator extends BasicGenerator{
 							else {
 								ids.put(ass.getFmType().getName(), "id");
 							}
-							JOptionPane.showMessageDialog(null,ass.getFmType().getName() + "---"+  ids.get(ass.getFmType().getName()));
 						}
 						
 						context.put("id", FMModel.getInstance().getIdNames().get(component.getName())!=null?FMModel.getInstance().getIdNames().get(component.getName()):"");

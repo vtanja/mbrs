@@ -69,7 +69,6 @@ public class FormComponentTsGenerator extends BasicGenerator{
 							else {
 								ids.put(ass.getFmType().getName(), "id");
 							}
-							JOptionPane.showMessageDialog(null,ass.getFmType().getName() + "---"+  ids.get(ass.getFmType().getName()));
 						}
 						
 						context.put("assId", ids);
