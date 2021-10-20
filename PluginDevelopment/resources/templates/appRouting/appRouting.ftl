@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 <#list components as component>
 <#if component.detail>
-import { ${component.name}Component } from './components/${component.name?lower_case}/${component.name?lower_case}-detail/${component.name?lower_case}-detail.component';
+import { ${component.name}DetailComponent } from './components/${component.name?lower_case}/${component.name?lower_case}-detail/${component.name?lower_case}-detail.component';
 </#if>
 <#if component.create||component.update>
 import { ${component.name}FormComponent } from './components/${component.name?lower_case}/${component.name?lower_case}-form/${component.name?lower_case}-form.component';
@@ -16,10 +16,10 @@ const routes: Routes = [
   path: "${component.name?lower_case}",
   children: [
   	<#if component.create>
-    { path: 'Create', component: ${component.name}FormComponent },   
+    { path: 'create', component: ${component.name}FormComponent },   
     </#if> 
     <#if component.detail>
-    { path: ':id', component: ${component.name}Component },
+    { path: ':id', component: ${component.name}DetailComponent },
     </#if>
     <#if component.update>
     { path: ':id/update', component: ${component.name}FormComponent },
