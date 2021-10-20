@@ -4,6 +4,7 @@
 package com.example.${appName}.service;
 
 import org.modelmapper.ModelMapper;
+import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -150,6 +151,18 @@ public class  ${name}Service {
         catch(Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+    
+    public ResponseEntity<String> getLists(){
+        HashMap<String,Object> map = new HashMap<>();
+        Gson gson = new Gson();
+        
+        <#list linkedProps as prop>
+        List<${prop.type.name}DTO> ${prop.name?uncap_first}List = ${prop.type.name?uncap_first}Service.getAll();
+        map.put("${prop.name}List", ${prop.name?uncap_first}List);
+		</#list>
+		String json = gson.toJson(map);
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
     public void Save(${name} ${name?uncap_first}){
