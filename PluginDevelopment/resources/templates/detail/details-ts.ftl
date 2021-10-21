@@ -12,7 +12,7 @@ import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?unc
 	templateUrl: './${entity_name?uncap_first}.component.html',
 })
 
-export class ${entity_name}Component {
+export class ${entity_name}DetailComponent {
     obj: I${entity_name}|undefined;
 
     closeResult: string = '';
