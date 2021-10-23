@@ -74,6 +74,7 @@ public class ModelAnalyzer {
 	public void prepareModel() throws AnalyzeException {
 		FMModel.getInstance().getClasses().clear();
 		FMModel.getInstance().getEnumerations().clear();
+		FMModel.getInstance().getComponents().clear();
 		processPackage(root, filePackage);
 	}
 	
@@ -151,6 +152,7 @@ public class ModelAnalyzer {
 				}
 			}
 		}
+
 		
 		Iterator<Property> it = ModelHelper.attributes(cl);
 		while (it.hasNext()) {
@@ -165,6 +167,7 @@ public class ModelAnalyzer {
 			}
 				
 		}	
+
 				
 		return component;
 	}

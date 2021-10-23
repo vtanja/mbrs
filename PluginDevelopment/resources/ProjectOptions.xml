@@ -236,6 +236,15 @@
 				<overwrite>true</overwrite>
 				<templateDir>templates/form</templateDir>
 				<templateName>form-html</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>AppRoutingGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>frontend/{1}/src/app</outputPath>
+				<templateName>appRouting</templateName>
+				<templateDir>templates/appRouting</templateDir>
+				<outputFileName>app-routing.module.ts</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
 	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
 	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>

@@ -89,6 +89,9 @@ public class GeneratorFactory {
 			return new FormComponentHtmlGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("AppRoutingGenerator")) {
+			return new AppRoutingGenerator(entry.getValue(), typeMappings);
+		}
 		
 		return null;
 		
