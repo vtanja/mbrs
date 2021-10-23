@@ -86,6 +86,10 @@ public class GeneratorFactory {
 			return new AppRoutingGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("WebSecurityConfigGenerator")) {
+			return new WebSecurityConfigGenerator(entry.getValue(), typeMappings);
+		}
+		
 		return null;
 		
 	}
