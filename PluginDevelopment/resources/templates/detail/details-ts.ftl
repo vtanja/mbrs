@@ -9,7 +9,7 @@ import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?unc
 
 @Component({
 	selector: 'app-${entity_name?uncap_first}',
-	templateUrl: './${entity_name?uncap_first}.component.html',
+	templateUrl: './${entity_name?uncap_first}-detail.component.html',
 })
 
 export class ${entity_name}DetailComponent {
@@ -41,6 +41,7 @@ export class ${entity_name}DetailComponent {
         });
     }
 	
+	<#if component.delete>
     delete(){
         if(this.obj != undefined){
             this.${entity_name?uncap_first}Service.delete${entity_name}(this.obj.<#if id=="">id<#else>${id}</#if>).subscribe(
@@ -65,6 +66,7 @@ export class ${entity_name}DetailComponent {
         }
 		
 	}
+	</#if>
 
     open(content:any) {
 		this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
