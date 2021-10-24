@@ -86,6 +86,10 @@ public class GeneratorFactory {
 			return new AppRoutingGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("ListComponentGenerator")) {
+			return new ListComponentGenerator(entry.getValue(), typeMappings);
+		}
+		
 		return null;
 		
 	}

@@ -229,7 +229,16 @@
 				<overwrite>true</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
 		</option>
+		<option>
+			<string>ListComponentGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-list</filePackage>
+				<outputFileName>{0}-list.component.ts</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/list</templateDir>
+				<templateName>list-ts</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
-	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
-	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath>
+	<generatedPath>D:\temp</generatedPath>
+	<sourcesPath>D:\mbrs\PluginDevelopment\resources\initialProjects</sourcesPath>
 </myplugin.generator.options.ProjectOptions>
