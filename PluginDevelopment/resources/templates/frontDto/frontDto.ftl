@@ -3,7 +3,7 @@
 
 <#list importedPackages as import>
 <#if import.typePackage == "">
-import { I${import.name} } from './${import.name?uncap_first}.model';
+import { ${import.name} } from './${import.name?uncap_first}.model';
 </#if>
 </#list>
 
