@@ -158,7 +158,7 @@ public class ${name}Service {
         Gson gson = new Gson();
         
         <#list linkedProps as prop>
-        List<${prop.type.name}DTO> ${prop.name?uncap_first}List = ${prop.type.name?uncap_first}Service.getAll();
+        List<${prop.type.name}DTOImpl> ${prop.name?uncap_first}List = ${prop.type.name?uncap_first}Service.getAll();
         map.put("${prop.name}List", ${prop.name?uncap_first}List);
 		</#list>
 		String json = gson.toJson(map);
