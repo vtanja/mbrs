@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.example.${appName}.dto.${ name }DTOImpl;
 import com.example.${appName}.dto.${ name }DetailDTOImpl;
-import com.example.${appName}.service.${ name }Service;
+import com.example.${appName}.service.${ name }ServiceImpl;
 
 
 @CrossOrigin
