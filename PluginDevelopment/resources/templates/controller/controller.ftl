@@ -13,8 +13,6 @@ import com.example.${appName}.dto.${ name }DetailDTOImpl;
 import com.example.${appName}.service.${ name }ServiceImpl;
 
 
-@CrossOrigin
-@RestController
 public class ${ name }Controller {
     @Autowired
     private ${ name }ServiceImpl ${name?lower_case}Service;

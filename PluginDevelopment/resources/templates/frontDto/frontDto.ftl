@@ -3,7 +3,7 @@
 
 <#list importedPackages as import>
 <#if import.typePackage == "">
-import { ${import.name} } from 'src/app/shared/model/${import.name?lower_case}.model';
+import { I${import.name} } from './${import.name?uncap_first}.model';
 </#if>
 </#list>
 
@@ -13,6 +13,7 @@ export class ${name}{
 <#else>
 	id: number = -1;
 </#if>
+
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
 	${prop.name}: ${prop.type.name} = <#if prop.type.name == 'number'>-1<#elseif prop.type.name=='string'>''<#elseif prop.type.name == boolean>false<#else>new Date()</#if>;

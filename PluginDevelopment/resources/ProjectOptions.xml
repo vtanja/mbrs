@@ -235,7 +235,28 @@
 				<templateDir>templates/appRouting</templateDir>
 				<outputFileName>app-routing.module.ts</outputFileName>
 				<overwrite>true</overwrite>
-				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
+		<option>
+			<string>WebSecurityConfigGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>backend\{1}\src\main\java\com\example\{1}\config</outputPath>
+				<templateName>webSecurityConfig</templateName>
+				<templateDir>templates/config</templateDir>
+				<outputFileName>WebSecurityConfig.java</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
+		<option>
+			<string>AppModuleGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>frontend/{1}/src/app</outputPath>
+				<templateName>appModule</templateName>
+				<templateDir>templates/appModule</templateDir>
+				<outputFileName>app.module.ts</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
 </generatorOptions>
 	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
 	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>

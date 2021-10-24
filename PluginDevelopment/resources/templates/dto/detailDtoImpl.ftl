@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 public class ${name}DetailDTOImpl extends ${name}DetailDTO{
 
 }

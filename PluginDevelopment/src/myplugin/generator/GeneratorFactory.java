@@ -60,37 +60,49 @@ public class GeneratorFactory {
 		else if(entry.getKey().equals("ModelGenerator")) {
 			return new ModelGenerator(entry.getValue(), typeMappings);
 		}
+		
+		else if(entry.getKey().equals("FrontServiceGenerator")) {
+			return new FrontServiceGenerator(entry.getValue(), typeMappings);
+		}
 
-		if(entry.getKey().equals("PomXmlGenerator")) {
+		else if(entry.getKey().equals("PomXmlGenerator")) {
 			return new PomXmlGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("ApplicationGenerator")) {
+		else if(entry.getKey().equals("ApplicationGenerator")) {
 			return new ApplicationGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("DetailComponentGenerator")) {
+		else if(entry.getKey().equals("DetailComponentGenerator")) {
 			return new DetailComponentGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("DetailComponentHTMLGenerator")) {
+		else if(entry.getKey().equals("DetailComponentHTMLGenerator")) {
 			return new DetailComponentHTMLGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("FormComponentTsGenerator")) {
+		else if(entry.getKey().equals("FormComponentTsGenerator")) {
 			return new FormComponentTsGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("FormComponentHtmlGenerator")) {
+		else if(entry.getKey().equals("FormComponentHtmlGenerator")) {
 			return new FormComponentHtmlGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("AppRoutingGenerator")) {
+		else if(entry.getKey().equals("AppRoutingGenerator")) {
+			return new AppRoutingGenerator(entry.getValue(), typeMappings);
+		}
+
+		else if(entry.getKey().equals("AppRoutingGenerator")) {
 			return new AppRoutingGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("FrontServiceGenerator")) {
-			return new FrontServiceGenerator(entry.getValue(), typeMappings);
+		else if(entry.getKey().equals("WebSecurityConfigGenerator")) {
+			return new WebSecurityConfigGenerator(entry.getValue(), typeMappings);
+		}
+		
+		else if(entry.getKey().equals("AppModuleGenerator")) {
+			return new AppModuleGenerator(entry.getValue(), typeMappings);
 		}
 		
 		return null;

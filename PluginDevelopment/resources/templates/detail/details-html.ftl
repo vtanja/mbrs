@@ -6,25 +6,26 @@ This file is generated based on ${.current_template_name}
 	<div class="justify-content-center">
 		<div class="col justify-content-between">
 			<h1 class="h1">${entity_name}</h1>
-            <#if component.update><a [routerLink]="['/${entity_name?uncap_first}', obj?<#if id == "">id<#else>${id}</#if>, 'update']" class="btn btn-info m-2">Edit</a></#if>
+            <#if component.update><a routerLink="'/${entity_name?uncap_first}' + obj?.<#if id == "">id<#else>${id}</#if> + '/update'" class="btn btn-info m-2">Edit</a></#if>
             <#if component.delete><a class="btn btn-danger m-2" (click)="open(mymodal)">Delete</a></#if>
 		</div>
 		<div class="col">
             <#list baseFields as field>
-			<p><strong>${field.label}</strong> {{ obj?.${field.name} }}</p>
+			<strong>${field.label}</strong> {{ obj?.${field.name} }}<br>
             </#list>
             <#list associations as association>
-            <p><strong>${association.label}</strong>:</p>
+            <strong>${association.label}</strong>:
             <#if association.upper == 1>
-             <a [routerLink]="['/${association.fmType.name?uncap_first}', {{ 'obj?.' + ${association.name?uncap_first} + '?.${assId[association.fmType.name]}' }}]">
-                    ${ association.label + ' ({{ ${association.name?uncap_first}.${assId[association.fmType.name]} }})' }</a></p>
+             <a [routerLink]="['/${association.fmType.name?uncap_first}', obj?.${association.name?uncap_first}?.${assId[association.fmType.name]} ]">
+                    ${ association.label + ' ({{ obj?.${association.name?uncap_first}?.${assId[association.fmType.name]} }})' }</a>
             <#else>
             <ul>
                 <li *ngFor="let item of obj?.${association.name}">
-                    <a [routerLink]="['/${association.fmType.name?uncap_first}', item.${assId[association.fmType.name]}]">${ association.label + ' ({{ item.${assId[association.fmType.name]} }})' }</a>
+                	<a [routerLink]="['/${association.fmType.name?uncap_first}', item.${assId[association.fmType.name]}]"> ${ association.label + '({{ item.${assId[association.fmType.name]} }})' }</a>
                 </li>
             </ul>
             </#if>
+            <br>
             </#list>
 		</div>
     </div>

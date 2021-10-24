@@ -15,18 +15,18 @@ import { ${class.name} } from 'src/app/shared/model/${class.name?uncap_first}.mo
    })
    
 export class ${class.name}Service {
-    readonly BaseURI = 'http://localhost:PORT';
+    readonly BaseURI = 'http://localhost:8080';
 
     constructor(private http: HttpClient) {
         
     }
 	
     getAll${class.name}s() {
-        return this.http.get(this.BaseURI + '/${class.name?uncap_first}/getAll');
+        return this.http.get(this.BaseURI + '/${class.name}');
     }
 	
-    get${class.name}(id: number) {
-        return this.http.get(this.BaseURI + '/${class.name?uncap_first}/get${class.name}/'+id);
+    get${class.name}(id: Number) {
+        return this.http.get(this.BaseURI + '/${class.name?uncap_first}/'+id);
     }
 	
     update${class.name}(id: number, model: ${class.name}){
