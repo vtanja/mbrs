@@ -4,7 +4,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { I${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
+import { ${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
 import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?unc
 })
 
 export class ${entity_name}DetailComponent {
-    obj: I${entity_name}|undefined;
+    obj: ${entity_name}|undefined;
 
     closeResult: string = '';
 
