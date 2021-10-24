@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ${entity_name}Service } from 'src/app/shared/services/${entity_name}Service';
+import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
 import { ${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
 <#list associations as field>
 import { ${field.fmType.name} } from 'src/app/shared/model/${field.fmType.name?uncap_first}.model';
