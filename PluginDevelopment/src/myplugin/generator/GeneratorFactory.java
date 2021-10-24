@@ -24,10 +24,6 @@ public class GeneratorFactory {
 		else if(entry.getKey().equals("ControllerGenerator")) {
 			return new ControllerGenerator(entry.getValue(), typeMappings);
 		}
-		
-//		else if(entry.getKey().equals("FrontModelGenerator")) {
-//			return new FrontModelGenerator(entry.getValue(), typeMappings);
-//		}
 
 		else if(entry.getKey().equals("ControllerImplGenerator")) {
 			return new ControllerImplGenerator(entry.getValue(), typeMappings);
@@ -91,6 +87,10 @@ public class GeneratorFactory {
 		
 		if(entry.getKey().equals("AppRoutingGenerator")) {
 			return new AppRoutingGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("FrontServiceGenerator")) {
+			return new FrontServiceGenerator(entry.getValue(), typeMappings);
 		}
 		
 		return null;
