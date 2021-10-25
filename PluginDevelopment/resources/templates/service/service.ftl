@@ -41,22 +41,15 @@ public class ${name}Service {
 	</#if>
 	</#list>
 
-    public ResponseEntity<List<${name}DTOImpl>> get${name}Page(int pageNo, int pageSize){
+    public ResponseEntity<List<${name}DTOImpl>> getAll${name}(){
     	ModelMapper modelMapper = new ModelMapper();
-        List<${name}DTOImpl> dtoList = new ArrayList<${name}DTOImpl>();
-        Pageable paging = PageRequest.of(pageNo, pageSize);
-        Page<${name}> pagedResult = ${repository}.findAll(paging);
-         
-        if (pagedResult.hasContent()) {
-            List<${name}> list = pagedResult.getContent();
-
-            for (${name} ${name?uncap_first} : list)
-            {
-                ${name}DTOImpl ${name?uncap_first}DTO = modelMapper.map(${name?uncap_first}, ${name}DTOImpl.class);
-                dtoList.add(${name?uncap_first}DTO);
-            }
-
+        List<${name}> list = ${repository}.findAll();
+        List<${name}DTOImpl> dtoList = new LinkedList<>();
+        for(${name} ${name?uncap_first}: list) {
+            ${name}DTOImpl ${name?uncap_first}Dto = modelMapper.map(${name?uncap_first}, ${name}DTOImpl.class);
+            dtoList.add(${name?uncap_first}Dto);
         }
+        
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
     
