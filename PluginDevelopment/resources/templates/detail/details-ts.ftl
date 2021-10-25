@@ -4,12 +4,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { I${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
-import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
+import { I${entity_name} } from 'src/app/shared/model/${component_name}.model';
+import { ${entity_name}Service } from 'src/app/shared/services/${component_name}.service';
 
 @Component({
-	selector: 'app-${entity_name?uncap_first}',
-	templateUrl: './${entity_name?uncap_first}-detail.component.html',
+	selector: 'app-${component_name}',
+	templateUrl: './${component_name}-detail.component.html',
 })
 
 export class ${entity_name}DetailComponent {
