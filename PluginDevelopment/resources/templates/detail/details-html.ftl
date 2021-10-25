@@ -16,12 +16,12 @@ This file is generated based on ${.current_template_name}
             <#list associations as association>
             <strong>${association.label}</strong>:
             <#if association.upper == 1>
-             <a [routerLink]="['/${association.fmType.name?uncap_first}', obj?.${association.name?uncap_first}?.${assId[association.fmType.name]} ]">
+             <a [routerLink]="['/${paths[association.fmType.name]}', obj?.${association.name?uncap_first}?.${assId[association.fmType.name]} ]">
                     ${ association.label + ' ({{ obj?.${association.name?uncap_first}?.${assId[association.fmType.name]} }})' }</a>
             <#else>
             <ul>
                 <li *ngFor="let item of obj?.${association.name}">
-                	<a [routerLink]="['/${association.fmType.name?uncap_first}', item.${assId[association.fmType.name]}]"> ${ association.label + '({{ item.${assId[association.fmType.name]} }})' }</a>
+                	<a [routerLink]="['/${paths[association.fmType.name]}', item.${assId[association.fmType.name]}]"> ${ association.label + '({{ item.${assId[association.fmType.name]} }})' }</a>
                 </li>
             </ul>
             </#if>

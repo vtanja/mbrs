@@ -39,11 +39,11 @@ public class DetailComponentHTMLGenerator extends BasicGenerator{
 				Writer out;
 				Map<String, Object> context = new HashMap<String, Object>();
 				try {
-					out = getWriter(component.getName().substring(0, 1).toLowerCase() + component.getName().substring(1), "");
+					out = getWriter(formatInput(component.getName()).toLowerCase(), "");
 					if (out != null) {
 						
 						context.put("component", component);
-						context.put("entity_name", component.getName());
+						context.put("entity_name", formatInput(component.getName()).toLowerCase());
 						
 						List<FMField> associations = new ArrayList<FMField>();
 						List<FMField> baseFields = new ArrayList<FMField>();
@@ -68,10 +68,16 @@ public class DetailComponentHTMLGenerator extends BasicGenerator{
 							}
 						}
 						
+						Map<String, String> paths = new HashMap<String, String>();
+						for(FMField ass : associations) {
+							paths.put(ass.getFmType().getName(), formatInput(ass.getFmType().getName()).toLowerCase());
+						}
+												
 						context.put("id", FMModel.getInstance().getIdNames().get(component.getName())!=null?FMModel.getInstance().getIdNames().get(component.getName()):"");
 						context.put("assId", ids); // id-jevi asocijacija 
 						context.put("baseFields", baseFields);
 						context.put("associations", associations);
+						context.put("paths", paths);
 						
 						getTemplate().process(context, out);
 						out.flush();

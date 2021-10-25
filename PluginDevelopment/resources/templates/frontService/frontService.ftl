@@ -1,14 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-<#if importedPackages??>
-<#list importedPackages as import>
-<#if import.typePackage == "">
-import { ${import.name} } from 'src/app/shared/model/${import.name?uncap_first}.model';
-</#if>
-</#list>
-</#if>
-import { ${class.name} } from 'src/app/shared/model/${class.name?uncap_first}.model';
+
+import { I${class.name} } from '../model/${name}.model';
 
 @Injectable({
     providedIn: 'root',
@@ -22,11 +16,11 @@ export class ${class.name}Service {
     }
 	
     getAll${class.name}s() {
-        return this.http.get(this.BaseURI + '/${class.name}');
+        return this.http.get(this.BaseURI + '/${name}');
     }
 	
     get${class.name}(id: Number) {
-        return this.http.get(this.BaseURI + '/${class.name?uncap_first}/'+id);
+        return this.http.get(this.BaseURI + '/${name}/'+id);
     }
 	
     update${class.name}(id: number, model: ${class.name}){
@@ -37,8 +31,8 @@ export class ${class.name}Service {
         return this.http.post(this.BaseURI + '/${class.name?uncap_first}/', model);
     }
 	
-    delete${class.name}(id: number){
-		return this.http.delete(this.BaseURI + '/${class.name?uncap_first}/'+id);
+    delete${class.name}(id: Number){
+		return this.http.delete(this.BaseURI + '/${name}/'+id);
     }
     
     getLists(){
