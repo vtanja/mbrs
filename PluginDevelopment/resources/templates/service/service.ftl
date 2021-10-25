@@ -86,7 +86,7 @@ public class ${name}Service {
     public ResponseEntity<${name}DetailDTOImpl> update${name}(Long id, ${name}DetailDTOImpl ${name?uncap_first}Dto){
         ModelMapper modelMapper = new ModelMapper();
         
-        ${name} ${name?uncap_first} = ${repository}.find${name}ById(id);
+        ${name} ${name?uncap_first} = ${repository}.find${name}By${id}(id);
         if(${name?uncap_first} == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
         }
