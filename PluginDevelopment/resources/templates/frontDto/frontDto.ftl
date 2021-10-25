@@ -3,7 +3,7 @@
 
 <#list importedPackages as import>
 <#if import.typePackage == "">
-import { I${import.name} } from './${imports[import.name]}.model';
+import { ${import.name} } from './${imports[import.name]}.model';
 </#if>
 </#list>
 
