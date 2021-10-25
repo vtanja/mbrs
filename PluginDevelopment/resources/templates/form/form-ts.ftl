@@ -2,7 +2,7 @@
 /// This file is generated based on ${.current_template_name}
 
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
@@ -46,7 +46,7 @@ export class ${entity_name}FormComponent {
 	{
 		this.form = this.fb.group({
 			<#list baseFields as field>
-			'${field.name?uncap_first}': new FormControl(),
+			'${field.name?uncap_first}': new FormControl('', <#if field.editable>Validators.required</#if>),
 			</#list>
 			<#list associations as field>
 			'${field.name?uncap_first}': new FormControl(),
@@ -85,7 +85,7 @@ export class ${entity_name}FormComponent {
 					<#if field.upper == 1> 
 					let ${field.name?uncap_first}Val = null
 					if(this.entity?.${field.name} != null){
-						${field.name?uncap_first}Val = this.selectLists.${field.label?uncap_first}List.find(el => el.${assId[field.fmType.name]} == this.entity?.${field.name}.${assId[field.fmType.name]})
+						${field.name?uncap_first}Val = this.selectLists.${field.label?uncap_first}List.find(el => el.${assId[field.fmType.name]} == this.entity?.${field.name}?.${assId[field.fmType.name]})
 					}
 					<#else>
 					let ${field.name?uncap_first}Val: (${field.fmType.name} | undefined)[] = []
