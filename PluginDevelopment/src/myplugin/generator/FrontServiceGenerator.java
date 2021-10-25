@@ -35,11 +35,11 @@ public class FrontServiceGenerator extends BasicGenerator {
 			Writer out;
 			Map<String, Object> context = new HashMap<String, Object>();
 			try {
-				out = getWriter(cl.getName().toLowerCase(), cl.getTypePackage());
+				out = getWriter(formatInput(cl.getName()).toLowerCase(), cl.getTypePackage());
 				if (out != null) {
 					context.clear();
 					context.put("class", cl);
-					context.put("name", cl.getName());
+					context.put("name", formatInput(cl.getName()).toLowerCase());
 					context.put("properties", cl.getProperties());
 					context.put("importedPackages", cl.getImportedPackages());
 									
