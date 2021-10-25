@@ -13,7 +13,6 @@ export class ${name}{
 <#else>
 	id: number = -1;
 </#if>
-
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
 	${prop.name}: ${prop.type.name} = <#if prop.type.name == 'number'>-1<#elseif prop.type.name=='string'>''<#elseif prop.type.name == boolean>false<#else>new Date()</#if>;
@@ -23,7 +22,7 @@ export class ${name}{
 </#list>
 <#list linkedProps as prop>
 	<#if prop.upper == 1 >
-	${prop.name}: ${prop.type.name} = new ${prop.type.name}();
+	${prop.name}: ${prop.type.name} | null = null;
 	<#else>
 	${prop.name}: Array<${prop.type.name}> = [];
 	</#if>
