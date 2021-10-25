@@ -11,13 +11,13 @@ This file is generated based on ${.current_template_name}
 			<form [formGroup]="form">
 				<#list baseFields as field>
 				<label <#if !field.visible>[hidden]=true</#if>>${field.label}</label>
-				<input <#if !field.visible>[hidden]=true</#if> class="form-control" type="${field.type}" formControlName=${field.name} <#if !field.editable>[disabled]=true</#if>>
+				<input <#if !field.visible>[hidden]=true</#if> class="form-control" type="${field.type}" formControlName=${field.name} <#if !field.editable>[readonly]=true</#if> >
             	</#list>
             	
             	<#list associations as field>
 				<label <#if !field.visible>[hidden]=true</#if>>${field.label}</label>
 				<#if field.upper == 1>
-				<select <#if !field.visible>[hidden]=true</#if> class="form-control" formControlName=${field.name} <#if !field.editable>[disabled]=true</#if>>
+				<select <#if !field.visible>[hidden]=true</#if> class="form-control" formControlName=${field.name} <#if !field.editable>[readonly]=true</#if>>
 			        <option [ngValue]="null">
 			            --
 			        </option>
@@ -26,7 +26,7 @@ This file is generated based on ${.current_template_name}
 			        </option>
 			    </select>
 			    <#else>
-			    <select <#if !field.visible>[hidden]=true</#if> multiple class="form-control" formControlName=${field.name} <#if !field.editable>[disabled]=true</#if>>
+			    <select <#if !field.visible>[hidden]=true</#if> multiple class="form-control" formControlName=${field.name} <#if !field.editable>[readonly]=true</#if>>
 			        <option *ngFor="let obj of selectLists.${field.label?uncap_first}List" [ngValue]="obj">
 			            ${field.fmType.name}({{obj.id}})
 			        </option>
