@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping( path = "/${ name?lower_case }")
+@RequestMapping( path = "/${ path }")
 public class ${ name }ControllerImpl extends ${ name }Controller{
 
 }

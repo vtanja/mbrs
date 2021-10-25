@@ -42,6 +42,7 @@ public class ControllerImplGenerator extends BasicGenerator {
 				if (out != null) {
 					context.clear();
 					context.put("name", cl.getName());
+					context.put("path", formatInput(cl.getName()).toLowerCase());
 									
 					context.put("appName", FMModel.getInstance().getApplication().getName());
 					
