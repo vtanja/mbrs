@@ -4,12 +4,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { I${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
-import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
+import { I${entity_name} } from 'src/app/shared/model/${component_name}.model';
+import { ${entity_name}Service } from 'src/app/shared/services/${component_name}.service';
 
 @Component({
-	selector: 'app-${entity_name?uncap_first}',
-	templateUrl: './${entity_name?uncap_first}.component.html',
+	selector: 'app-${component_name}',
+	templateUrl: './${component_name}-detail.component.html',
 })
 
 export class ${entity_name}DetailComponent {
@@ -41,6 +41,7 @@ export class ${entity_name}DetailComponent {
         });
     }
 	
+	<#if component.delete>
     delete(){
         if(this.obj != undefined){
             this.${entity_name?uncap_first}Service.delete${entity_name}(this.obj.<#if id=="">id<#else>${id}</#if>).subscribe(
@@ -65,6 +66,7 @@ export class ${entity_name}DetailComponent {
         }
 		
 	}
+	</#if>
 
     open(content:any) {
 		this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {

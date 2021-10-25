@@ -17,9 +17,9 @@ import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.TypeMapping;
 
-public class AppRoutingGenerator extends BasicGenerator {
+public class AppModuleGenerator extends BasicGenerator {
 	
-	public AppRoutingGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
+	public AppModuleGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
 		super(generatorOptions, typeMappings);
 	}	
 	
@@ -29,19 +29,19 @@ public class AppRoutingGenerator extends BasicGenerator {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-		
-		String name="";
-		
+
+
 		Map<String, FMComponent> components = new HashMap<String, FMComponent>();
 		
 		for(FMComponent comp :FMModel.getInstance().getComponents()){
 			components.put(formatInput(comp.getName()).toLowerCase(), comp);
 		}
+		
 		Writer out;
 		Map<String, Object> context = new HashMap<String, Object>();
 		
 		try {
-			out = getWriter(name, "");
+			out = getWriter("", "");
 			
 			if (out != null) {
 				context.clear();

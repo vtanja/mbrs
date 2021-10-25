@@ -15,6 +15,7 @@ import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMIdentityProperty;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMProperty;
+import myplugin.generator.fmmodel.FMType;
 import myplugin.generator.fmmodel.FMPersistentProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.options.GeneratorOptions;
@@ -39,13 +40,19 @@ public class FrontDTOGenerator extends BasicGenerator {
 			Writer out;
 			Map<String, Object> context = new HashMap<String, Object>();
 			try {
-				out = getWriter(cl.getName().toLowerCase(), cl.getTypePackage());
+				out = getWriter(formatInput(cl.getName()).toLowerCase(), cl.getTypePackage());
 				if (out != null) {
 					context.clear();
 					context.put("class", cl);
 					context.put("name", cl.getName());
 					context.put("properties", cl.getProperties());
+					
+					Map<String, String> imports = new HashMap<String, String>();
+					for(FMType pack : cl.getImportedPackages()) {
+						imports.put(pack.getName(), formatInput(pack.getName()).toLowerCase());
+					}
 					context.put("importedPackages", cl.getImportedPackages());
+					context.put("imports", imports);
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();

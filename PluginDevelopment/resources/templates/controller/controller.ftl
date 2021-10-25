@@ -10,19 +10,17 @@ import java.util.List;
 
 import com.example.${appName}.dto.${ name }DTOImpl;
 import com.example.${appName}.dto.${ name }DetailDTOImpl;
-import com.example.${appName}.service.${ name }Service;
+import com.example.${appName}.service.${ name }ServiceImpl;
 
 
-@CrossOrigin
-@RestController
 public class ${ name }Controller {
     @Autowired
     private ${ name }ServiceImpl ${name?lower_case}Service;
 
-    @GetMapping(path="/{pageNo}/{pageSize}")
-    public ResponseEntity<List<${ name }DTOImpl>> getAll(@PathVariable int pageNo, @PathVariable int pageSize) {
+    @GetMapping()
+    public ResponseEntity<List<${ name }DTOImpl>> getAll() {
 
-        return ${ name?lower_case }Service.get${name}Page(pageNo, pageSize);
+        return ${ name?lower_case }Service.getAll${name}();
     }
 
     @GetMapping(path="/{id}")
