@@ -2,6 +2,7 @@ package myplugin.generator;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,25 +29,30 @@ public class AppModuleGenerator extends BasicGenerator {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
+
+
+		Map<String, FMComponent> components = new HashMap<String, FMComponent>();
 		
-		String name="";
-		List<FMComponent> components = FMModel.getInstance().getComponents();
-		
-		for (int i = 0; i < components.size(); i++) {
-			FMComponent cl = components.get(i);
-			name+=cl.getName();
+		for(FMComponent comp :FMModel.getInstance().getComponents()){
+			components.put(formatInput(comp.getName()).toLowerCase(), comp);
 		}
 		
 		Writer out;
 		Map<String, Object> context = new HashMap<String, Object>();
 		
 		try {
-			out = getWriter(name, "");
+			out = getWriter("", "");
 			
 			if (out != null) {
 				context.clear();
 										
 				context.put("components", components);
+				List<String> componentNames = new ArrayList<String>();
+				
+				for(Map.Entry<String, FMComponent> comp : components.entrySet()) {
+					componentNames.add(formatInput(comp.getValue().getName()).toLowerCase());
+				}
+				context.put("componentNames", componentNames);
 					
 				getTemplate().process(context, out);
 				out.flush();

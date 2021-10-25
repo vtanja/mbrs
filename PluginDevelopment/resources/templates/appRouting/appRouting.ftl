@@ -1,30 +1,30 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-<#list components as component>
-<#if component.detail>
-import { ${component.name}DetailComponent } from './components/${component.name?lower_case}/${component.name?lower_case}-detail/${component.name?lower_case}-detail.component';
+<#list componentNames as component>
+<#if components[component].detail>
+import { ${components[component].name}DetailComponent } from './components/${component}/${component}-detail/${component}-detail.component';
 </#if>
-<#if component.create||component.update>
-import { ${component.name}FormComponent } from './components/${component.name?lower_case}/${component.name?lower_case}-form/${component.name?lower_case}-form.component';
+<#if components[component].create||components[component].update>
+import { ${components[component].name}FormComponent } from './components/${component}/${component}-form/${component}-form.component';
 </#if>
-import { ${component.name}ListComponent } from './components/${component.name?lower_case}-list/${component.name?lower_case}-list.component';
+import { ${components[component].name}ListComponent } from './components/${component}-list/${component}-list.component';
 </#list>
 
 const routes: Routes = [
-<#list components as component>
+<#list componentNames as component>
  {
-  path: "${component.name?lower_case}",
+  path: "${component}",
   children: [
-  	<#if component.create>
-    { path: 'create', component: ${component.name}FormComponent },   
+  	<#if components[component].create>
+    { path: 'create', component: ${components[component].name}FormComponent },   
     </#if> 
-    <#if component.detail>
-    { path: ':id', component: ${component.name}DetailComponent },
+    <#if components[component].detail>
+    { path: ':id', component: ${components[component].name}DetailComponent },
     </#if>
-    <#if component.update>
-    { path: ':id/update', component: ${component.name}FormComponent },
+    <#if components[component].update>
+    { path: ':id/update', component: ${components[component].name}FormComponent },
     </#if>
-    { path: '', component: ${component.name}ListComponent },
+    { path: '', component: ${components[component].name}ListComponent },
     
   ]
  },
