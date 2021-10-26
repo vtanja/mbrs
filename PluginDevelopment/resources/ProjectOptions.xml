@@ -238,6 +238,15 @@
 				<overwrite>true</overwrite>
 				<templateDir>templates/list</templateDir>
 				<templateName>list-ts</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>ListComponentHtmlGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-list</filePackage>
+				<outputFileName>{0}-list.component.html</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/list</templateDir>
+				<templateName>list-html</templateName></myplugin.generator.options.GeneratorOptions></option>
 </generatorOptions>
 	<generatedPath>D:\temp</generatedPath>
 	<sourcesPath>D:\mbrs\PluginDevelopment\resources\initialProjects</sourcesPath>

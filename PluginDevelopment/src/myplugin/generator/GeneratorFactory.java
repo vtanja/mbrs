@@ -90,6 +90,10 @@ public class GeneratorFactory {
 			return new ListComponentGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("ListComponentHtmlGenerator")) {
+			return new ListComponentHtmlGenerator(entry.getValue(), typeMappings);
+		}
+		
 		return null;
 		
 	}
