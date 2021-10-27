@@ -4,6 +4,7 @@
 package com.example.${appName}.service;
 
 import org.modelmapper.ModelMapper;
+import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -96,14 +97,18 @@ public class ${name}Service {
 			</#list>
 			<#list linkedProps as prop>
 			<#if prop.upper == 1 >
-			${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.getById(${name?uncap_first}Dto.get${prop.name?cap_first}().getId()));
-			<#else>
-			Set<${prop.type.name}> ${prop.name}Set = new HashSet<>();
-			for(${prop.type.name}DTOImpl item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
-				${prop.type.name} ${prop.type.name?uncap_first} = ${prop.type.name?uncap_first}Service.getById(item.getId());
-				${prop.name}Set.add(${prop.type.name?uncap_first});
+			if(${name?uncap_first}Dto.get${prop.name?cap_first}() != null) {
+				${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.getById(${name?uncap_first}Dto.get${prop.name?cap_first}().getId()));
 			}
-			${name?uncap_first}.set${prop.name?cap_first}(${prop.name}Set);
+			<#else>
+			if(${name?uncap_first}Dto.get${prop.name?cap_first}() != null) {
+				Set<${prop.type.name}> ${prop.name}Set = new HashSet<>();
+				for(${prop.type.name}DTOImpl item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
+					${prop.type.name} ${prop.type.name?uncap_first} = ${prop.type.name?uncap_first}Service.getById(item.getId());
+					${prop.name}Set.add(${prop.type.name?uncap_first});
+				}
+				${name?uncap_first}.set${prop.name?cap_first}(${prop.name}Set);
+			}
 			</#if>
 			</#list>
 			${repository}.save(${name?uncap_first});
@@ -114,19 +119,25 @@ public class ${name}Service {
     public ResponseEntity<${name}DetailDTOImpl> create(${name}DetailDTOImpl ${name?uncap_first}Dto){
     	ModelMapper modelMapper = new ModelMapper();
         ${name} ${name?uncap_first} = new ${name}();
+        
         <#list persistentProps as prop>
-		${name?uncap_first}.set${prop.name?cap_first}(${name?uncap_first}Dto.get${prop.name?cap_first}());
+        ${name?uncap_first}.set${prop.name?cap_first}(${name?uncap_first}Dto.get${prop.name?cap_first}());
 		</#list>
+		
 		<#list linkedProps as prop>
 		<#if prop.upper == 1 >
-		${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.getById(${name?uncap_first}Dto.get${prop.name?cap_first}().getId()));
-		<#else>
-		Set<${prop.type.name}> ${prop.name}Set = new HashSet<>();
-		for(${prop.type.name}DTOImpl item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
-			${prop.type.name} ${prop.type.name?uncap_first} = ${prop.type.name?uncap_first}Service.getById(item.getId());
-			${prop.name}Set.add(${prop.type.name?uncap_first});
+		if(${name?uncap_first}Dto.get${prop.name?cap_first}() != null) {
+			${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name?uncap_first}Service.getById(${name?uncap_first}Dto.get${prop.name?cap_first}().getId()));
 		}
-		${name?uncap_first}.set${prop.name?cap_first}(${prop.name}Set);
+		<#else>
+		if(${name?uncap_first}Dto.get${prop.name?cap_first}() != null) {
+			Set<${prop.type.name}> ${prop.name}Set = new HashSet<>();
+			for(${prop.type.name}DTOImpl item : ${name?uncap_first}Dto.get${prop.name?cap_first}()){
+				${prop.type.name} ${prop.type.name?uncap_first} = ${prop.type.name?uncap_first}Service.getById(item.getId());
+				${prop.name}Set.add(${prop.type.name?uncap_first});
+			}
+			${name?uncap_first}.set${prop.name?cap_first}(${prop.name}Set);
+		}
 		</#if>
 		</#list>
 		
@@ -143,6 +154,18 @@ public class ${name}Service {
         catch(Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+    
+    public ResponseEntity<String> getLists(){
+        HashMap<String,Object> map = new HashMap<>();
+        Gson gson = new Gson();
+        
+        <#list linkedProps as prop>
+        List<${prop.type.name}DTOImpl> ${prop.name?uncap_first}List = ${prop.type.name?uncap_first}Service.getAll();
+        map.put("${prop.name}List", ${prop.name?uncap_first}List);
+		</#list>
+		String json = gson.toJson(map);
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
     public final void Save(${name} ${name?uncap_first}){
