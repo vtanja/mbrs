@@ -41,13 +41,14 @@ public class FormComponentTsGenerator extends BasicGenerator{
 				Writer out;
 				Map<String, Object> context = new HashMap<String, Object>();
 				try {
-					out = getWriter(component.getName().substring(0, 1).toLowerCase() + component.getName().substring(1), "");
+					out = getWriter(formatInput(component.getName()).toLowerCase(), "");
 					if (out != null) {
 						
 						context.put("id", FMModel.getInstance().getIdNames().get(component.getName())!=null?FMModel.getInstance().getIdNames().get(component.getName()):"");
 						context.put("component", component);
 						context.put("entity_name", component.getName());
-
+						context.put("component_name", formatInput(component.getName()).toLowerCase());
+						
 						List<FMField> associations = new ArrayList<FMField>();
 						List<FMField> baseFields = new ArrayList<FMField>();
 												
@@ -71,9 +72,16 @@ public class FormComponentTsGenerator extends BasicGenerator{
 							}
 						}
 						
+
+						Map<String, String> paths = new HashMap<String, String>();
+						for(FMField ass : associations) {
+							paths.put(ass.getFmType().getName(), formatInput(ass.getFmType().getName()).toLowerCase());
+						}
+						
 						context.put("assId", ids);
 						context.put("baseFields", baseFields);
 						context.put("associations", associations);
+						context.put("paths", paths);
 						
 						getTemplate().process(context, out);
 						out.flush();
