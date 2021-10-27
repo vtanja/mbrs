@@ -36,7 +36,7 @@ export class ${class.name}Service {
     }
     
     getLists(){
-    	return this.http.get(this.BaseURI + '/${class.name?uncap_first}/getLists');
+    	return this.http.get(this.BaseURI + '/${class.name?uncap_first}/lists');
     }
 
 }
