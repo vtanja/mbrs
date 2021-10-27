@@ -3,6 +3,8 @@
 
 package com.example.${appName}.dto;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -21,7 +23,7 @@ public class ${name}DTO{
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
-	protected ${prop.type.name} ${prop.name};
+	protected <#if prop.type.name=='String' || prop.type.name=='Int' || prop.type.name=='Integer' || prop.type.name=='long' || prop.type.name=='float' || prop.type.name=='double' || prop.type.name=='boolean' || prop.type.name=='Boolean' || prop.type.name=='Char' || prop.type.name=='Date'>${prop.type.name}<#else>String</#if> ${prop.name};
 	<#else>
 	protected Set<${prop.type.name}> ${prop.name};
 	</#if>
