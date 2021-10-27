@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
-import { I${class.name} } from '../model/${name}.model';
+import { ${class.name} } from '../model/${name}.model';
 
 @Injectable({
     providedIn: 'root',
@@ -23,16 +23,20 @@ export class ${class.name}Service {
         return this.http.get(this.BaseURI + '/${name}/'+id);
     }
 	
-    update${class.name}(model: I${class.name}){
-        return this.http.put(this.BaseURI + '/${name}/update', model);
+    update${class.name}(id: number, model: ${class.name}){
+        return this.http.put(this.BaseURI + '/${class.name?uncap_first}/' + id, model);
     }
 	
-    addNew${class.name}(model: I${class.name}) {
-        return this.http.post(this.BaseURI + '/${name}/create', model);
+    addNew${class.name}(model: ${class.name}) {
+        return this.http.post(this.BaseURI + '/${class.name?uncap_first}/', model);
     }
 	
     delete${class.name}(id: Number){
 		return this.http.delete(this.BaseURI + '/${name}/'+id);
+    }
+    
+    getLists(){
+    	return this.http.get(this.BaseURI + '/${class.name?uncap_first}/lists');
     }
 
 }

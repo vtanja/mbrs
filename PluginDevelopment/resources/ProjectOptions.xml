@@ -118,15 +118,6 @@
 				<overwrite>false</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
 		<option>
-			<string>FrontModelGenerator</string>
-			<myplugin.generator.options.GeneratorOptions>
-				<filePackage></filePackage>
-				<outputFileName>{0}.ts</outputFileName>
-				<outputPath>frontend/{1}/src/app/shared/model</outputPath>
-				<overwrite>true</overwrite>
-				<templateDir>templates/frontModel</templateDir>
-				<templateName>frontmodel</templateName></myplugin.generator.options.GeneratorOptions></option>
-		<option>
 			<string>ServiceGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
 				<filePackage></filePackage>
@@ -217,8 +208,25 @@
 				<outputPath>frontend/{1}/src/app/components</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/detail</templateDir>
-				<templateName>details-html</templateName></myplugin.generator.options.GeneratorOptions>
-		</option>
+				<templateName>details-html</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>FormComponentTsGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-form</filePackage>
+				<outputFileName>{0}-form.component.ts</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/form</templateDir>
+				<templateName>form-ts</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>FormComponentHtmlGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-form</filePackage>
+				<outputFileName>{0}-form.component.html</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/form</templateDir>
+				<templateName>form-html</templateName></myplugin.generator.options.GeneratorOptions></option>
 		<option>
 			<string>AppRoutingGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>

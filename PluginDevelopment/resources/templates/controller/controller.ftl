@@ -43,4 +43,9 @@ public class ${ name }Controller {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         return ${ name?lower_case }Service.delete${ name }(id);
     }
+    
+    @GetMapping(path="/lists")
+    public ResponseEntity<String> getLists() {
+        return ${ name?lower_case }Service.getLists();
+    }
 }
