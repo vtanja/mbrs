@@ -16,16 +16,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import com.example.${appName}.dto.${name}DetailDTOImpl;
-import com.example.${appName}.dto.${name}DTOImpl;
+import com.example.${appName}.dtoImpl.${name}DetailDTOImpl;
+import com.example.${appName}.dtoImpl.${name}DTOImpl;
 import com.example.${appName}.model.${name};
 import com.example.${appName}.repository.${name}RepositoryImpl;
 
 <#list importedPackages as import>
 <#if import.typePackage == "">
 import com.example.${appName}.model.${import.name};
-import com.example.${appName}.dto.${import.name}DTOImpl;
-import com.example.${appName}.dto.${import.name}DetailDTOImpl;
+import com.example.${appName}.dtoImpl.${import.name}DTOImpl;
+import com.example.${appName}.dtoImpl.${import.name}DetailDTOImpl;
 import com.example.${appName}.service.${import.name}ServiceImpl;
 </#if>
 </#list>
