@@ -11,6 +11,6 @@ export class AppComponent implements OnInit {
   show: boolean = false;
   
   ngOnInit() {
-  	this.boolean = false;
+  	this.show = false;
   }
 }
