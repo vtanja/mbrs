@@ -94,6 +94,10 @@ public class GeneratorFactory {
 			return new AppModuleGenerator(entry.getValue(), typeMappings);
 		}
 		
+		else if(entry.getKey().equals("AppComponentHTMLGenerator")) {
+			return new AppComponentHTMLGenerator(entry.getValue(), typeMappings);
+		}
+		
 		return null;
 		
 	}
