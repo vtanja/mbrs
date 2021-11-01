@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { I${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
 import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-${entity_name?uncap_first}-list',
@@ -26,7 +27,8 @@ export class ${entity_name}ListComponent implements OnInit {
 	
 	constructor(
 		private  ${entity_name?uncap_first}Service: ${entity_name}Service,
-		private router: Router
+		private router: Router,
+		private modalService: NgbModal
 	){}
 
 	ngOnInit(){
@@ -56,6 +58,28 @@ export class ${entity_name}ListComponent implements OnInit {
 					alert("Something went wrong while deleting ${entity_name}!");
 			}
 		);
+	}
+	
+	onChange(newValue:number) {
+	   this.elementsPerPage = newValue;
+	}
+	
+	open(content:any) {
+		this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+		this.closeResult = 'Closed with: ' + result;
+		}, (reason) => {
+		this.closeResult = 'Dismissed ' + this.getDismissReason(reason);
+		});
+	}
+
+	private getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+		return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+		return 'by clicking on a backdrop';
+		} else {
+		return 'with: ' + reason;
+		}
 	}
 
 }

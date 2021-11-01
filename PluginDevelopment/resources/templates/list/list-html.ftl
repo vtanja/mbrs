@@ -10,16 +10,48 @@
   </div>
   <br>
    <table class="table" style="width:90%; margin:auto">
-         <tr>
+      <tr>
           <#list persistentProps as prop>
-              <#if prop??>
-              <th scope="col"> ${prop.name?cap_first} </th>
-              </#if>
+          <#if prop??>
+          <th scope="col"> ${prop.name?cap_first} </th>
+          </#if>
           </#list>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
       </tr>
+      <tr *ngFor="let ${entity_name?uncap_first} of ${entity_name?uncap_first}_list">
+          <#list persistentProps as prop>
+            <td scope="row"> {{${entity_name?uncap_first}.${prop.name?uncap_first}}} </td>
+          </#list>
+          <td style="width: 20%;">
+              <button type="button" class="btn btn-warning">Edit</button>
+          </td>
+          <td style="width: 20%;">
+              <button type="button" class="btn btn-danger">Delete</button>
+          </td>
+      </tr> 
    </table>
+   
+   <div class="container" *ngIf="${entity_name?uncap_first}_list.length != 0">
+    <br>
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-2">
+          Elements per page:
+      </div>
+      <div class="col col-md-1">
+          <select class="custom-select" [(ngModel)]="elementsPerPage" (ngModelChange)="onChange($event)" name="sel2">
+              <option [value]="i" *ngFor="let i of options">{{i}}</option>
+          </select>
+      </div>
+      <div class="col-md-auto">
+        <pagination-controls (pageChange)="page = $event; changePage(page)"></pagination-controls>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="${entity_name?uncap_first}_list.length == 0" class="alert alert-warning" role="alert" style="text-align:center;">
+    There are no ${entity_name} added!
+  </div>
+</div>
 </div>
 
 <ng-template #mymodal let-modal>
