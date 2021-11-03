@@ -52,7 +52,6 @@
     There are no ${entity_name} added!
   </div>
 </div>
-</div>
 
 <ng-template #mymodal let-modal>
   <div class="modal-header">

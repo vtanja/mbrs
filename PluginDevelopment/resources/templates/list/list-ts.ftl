@@ -1,12 +1,11 @@
 /// [ ${.now?date} ${.now?time} ]
 /// This file is generated based on ${.current_template_name}
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { I${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
+import { ${class.name} } from 'src/app/shared/model/${class.name}';
 import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-${entity_name?uncap_first}-list',
@@ -15,7 +14,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 export class ${entity_name}ListComponent implements OnInit {
 
-	${entity_name?uncap_first}_list: I${entity_name}[] = [];
+	${entity_name?uncap_first}_list: ${entity_name}[] = [];
 	
 	page:number = 1;
 	elementsPerPage = 5;
@@ -25,6 +24,8 @@ export class ${entity_name}ListComponent implements OnInit {
 
 	isDisabled: boolean = false;
 	
+	closeResult: string = '';
+	
 	constructor(
 		private  ${entity_name?uncap_first}Service: ${entity_name}Service,
 		private router: Router,
@@ -33,7 +34,7 @@ export class ${entity_name}ListComponent implements OnInit {
 
 	ngOnInit(){
 		this.${entity_name?uncap_first}Service.getAll${class.name}s.subscribe(
-			(data) => {
+			(data: ${class.name}[])  => {
 				this.${entity_name?uncap_first}_list = data
 				this.isLoading = false;
 			},
@@ -48,10 +49,10 @@ export class ${entity_name}ListComponent implements OnInit {
 	
 	delete${entity_name}(id: number){
 		this.${entity_name?uncap_first}Service.delete${class.name}(id).subscribe(
-			data =>{
+			(data: ${class.name}[]) =>{
 				alert("${entity_name} has been successfully deleted!");
 			},
-			error => {
+			(error) => {
 				if (error.status == 403)
 					alert("Forbidden");
 				else 
