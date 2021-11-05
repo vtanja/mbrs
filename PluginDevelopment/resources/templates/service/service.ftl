@@ -12,22 +12,17 @@ import org.springframework.http.ResponseEntity;
 import javassist.NotFoundException;
 import java.util.*;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
+import com.example.${appName}.enums.*;
 import com.example.${appName}.dtoImpl.${name}DetailDTOImpl;
 import com.example.${appName}.dtoImpl.${name}DTOImpl;
 import com.example.${appName}.model.${name};
 import com.example.${appName}.repository.${name}RepositoryImpl;
 
-<#list importedPackages as import>
-<#if import.typePackage == "">
-import com.example.${appName}.model.${import.name};
-import com.example.${appName}.dtoImpl.${import.name}DTOImpl;
-import com.example.${appName}.dtoImpl.${import.name}DetailDTOImpl;
-import com.example.${appName}.service.${import.name}ServiceImpl;
-</#if>
+<#list imports as import>
+import com.example.${appName}.model.${import};
+import com.example.${appName}.dtoImpl.${import}DTOImpl;
+import com.example.${appName}.dtoImpl.${import}DetailDTOImpl;
+import com.example.${appName}.service.${import}ServiceImpl;
 </#list>
 
 @Service
@@ -35,11 +30,9 @@ public class ${name}Service {
     @Autowired
     private  ${name}RepositoryImpl  ${repository};
     
-    <#list importedPackages as import>
-	<#if import.typePackage == "">
+    <#list imports as import>
 	@Autowired
-    private ${import.name}ServiceImpl ${import.name?uncap_first}Service;
-	</#if>
+    private ${import}ServiceImpl ${import?uncap_first}Service;
 	</#list>
 
     public ResponseEntity<List<${name}DTOImpl>> getAll${name}(){
@@ -93,7 +86,10 @@ public class ${name}Service {
         }
         else {
     		<#list persistentProps as prop>
-			${name?uncap_first}.set${prop.name?cap_first}(${name?uncap_first}Dto.get${prop.name?cap_first}());
+    		<#if prop.type.name=='String' || prop.type.name=='Int' || prop.type.name=='Integer' || prop.type.name=='long' || prop.type.name=='float' || prop.type.name=='double' || prop.type.name=='boolean' || prop.type.name=='Boolean' || prop.type.name=='Char' || prop.type.name=='Date'>
+    		${name?uncap_first}.set${prop.name?cap_first}(${name?uncap_first}Dto.get${prop.name?cap_first}());
+    		<#else>${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name}.valueOf(${name?uncap_first}Dto.get${prop.name?cap_first}()));
+    		</#if>
 			</#list>
 			<#list linkedProps as prop>
 			<#if prop.upper == 1 >
@@ -121,9 +117,11 @@ public class ${name}Service {
         ${name} ${name?uncap_first} = new ${name}();
         
         <#list persistentProps as prop>
-        ${name?uncap_first}.set${prop.name?cap_first}(${name?uncap_first}Dto.get${prop.name?cap_first}());
+        <#if prop.type.name=='String' || prop.type.name=='Int' || prop.type.name=='Integer' || prop.type.name=='long' || prop.type.name=='float' || prop.type.name=='double' || prop.type.name=='boolean' || prop.type.name=='Boolean' || prop.type.name=='Char' || prop.type.name=='Date'>
+    	${name?uncap_first}.set${prop.name?cap_first}(${name?uncap_first}Dto.get${prop.name?cap_first}());
+    	<#else>${name?uncap_first}.set${prop.name?cap_first}(${prop.type.name}.valueOf(${name?uncap_first}Dto.get${prop.name?cap_first}()));
+    	</#if>
 		</#list>
-		
 		<#list linkedProps as prop>
 		<#if prop.upper == 1 >
 		if(${name?uncap_first}Dto.get${prop.name?cap_first}() != null) {
