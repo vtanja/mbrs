@@ -44,7 +44,7 @@ export class ${entity_name}ListComponent implements OnInit {
 				if (error.status == 403)
 					alert("Forbidden");
 				else 
-					alert(error.error);
+					alert(error);
 			}
 		);
 	}
