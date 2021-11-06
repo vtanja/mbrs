@@ -44,7 +44,8 @@ public class RepositoryGenerator extends BasicGenerator {
 					context.put("importedPackages", cl.getImportedPackages());
 					
 					context.put("appName", FMModel.getInstance().getApplication().getName());
-									
+					context.put("id", FMModel.getInstance().getIdNames().get(cl.getName())!=null?FMModel.getInstance().getIdNames().get(cl.getName()):"Id");
+					
 					getTemplate().process(context, out);
 					out.flush();
 				}

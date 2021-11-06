@@ -19,9 +19,9 @@ import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.TypeMapping;
 
-public class DetailComponentHTMLGenerator extends BasicGenerator{
+public class FormComponentHtmlGenerator extends BasicGenerator{
 
-	public DetailComponentHTMLGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
+	public FormComponentHtmlGenerator(GeneratorOptions generatorOptions, List<TypeMapping> typeMappings) {
 		super(generatorOptions, typeMappings);
 	}
 	
@@ -35,15 +35,15 @@ public class DetailComponentHTMLGenerator extends BasicGenerator{
 		List<FMComponent> components = FMModel.getInstance().getComponents();
 		for (int i = 0; i < components.size(); i++) {
 			FMComponent component = components.get(i);
-			if(component.isDetail()) {
+			if(component.isUpdate() || component.isCreate()) {
 				Writer out;
 				Map<String, Object> context = new HashMap<String, Object>();
 				try {
-					out = getWriter(formatInput(component.getName()).toLowerCase(), "");
+					out = getWriter(component.getName().substring(0, 1).toLowerCase() + component.getName().substring(1), "");
 					if (out != null) {
 						
 						context.put("component", component);
-						context.put("entity_name", formatInput(component.getName()).toLowerCase());
+						context.put("entity_name", component.getName());
 						
 						List<FMField> associations = new ArrayList<FMField>();
 						List<FMField> baseFields = new ArrayList<FMField>();
@@ -68,16 +68,10 @@ public class DetailComponentHTMLGenerator extends BasicGenerator{
 							}
 						}
 						
-						Map<String, String> paths = new HashMap<String, String>();
-						for(FMField ass : associations) {
-							paths.put(ass.getFmType().getName(), formatInput(ass.getFmType().getName()).toLowerCase());
-						}
-												
 						context.put("id", FMModel.getInstance().getIdNames().get(component.getName())!=null?FMModel.getInstance().getIdNames().get(component.getName()):"");
 						context.put("assId", ids); // id-jevi asocijacija 
 						context.put("baseFields", baseFields);
 						context.put("associations", associations);
-						context.put("paths", paths);
 						
 						getTemplate().process(context, out);
 						out.flush();
@@ -90,5 +84,4 @@ public class DetailComponentHTMLGenerator extends BasicGenerator{
 			}
 		}
 	}
-
 }

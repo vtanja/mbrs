@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ${class.name}Repository extends JpaRepository<${class.name}, Long>{
-	${class.name} find${class.name}ById(Long id);
+	${class.name} find${class.name}By${id}(Long id);
     List<${class.name}> findAll();
 }

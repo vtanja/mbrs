@@ -118,15 +118,6 @@
 				<overwrite>false</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
 		<option>
-			<string>FrontModelGenerator</string>
-			<myplugin.generator.options.GeneratorOptions>
-				<filePackage></filePackage>
-				<outputFileName>{0}.ts</outputFileName>
-				<outputPath>frontend/{1}/src/app/shared/model</outputPath>
-				<overwrite>true</overwrite>
-				<templateDir>templates/frontModel</templateDir>
-				<templateName>frontmodel</templateName></myplugin.generator.options.GeneratorOptions></option>
-		<option>
 			<string>ServiceGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
 				<filePackage></filePackage>
@@ -217,8 +208,25 @@
 				<outputPath>frontend/{1}/src/app/components</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/detail</templateDir>
-				<templateName>details-html</templateName></myplugin.generator.options.GeneratorOptions>
-		</option>
+				<templateName>details-html</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>FormComponentTsGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-form</filePackage>
+				<outputFileName>{0}-form.component.ts</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/form</templateDir>
+				<templateName>form-ts</templateName></myplugin.generator.options.GeneratorOptions></option>
+		<option>
+			<string>FormComponentHtmlGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<filePackage>{0}.{0}-form</filePackage>
+				<outputFileName>{0}-form.component.html</outputFileName>
+				<outputPath>frontend/{1}/src/app/components</outputPath>
+				<overwrite>true</overwrite>
+				<templateDir>templates/form</templateDir>
+				<templateName>form-html</templateName></myplugin.generator.options.GeneratorOptions></option>
 		<option>
 			<string>AppRoutingGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
@@ -237,7 +245,8 @@
 				<outputPath>frontend/{1}/src/app/components</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/list</templateDir>
-				<templateName>list-ts</templateName></myplugin.generator.options.GeneratorOptions></option>
+				<templateName>list-ts</templateName></myplugin.generator.options.GeneratorOptions>
+		</option>
 		<option>
 			<string>ListComponentHtmlGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
@@ -246,7 +255,18 @@
 				<outputPath>frontend/{1}/src/app/components</outputPath>
 				<overwrite>true</overwrite>
 				<templateDir>templates/list</templateDir>
-				<templateName>list-html</templateName></myplugin.generator.options.GeneratorOptions></option>
+				<templateName>list-html</templateName></myplugin.generator.options.GeneratorOptions>
+		</option>
+		<option>
+			<string>WebSecurityConfigGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>backend\{1}\src\main\java\com\example\{1}\config</outputPath>
+				<templateName>webSecurityConfig</templateName>
+				<templateDir>templates/config</templateDir>
+				<outputFileName>WebSecurityConfig.java</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
 		<option>
 			<string>AppModuleGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
@@ -255,8 +275,8 @@
 				<templateDir>templates/appModule</templateDir>
 				<outputFileName>app.module.ts</outputFileName>
 				<overwrite>true</overwrite>
-				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions></option>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
 </generatorOptions>
-	<generatedPath>D:\temp</generatedPath>
-	<sourcesPath>D:\mbrs\PluginDevelopment\resources\initialProjects</sourcesPath>
-</myplugin.generator.options.ProjectOptions>
+	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
+	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
