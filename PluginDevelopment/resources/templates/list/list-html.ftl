@@ -44,7 +44,7 @@
           </select>
       </div>
       <div class="col-md-auto">
-        <pagination-controls (pageChange)="page = $event; changePage(page)"></pagination-controls>
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
       </div>
     </div>
   </div>
