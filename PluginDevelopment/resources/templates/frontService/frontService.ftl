@@ -15,7 +15,7 @@ import { ${class.name} } from 'src/app/shared/model/${class.name}';
    })
    
 export class ${class.name}Service {
-    readonly BaseURI = 'http://localhost:PORT';
+    readonly BaseURI = 'http://localhost:8080';
 
     constructor(private http: HttpClient) {
         
