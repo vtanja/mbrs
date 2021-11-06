@@ -17,6 +17,7 @@ export class ${entity_name}ListComponent implements OnInit {
 	${entity_name?uncap_first}_list: ${entity_name}[] = [];
 	
 	page:number = 1;
+	totalLength: any;
 	elementsPerPage = 5;
 	options:number[] = [5, 10, 15];
 	idToDelete: any;
@@ -33,12 +34,13 @@ export class ${entity_name}ListComponent implements OnInit {
 	){}
 
 	ngOnInit(){
-		this.${entity_name?uncap_first}Service.getAll${class.name}s.subscribe(
-			(data: ${class.name}[])  => {
+		this.${entity_name?uncap_first}Service.getAll${class.name}s().subscribe(
+			(data: any)  => {
 				this.${entity_name?uncap_first}_list = data
 				this.isLoading = false;
+				this.totalLength = data.length;
 			},
-			(error) => {
+			(error: any) => {
 				if (error.status == 403)
 					alert("Forbidden");
 				else 
@@ -49,10 +51,10 @@ export class ${entity_name}ListComponent implements OnInit {
 	
 	delete${entity_name}(id: number){
 		this.${entity_name?uncap_first}Service.delete${class.name}(id).subscribe(
-			(data: ${class.name}[]) =>{
+			data =>{
 				alert("${entity_name} has been successfully deleted!");
 			},
-			(error) => {
+			error => {
 				if (error.status == 403)
 					alert("Forbidden");
 				else 
@@ -63,6 +65,9 @@ export class ${entity_name}ListComponent implements OnInit {
 	
 	onChange(newValue:number) {
 	   this.elementsPerPage = newValue;
+	}
+	
+	changePage(page: number){
 	}
 	
 	open(content:any) {

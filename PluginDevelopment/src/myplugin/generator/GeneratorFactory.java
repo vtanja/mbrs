@@ -94,6 +94,10 @@ public class GeneratorFactory {
 			return new ListComponentHtmlGenerator(entry.getValue(), typeMappings);
 		}
 		
+		if(entry.getKey().equals("AppModuleGenerator")) {
+			return new AppModuleGenerator(entry.getValue(), typeMappings);
+		}
+		
 		return null;
 		
 	}
