@@ -68,6 +68,19 @@ export class ${entity_name}ListComponent implements OnInit {
 	}
 	
 	changePage(page: number){
+	   this.isLoading = true;
+	   this.page = page;
+	   this.${entity_name?uncap_first}Service.get${class.name}Page(this.page-1, this.elementsPerPage).subscribe(
+		  (data: any ) => {
+			  this.${entity_name?uncap_first}_list = data;
+			  this.isLoading = false;
+			},
+			(error) => {
+			  if (error.status == 403)
+				 alert("Forbidden");
+			  else 
+				alert(error);
+			});
 	}
 	
 	open(content:any) {

@@ -20,6 +20,10 @@ export class ${class.name}Service {
     constructor(private http: HttpClient) {
         
     }
+    
+    get${class.name}Page(pageNo:number, pageSize:number){
+    	return this.http.get(this.BaseURI + '/${class.name}/'+pageNo+'/'+pageSize);
+ 	}
 	
     getAll${class.name}s() {
         return this.http.get(this.BaseURI + '/${class.name}/getAll');
