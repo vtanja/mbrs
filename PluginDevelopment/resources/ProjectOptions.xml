@@ -278,5 +278,5 @@
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
 		</option>
 </generatorOptions>
-	<generatedPath>putanja do lokacije gdje se generisu projekti</generatedPath>
-	<sourcesPath>putanja do lokacije gde se nalazi resources/initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
+	<generatedPath>D:\temp</generatedPath>
+	<sourcesPath>D:\mbrs\PluginDevelopment\resources\initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>

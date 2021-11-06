@@ -26,7 +26,7 @@ import com.example.${appName}.repository.${name}RepositoryImpl;
 import com.example.${appName}.model.${import.name};
 import com.example.${appName}.dto.${import.name}DTOImpl;
 import com.example.${appName}.dto.${import.name}DetailDTOImpl;
-import com.example.${appName}.service.${import.name};
+import com.example.${appName}.service.${import.name}Service;
 </#if>
 </#list>
 

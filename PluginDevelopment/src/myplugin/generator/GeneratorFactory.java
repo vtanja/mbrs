@@ -28,10 +28,6 @@ public class GeneratorFactory {
 		else if(entry.getKey().equals("ControllerImplGenerator")) {
 			return new ControllerImplGenerator(entry.getValue(), typeMappings);
 		}
-		
-		else if(entry.getKey().equals("FrontModelGenerator")) {
-			return new FrontModelGenerator(entry.getValue(), typeMappings);
-		}
     
 		else if(entry.getKey().equals("DTODetailGenerator")) {
 			return new DTODetailGenerator(entry.getValue(), typeMappings);

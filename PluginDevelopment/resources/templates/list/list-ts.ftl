@@ -4,7 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ${class.name} } from 'src/app/shared/model/${class.name}';
+import { ${class.name} } from 'src/app/shared/model/${class.name?uncap_first}.model';
 import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
 
 @Component({

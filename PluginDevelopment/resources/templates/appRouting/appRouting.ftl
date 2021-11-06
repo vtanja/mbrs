@@ -7,7 +7,7 @@ import { ${components[component].name}DetailComponent } from './components/${com
 <#if components[component].create||components[component].update>
 import { ${components[component].name}FormComponent } from './components/${component}/${component}-form/${component}-form.component';
 </#if>
-import { ${component.name}ListComponent } from './components/${component.name?lower_case}/${component.name?lower_case}-list/${component.name?lower_case}-list.component';
+import { ${components[component].name}ListComponent } from './components/${component}/${component}-list/${component}-list.component';
 </#list>
 
 const routes: Routes = [
