@@ -13,7 +13,7 @@ export class ${name}{
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
-	${prop.name}: <#if prop.type.name=='number' || prop.type.name=='string' || prop.type.name=='boolean' || prop.type.name=='date'>${prop.type.name}<#else>string</#if> = <#if prop.type.name == 'number'>-1<#elseif prop.type.name=='string'>''<#elseif prop.type.name == 'boolean'>false<#elseif prop.type.name == 'date'>new Date()<#else>''</#if>;
+	${prop.name}: <#if prop.type.name=='number' || prop.type.name=='string' || prop.type.name=='boolean' || prop.type.name=='date' || prop.type.name=='Date'>${prop.type.name}<#else>string</#if> = <#if prop.type.name == 'number'>-1<#elseif prop.type.name=='string'>''<#elseif prop.type.name == 'boolean'>false<#elseif prop.type.name == 'Date'>new Date()<#else>''</#if>;
 	<#else>
 	${prop.name}: Array<${prop.type.name}> = [];
 	</#if>
