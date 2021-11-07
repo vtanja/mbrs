@@ -4,12 +4,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
-import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
+import { ${entity_name} } from 'src/app/shared/model/${component_name}.model';
+import { ${entity_name}Service } from 'src/app/shared/services/${component_name}.service';
 
 @Component({
-	selector: 'app-${entity_name?uncap_first}-list',
-	templateUrl: './${entity_name?uncap_first}-list.component.html',
+	selector: 'app-${component_name}-list',
+	templateUrl: './${component_name}-list.component.html',
 })
 
 export class ${entity_name}ListComponent implements OnInit {
@@ -49,6 +49,7 @@ export class ${entity_name}ListComponent implements OnInit {
 		);
 	}
 	
+	<#if component.delete>
 	delete${entity_name}(id: number){
 		this.${entity_name?uncap_first}Service.delete${entity_name}(id).subscribe(
 			data =>{
@@ -62,6 +63,7 @@ export class ${entity_name}ListComponent implements OnInit {
 			}
 		);
 	}
+	</#if>
 	
 	onChange(newValue:number) {
 	   this.elementsPerPage = newValue;
