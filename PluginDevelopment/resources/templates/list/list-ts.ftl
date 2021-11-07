@@ -4,7 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ${class.name} } from 'src/app/shared/model/${class.name?uncap_first}.model';
+import { ${entity_name} } from 'src/app/shared/model/${entity_name?uncap_first}.model';
 import { ${entity_name}Service } from 'src/app/shared/services/${entity_name?uncap_first}.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class ${entity_name}ListComponent implements OnInit {
 	){}
 
 	ngOnInit(){
-		this.${entity_name?uncap_first}Service.getAll${class.name}s().subscribe(
+		this.${entity_name?uncap_first}Service.getAll${entity_name}s().subscribe(
 			(data: any)  => {
 				this.${entity_name?uncap_first}_list = data
 				this.isLoading = false;
@@ -50,7 +50,7 @@ export class ${entity_name}ListComponent implements OnInit {
 	}
 	
 	delete${entity_name}(id: number){
-		this.${entity_name?uncap_first}Service.delete${class.name}(id).subscribe(
+		this.${entity_name?uncap_first}Service.delete${entity_name}(id).subscribe(
 			data =>{
 				alert("${entity_name} has been successfully deleted!");
 			},

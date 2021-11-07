@@ -14,7 +14,9 @@
       <tr>
           <#list baseFields as field>
           <#if field??>
+          <#if field.visible>
           <th scope="col" <#if !field.sort>data-defaultsort='disabled'</#if>> ${field.name?cap_first} </th> 
+          </#if>
           </#if>
           </#list>
           <th>&nbsp;</th>
@@ -23,8 +25,10 @@
      </thead> 
      <tbody>
       <tr *ngFor="let ${entity_name?uncap_first} of ${entity_name?uncap_first}_list | paginate: { itemsPerPage: elementsPerPage, currentPage: page, totalItems: totalLength }; let i = index" [routerLink]="!isDisabled ? ['/${entity_name?uncap_first}', ${entity_name?uncap_first}.id] : []">
-         <#list baseFields as field>
-            <td scope="row"> {{${entity_name?uncap_first}.${field.name?uncap_first}}} </td>
+          <#list baseFields as field>
+          <#if field.visible>
+          	  <td scope="row"> {{${entity_name?uncap_first}.${field.name?uncap_first}}} </td>
+          </#if>
           </#list>
           <td style="width: 20%;">
               <button type="button" class="btn btn-warning" (click)="isDisabled=true;" [routerLink]="['/${entity_name?uncap_first}', ${entity_name?uncap_first}.id, 'update']">Edit</button>

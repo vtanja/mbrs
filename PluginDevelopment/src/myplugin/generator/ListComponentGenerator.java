@@ -2,6 +2,7 @@ package myplugin.generator;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,10 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import freemarker.template.TemplateException;
+import myplugin.generator.fmmodel.FMAssociationEnd;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMComponent;
+import myplugin.generator.fmmodel.FMField;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.TypeMapping;
@@ -27,27 +30,44 @@ public class ListComponentGenerator extends BasicGenerator {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-		List<FMClass> classes = FMModel.getInstance().getClasses();
-		for (int i = 0; i < classes.size(); i++) {
-			FMClass cl = classes.get(i);
-			Writer out;
-			Map<String, Object> context = new HashMap<String, Object>();
-			try {
-				out = getWriter(cl.getName().toLowerCase(), cl.getTypePackage());
-				if (out != null) {
-					context.clear();
-					context.put("class", cl);
-					context.put("entity_name", cl.getName());
-					context.put("properties", cl.getProperties());
-					context.put("importedPackages", cl.getImportedPackages());
-									
-					getTemplate().process(context, out);
-					out.flush();
+		List<FMComponent> components = FMModel.getInstance().getComponents();
+		for (int i = 0; i < components.size(); i++) {
+			FMComponent component = components.get(i);
+			if(component.isUpdate() || component.isCreate()) {
+				Writer out;
+				Map<String, Object> context = new HashMap<String, Object>();
+				try {
+					out = getWriter(formatInput(component.getName()).toLowerCase(), "");
+					if (out != null) {
+						
+						context.put("component", component);
+						context.put("entity_name", component.getName());
+						
+						List<FMField> associations = new ArrayList<FMField>();
+						List<FMField> baseFields = new ArrayList<FMField>();
+												
+						for(FMField field : component.getFields()) {
+							if(field instanceof FMAssociationEnd) {
+								associations.add(field);
+							}
+							else {
+								baseFields.add(field);
+							}
+						}
+						
+						
+
+						context.put("baseFields", baseFields);
+						context.put("associations", associations);
+						
+						getTemplate().process(context, out);
+						out.flush();
+					}					
+				} catch (TemplateException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
-			} catch (TemplateException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage());
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 		}
 	}
