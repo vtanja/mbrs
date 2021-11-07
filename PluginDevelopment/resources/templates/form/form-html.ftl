@@ -36,7 +36,7 @@ This file is generated based on ${.current_template_name}
 				</#list>
 				<br>
 				<input class="btn btn-primary" type="submit" [disabled]="form.invalid" (click)="submit()"/>&nbsp;&nbsp;&nbsp;
-				<button class="btn btn-primary" (click)="cancel()">Cancel</button>
+				<button class="btn btn-primary" routerLink="/${component_name}">Cancel</button>
 			</form>
 			<br/>
 		</div>
