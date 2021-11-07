@@ -6,6 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 <#list componentNames as component>
 <#if components[component].detail>
@@ -29,6 +30,7 @@ import { ${components[component].name}ListComponent } from './components/${compo
 	</#if>
 	${components[component].name}ListComponent,
 	</#list>
+	HomepageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HomepageComponent } from './homepage/homepage.component';
 <#list componentNames as component>
 <#if components[component].detail>
 import { ${components[component].name}DetailComponent } from './components/${component}/${component}-detail/${component}-detail.component';
@@ -11,6 +12,10 @@ import { ${components[component].name}ListComponent } from './components/${compo
 </#list>
 
 const routes: Routes = [
+{
+    path: '',
+    component: HomepageComponent
+  },
 <#list componentNames as component>
  {
   path: "${component}",
