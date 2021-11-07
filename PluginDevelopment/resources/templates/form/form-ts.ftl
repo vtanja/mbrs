@@ -27,7 +27,7 @@ interface ISelectLists {
 export class ${entity_name}FormComponent {
 	update: boolean = false;
 	id: number = 0;
-	entity: ${entity_name} | undefined;
+	entity: ${entity_name};
 	
 	form: FormGroup = new FormGroup({});
 
@@ -44,6 +44,7 @@ export class ${entity_name}FormComponent {
 				private activatedRoute: ActivatedRoute, 
 				private fb: FormBuilder)
 	{
+		this.entity = new ${entity_name}();
 		this.form = this.fb.group({
 			<#list baseFields as field>
 			'${field.name?uncap_first}': new FormControl('', <#if field.editable>Validators.required</#if>),
@@ -96,9 +97,19 @@ export class ${entity_name}FormComponent {
 					</#if>
 					</#list>
 					
+					<#list baseFields as field>
+					<#if field.fmType.name == 'date'>
+					var ${field.name} = new Date(this.entity.${field.name}.toString());
+					</#if>
+					</#list>
+					
 					this.form.setValue({
 						<#list baseFields as field>
+						<#if field.fmType.name == 'date'>
+						${field.name?uncap_first}: ${field.name}.toISOString().split('T')[0],
+						<#else>
 						${field.name?uncap_first}: this.entity?.${field.name},
+						</#if>
 						</#list>
 						<#list associations as field>
 						${field.name?uncap_first}: ${field.name?uncap_first}Val,
