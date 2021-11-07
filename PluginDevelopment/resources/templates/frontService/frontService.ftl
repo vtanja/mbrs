@@ -24,11 +24,11 @@ export class ${class.name}Service {
     }
 	
     update${class.name}(id: number, model: ${class.name}){
-        return this.http.put(this.BaseURI + '/${class.name?uncap_first}/' + id, model);
+        return this.http.put(this.BaseURI + '/${name}/' + id, model);
     }
 	
     addNew${class.name}(model: ${class.name}) {
-        return this.http.post(this.BaseURI + '/${class.name?uncap_first}/', model);
+        return this.http.post(this.BaseURI + '/${name}/', model);
     }
 	
     delete${class.name}(id: Number){
@@ -36,7 +36,7 @@ export class ${class.name}Service {
     }
     
     getLists(){
-    	return this.http.get(this.BaseURI + '/${class.name?uncap_first}/lists');
+    	return this.http.get(this.BaseURI + '/${name}/lists');
     }
 
 }
