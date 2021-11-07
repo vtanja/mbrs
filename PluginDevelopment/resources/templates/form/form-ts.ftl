@@ -141,6 +141,7 @@ export class ${entity_name}FormComponent {
 			this.service.update${entity_name}(this.id, dto).subscribe(
 			(res: any) => {
 				this.entity = res;
+				this.router.navigateByUrl('/${component_name}');
 			},
 			(err: any) => {
 				console.log(err);
@@ -150,14 +151,11 @@ export class ${entity_name}FormComponent {
 			this.service.addNew${entity_name}(dto).subscribe(
 			(res: any) => {
 				this.form.reset();
+				this.router.navigateByUrl('/${component_name}');
 			},
 			(err: any) => {
 				console.log(err);
 			});
 		}
-	}
-	
-	cancel(){
-	
 	}
 }
