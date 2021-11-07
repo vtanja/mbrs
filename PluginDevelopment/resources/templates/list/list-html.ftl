@@ -9,19 +9,22 @@
       </div>
   </div>
   <br>
-   <table class="table" style="width:90%; margin:auto" *ngIf="${entity_name?uncap_first}_list.length != 0">
+   <table class="table sortable" style="width:90%; margin:auto" *ngIf="${entity_name?uncap_first}_list.length != 0">
+     <thead>
       <tr>
-          <#list persistentProps as prop>
-          <#if prop??>
-          <th scope="col"> ${prop.name?cap_first} </th>
+          <#list baseFields as field>
+          <#if field??>
+          <th scope="col" <#if !field.sort>data-defaultsort='disabled'</#if>> ${field.name?cap_first} </th> 
           </#if>
           </#list>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
       </tr>
+     </thead> 
+     <tbody>
       <tr *ngFor="let ${entity_name?uncap_first} of ${entity_name?uncap_first}_list | paginate: { itemsPerPage: elementsPerPage, currentPage: page, totalItems: totalLength }; let i = index" [routerLink]="!isDisabled ? ['/${entity_name?uncap_first}', ${entity_name?uncap_first}.id] : []">
-          <#list persistentProps as prop>
-            <td scope="row"> {{${entity_name?uncap_first}.${prop.name?uncap_first}}} </td>
+         <#list baseFields as field>
+            <td scope="row"> {{${entity_name?uncap_first}.${field.name?uncap_first}}} </td>
           </#list>
           <td style="width: 20%;">
               <button type="button" class="btn btn-warning" (click)="isDisabled=true;" [routerLink]="['/${entity_name?uncap_first}', ${entity_name?uncap_first}.id, 'update']">Edit</button>
@@ -29,7 +32,8 @@
           <td style="width: 20%;">
               <button type="button" class="btn btn-danger" (click)="isDisabled=true;idToDelete=${entity_name?uncap_first}.id;open(mymodal)">Delete</button>
           </td>
-      </tr> 
+      </tr>
+     </tbody> 
    </table>
    
    <div class="container" *ngIf="${entity_name?uncap_first}_list.length != 0">

@@ -10,7 +10,10 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import freemarker.template.TemplateException;
+import myplugin.generator.fmmodel.FMAssociationEnd;
 import myplugin.generator.fmmodel.FMClass;
+import myplugin.generator.fmmodel.FMComponent;
+import myplugin.generator.fmmodel.FMField;
 import myplugin.generator.fmmodel.FMIdentityProperty;
 import myplugin.generator.fmmodel.FMLinkedProperty;
 import myplugin.generator.fmmodel.FMModel;
@@ -32,46 +35,44 @@ public class ListComponentHtmlGenerator extends BasicGenerator {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-		List<FMClass> classes = FMModel.getInstance().getClasses();
-		for (int i = 0; i < classes.size(); i++) {
-			FMClass cl = classes.get(i);
-			Writer out;
-			Map<String, Object> context = new HashMap<String, Object>();
-			try {
-				out = getWriter(cl.getName().toLowerCase(), cl.getTypePackage());
-				if (out != null) {
-					context.clear();
-					context.put("class", cl);
-					context.put("entity_name", cl.getName());
-					context.put("properties", cl.getProperties());
-					context.put("importedPackages", cl.getImportedPackages());
-					
-					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
-					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
-					
-					for (FMProperty prop : cl.getProperties()) {
-						if (prop instanceof FMLinkedProperty) {
-							linkedProps.add(prop);
-						}
-						else if (prop instanceof FMIdentityProperty) {
-							context.put("identityProp", (FMIdentityProperty)prop);
-						}
-						else if (prop instanceof FMPersistentProperty) {
-							persistentProps.add(prop);
+		List<FMComponent> components = FMModel.getInstance().getComponents();
+		for (int i = 0; i < components.size(); i++) {
+			FMComponent component = components.get(i);
+			if(component.isUpdate() || component.isCreate()) {
+				Writer out;
+				Map<String, Object> context = new HashMap<String, Object>();
+				try {
+					out = getWriter(component.getName().substring(0, 1).toLowerCase() + component.getName().substring(1), "");
+					if (out != null) {
+						
+						context.put("component", component);
+						context.put("entity_name", component.getName());
+						
+						List<FMField> associations = new ArrayList<FMField>();
+						List<FMField> baseFields = new ArrayList<FMField>();
+												
+						for(FMField field : component.getFields()) {
+							if(field instanceof FMAssociationEnd) {
+								associations.add(field);
+							}
+							else {
+								baseFields.add(field);
+							}
 						}
 						
-					}
-					
-					context.put("linkedProps", linkedProps);
-					context.put("persistentProps", persistentProps);
 						
-					getTemplate().process(context, out);
-					out.flush();
+
+						context.put("baseFields", baseFields);
+						context.put("associations", associations);
+						
+						getTemplate().process(context, out);
+						out.flush();
+					}					
+				} catch (TemplateException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
-			} catch (TemplateException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage());
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 		}
 	}
