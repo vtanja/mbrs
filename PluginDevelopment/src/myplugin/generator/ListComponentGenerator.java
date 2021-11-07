@@ -55,7 +55,7 @@ public class ListComponentGenerator extends BasicGenerator {
 							}
 						}
 						
-						
+						context.put("component_name", formatInput(component.getName()).toLowerCase());
 
 						context.put("baseFields", baseFields);
 						context.put("associations", associations);

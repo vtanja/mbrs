@@ -60,7 +60,17 @@ public class ListComponentHtmlGenerator extends BasicGenerator {
 							}
 						}
 						
+						context.put("id", FMModel.getInstance().getIdNames().get(component.getName())!=null?FMModel.getInstance().getIdNames().get(component.getName()):"");
 						
+						Map<String, String> paths = new HashMap<String, String>();
+						for(FMField ass : associations) {
+							paths.put(ass.getFmType().getName(), formatInput(ass.getFmType().getName()).toLowerCase());
+						}
+						
+						paths.put(component.getName(), formatInput(component.getName()).toLowerCase());
+						
+						
+						context.put("paths", paths);
 
 						context.put("baseFields", baseFields);
 						context.put("associations", associations);
