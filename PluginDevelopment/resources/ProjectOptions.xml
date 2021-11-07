@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><myplugin.generator.options.ProjectOptions>
+<?xml version="1.0" encoding="UTF-8"?>
+<myplugin.generator.options.ProjectOptions>
 	<typeMappings>
 		
 		<myplugin.generator.options.TypeMapping>
@@ -66,7 +67,7 @@
 		<option>
 			<string>DTOImplGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
-				<outputPath>backend/{1}/src/main/java/com/example/{1}/dto</outputPath>
+				<outputPath>backend/{1}/src/main/java/com/example/{1}/dtoImpl</outputPath>
 				<templateName>dtoImpl</templateName>
 				<templateDir>templates/dto</templateDir>
 				<outputFileName>{0}DTOImpl.java</outputFileName>
@@ -84,7 +85,7 @@
 		<option>
       		<string>DTODetailImplGenerator</string>
 			<myplugin.generator.options.GeneratorOptions>
-				<outputPath>backend/{1}/src/main/java/com/example/{1}/dto</outputPath>
+				<outputPath>backend/{1}/src/main/java/com/example/{1}/dtoImpl</outputPath>
 				<templateName>detailDtoImpl</templateName>
 				<templateDir>templates/dto</templateDir>
 				<outputFileName>{0}DetailDTOImpl.java</outputFileName>
@@ -277,6 +278,27 @@
 				<overwrite>true</overwrite>
 				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
 		</option>
+		<option>
+			<string>AppComponentHTMLGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>frontend/{1}/src/app/homepage</outputPath>
+				<templateName>homepage-html</templateName>
+				<templateDir>templates/homepage</templateDir>
+				<outputFileName>homepage.component.html</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
+		<option>
+			<string>EnumGenerator</string>
+			<myplugin.generator.options.GeneratorOptions>
+				<outputPath>backend\{1}\src\main\java\com\example\{1}\enums</outputPath>
+				<templateName>enum</templateName>
+				<templateDir>templates/enum</templateDir>
+				<outputFileName>{0}.java</outputFileName>
+				<overwrite>true</overwrite>
+				<filePackage></filePackage></myplugin.generator.options.GeneratorOptions>
+		</option>
 </generatorOptions>
-	<generatedPath>D:\temp</generatedPath>
-	<sourcesPath>D:\mbrs\PluginDevelopment\resources\initialProjects</sourcesPath></myplugin.generator.options.ProjectOptions>
+	<generatedPath>C:\temp</generatedPath>
+	<sourcesPath>C:\Users\tanja\OneDrive\Documents\GitHub\mbrs\PluginDevelopment\resources\initialProjects</sourcesPath>
+</myplugin.generator.options.ProjectOptions>

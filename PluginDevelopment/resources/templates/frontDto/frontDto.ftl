@@ -1,10 +1,8 @@
 // [ ${.now?date} ${.now?time} ]
 // This file is generated based on ${.current_template_name}
 
-<#list importedPackages as import>
-<#if import.typePackage == "">
-import { ${import.name} } from './${imports[import.name]}.model';
-</#if>
+<#list linkedProps as import>
+import { ${import.type.name} } from './${imports[import.type.name]}.model';
 </#list>
 
 export class ${name}{
@@ -15,7 +13,7 @@ export class ${name}{
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
-	${prop.name}: <#if prop.type.name=='number' || prop.type.name=='string' || prop.type.name=='boolean' || prop.type.name=='date'>${prop.type.name}<#else>string</#if> = <#if prop.type.name == 'number'>-1<#elseif prop.type.name=='string'>''<#elseif prop.type.name == 'boolean'>false<#elseif prop.type.name == 'date'>new Date()<#else>''</#if>;
+	${prop.name}: <#if prop.type.name=='number' || prop.type.name=='string' || prop.type.name=='boolean' || prop.type.name=='date' || prop.type.name=='Date'>${prop.type.name}<#else>string</#if> = <#if prop.type.name == 'number'>-1<#elseif prop.type.name=='string'>''<#elseif prop.type.name == 'boolean'>false<#elseif prop.type.name == 'Date'>new Date()<#else>''</#if>;
 	<#else>
 	${prop.name}: Array<${prop.type.name}> = [];
 	</#if>

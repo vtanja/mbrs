@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import com.example.${appName}.dto.${ name }DTOImpl;
-import com.example.${appName}.dto.${ name }DetailDTOImpl;
+import com.example.${appName}.dtoImpl.${ name }DTOImpl;
+import com.example.${appName}.dtoImpl.${ name }DetailDTOImpl;
 import com.example.${appName}.service.${ name }ServiceImpl;
 
 

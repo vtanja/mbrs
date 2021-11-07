@@ -46,18 +46,21 @@ public class ServiceGenerator extends BasicGenerator {
 					context.put("name", cl.getName());
 					context.put("repository", cl.getName().toLowerCase() + "Repository");
 					context.put("properties", cl.getProperties());
-					context.put("importedPackages", cl.getImportedPackages());
 					context.put("id", FMModel.getInstance().getIdNames().get(cl.getName())!=null?FMModel.getInstance().getIdNames().get(cl.getName()):"Id");
 					context.put("appName", FMModel.getInstance().getApplication().getName());
 										
 					List<FMProperty> persistentProps = new ArrayList<FMProperty>();
 					List<FMProperty> linkedProps = new ArrayList<FMProperty>();
+					List<String> imports = new ArrayList<String>();
 					
 					for (FMProperty prop : cl.getProperties()) {
 						FMProperty copy = new FMProperty(prop);
 						
 						if (prop instanceof FMLinkedProperty) {
 							linkedProps.add(prop);
+							if(imports.indexOf(prop.getType().getName())==-1) {
+								imports.add(prop.getType().getName());
+							}
 						}
 						else if (prop instanceof FMIdentityProperty) {
 							FMIdentityProperty idCopy = new FMIdentityProperty((FMPersistentProperty)prop);
@@ -74,6 +77,7 @@ public class ServiceGenerator extends BasicGenerator {
 										
 					context.put("linkedProps", linkedProps);
 					context.put("persistentProps", persistentProps);
+					context.put("imports", imports);
 					
 					getTemplate().process(context, out);
 					out.flush();

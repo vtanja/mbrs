@@ -42,7 +42,7 @@ public class ListComponentHtmlGenerator extends BasicGenerator {
 				Writer out;
 				Map<String, Object> context = new HashMap<String, Object>();
 				try {
-					out = getWriter(component.getName().substring(0, 1).toLowerCase() + component.getName().substring(1), "");
+					out = getWriter(formatInput(component.getName()).toLowerCase(), "");
 					if (out != null) {
 						
 						context.put("component", component);
@@ -60,7 +60,17 @@ public class ListComponentHtmlGenerator extends BasicGenerator {
 							}
 						}
 						
+						context.put("id", FMModel.getInstance().getIdNames().get(component.getName())!=null?FMModel.getInstance().getIdNames().get(component.getName()):"");
 						
+						Map<String, String> paths = new HashMap<String, String>();
+						for(FMField ass : associations) {
+							paths.put(ass.getFmType().getName(), formatInput(ass.getFmType().getName()).toLowerCase());
+						}
+						
+						paths.put(component.getName(), formatInput(component.getName()).toLowerCase());
+						
+						
+						context.put("paths", paths);
 
 						context.put("baseFields", baseFields);
 						context.put("associations", associations);

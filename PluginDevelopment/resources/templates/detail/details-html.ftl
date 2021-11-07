@@ -6,7 +6,7 @@ This file is generated based on ${.current_template_name}
 	<div class="justify-content-center">
 		<div class="col justify-content-between">
 			<h1 class="h1">${entity_name}</h1>
-            <#if component.update><a routerLink="'/${entity_name?uncap_first}' + obj?.<#if id == "">id<#else>${id}</#if> + '/update'" class="btn btn-info m-2">Edit</a></#if>
+            <#if component.update><a [routerLink]="['/${entity_name?uncap_first}', obj?.<#if id == "">id<#else>${id}</#if>, 'update']" class="btn btn-info m-2">Edit</a></#if>
             <#if component.delete><a class="btn btn-danger m-2" (click)="open(mymodal)">Delete</a></#if>
 		</div>
 		<div class="col">

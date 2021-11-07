@@ -21,13 +21,13 @@ This file is generated based on ${.current_template_name}
 			        <option [ngValue]="null" <#if component.isUpdate() && !field.editable>disabled</#if> >
 			            --
 			        </option>
-			        <option *ngFor="let obj of selectLists.${field.label?uncap_first}List" [ngValue]="obj" <#if component.isUpdate() && !field.editable>disabled</#if>>
+			        <option *ngFor="let obj of selectLists.${field.name?uncap_first}List" [ngValue]="obj" <#if component.isUpdate() && !field.editable>disabled</#if>>
 			            ${field.fmType.name}({{obj.id}})
 			        </option>
 			    </select>
 			    <#else>
 			    <select <#if !field.visible>[hidden]=true</#if> multiple class="form-control" formControlName=${field.name}>
-			        <option *ngFor="let obj of selectLists.${field.label?uncap_first}List" [ngValue]="obj" <#if component.isUpdate() && !field.editable>disabled</#if>>
+			        <option *ngFor="let obj of selectLists.${field.name?uncap_first}List" [ngValue]="obj" <#if component.isUpdate() && !field.editable>disabled</#if>>
 			            ${field.fmType.name}({{obj.id}})
 			        </option>
 			    </select>
@@ -36,7 +36,7 @@ This file is generated based on ${.current_template_name}
 				</#list>
 				<br>
 				<input class="btn btn-primary" type="submit" [disabled]="form.invalid" (click)="submit()"/>&nbsp;&nbsp;&nbsp;
-				<button class="btn btn-primary" (click)="cancel()">Cancel</button>
+				<button class="btn btn-primary" routerLink="/${component_name}">Cancel</button>
 			</form>
 			<br/>
 		</div>

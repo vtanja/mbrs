@@ -8,7 +8,7 @@ import { ${entity_name} } from 'src/app/shared/model/${component_name}.model';
 import { ${entity_name}Service } from 'src/app/shared/services/${component_name}.service';
 
 @Component({
-	selector: 'app-${component_name}',
+	selector: 'app-${component_name}-detail',
 	templateUrl: './${component_name}-detail.component.html',
 })
 

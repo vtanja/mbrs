@@ -28,7 +28,7 @@ public class GeneratorFactory {
 		else if(entry.getKey().equals("ControllerImplGenerator")) {
 			return new ControllerImplGenerator(entry.getValue(), typeMappings);
 		}
-    
+		
 		else if(entry.getKey().equals("DTODetailGenerator")) {
 			return new DTODetailGenerator(entry.getValue(), typeMappings);
 		}
@@ -101,16 +101,20 @@ public class GeneratorFactory {
 			return new AppModuleGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("ListComponentGenerator")) {
+		else if(entry.getKey().equals("AppComponentHTMLGenerator")) {
+			return new AppComponentHTMLGenerator(entry.getValue(), typeMappings);
+		}
+		
+		else if(entry.getKey().equals("EnumGenerator")) {
+			return new EnumGenerator(entry.getValue(), typeMappings);
+		}
+
+		else if(entry.getKey().equals("ListComponentGenerator")) {
 			return new ListComponentGenerator(entry.getValue(), typeMappings);
 		}
 		
-		if(entry.getKey().equals("ListComponentHtmlGenerator")) {
+		else if(entry.getKey().equals("ListComponentHtmlGenerator")) {
 			return new ListComponentHtmlGenerator(entry.getValue(), typeMappings);
-		}
-		
-		if(entry.getKey().equals("AppModuleGenerator")) {
-			return new AppModuleGenerator(entry.getValue(), typeMappings);
 		}
 		
 		return null;

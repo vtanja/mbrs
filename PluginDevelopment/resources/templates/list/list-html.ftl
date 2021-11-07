@@ -5,7 +5,7 @@
           <h4 style="text-align:center;">${entity_name}</h4>
       </div>
       <div class="col"  style="text-align:center;">
-          <button type="button" class="btn btn-success" [routerLink]="['/${entity_name?uncap_first}/create']">Add new ${entity_name}</button>
+          <button type="button" class="btn btn-success" [routerLink]="['/${paths[entity_name]}/create']">Add new ${entity_name}</button>
       </div>
   </div>
   <br>
@@ -14,7 +14,9 @@
       <tr>
           <#list baseFields as field>
           <#if field??>
+          <#if field.visible>
           <th scope="col" <#if !field.sort>data-defaultsort='disabled'</#if>> ${field.name?cap_first} </th> 
+          </#if>
           </#if>
           </#list>
           <th>&nbsp;</th>
@@ -22,16 +24,23 @@
       </tr>
      </thead> 
      <tbody>
-      <tr *ngFor="let ${entity_name?uncap_first} of ${entity_name?uncap_first}_list | paginate: { itemsPerPage: elementsPerPage, currentPage: page, totalItems: totalLength }; let i = index" [routerLink]="!isDisabled ? ['/${entity_name?uncap_first}', ${entity_name?uncap_first}.id] : []">
-         <#list baseFields as field>
-            <td scope="row"> {{${entity_name?uncap_first}.${field.name?uncap_first}}} </td>
+      <tr *ngFor="let ${entity_name?uncap_first} of ${entity_name?uncap_first}_list | paginate: { itemsPerPage: elementsPerPage, currentPage: page, totalItems: totalLength }; let i = index" [routerLink]="!isDisabled ? ['/${paths[entity_name]}', ${entity_name?uncap_first}.<#if id == "">id<#else>${id}</#if>] : []">
+          <#list baseFields as field>
+          <#if field.visible>
+          	  <td scope="row"> {{${entity_name?uncap_first}.${field.name?uncap_first} <#if field.type == "date">| date: 'dd-MM-yyyy'</#if>}} </td>
+          
+          </#if>          
           </#list>
+          <#if component.update>
           <td style="width: 20%;">
-              <button type="button" class="btn btn-warning" (click)="isDisabled=true;" [routerLink]="['/${entity_name?uncap_first}', ${entity_name?uncap_first}.id, 'update']">Edit</button>
+              <button type="button" class="btn btn-warning" (click)="isDisabled=true;" [routerLink]="['/${paths[entity_name]}', ${entity_name?uncap_first}.<#if id == "">id<#else>${id}</#if>, 'update']">Edit</button>
           </td>
+          </#if>
+          <#if component.delete>
           <td style="width: 20%;">
-              <button type="button" class="btn btn-danger" (click)="isDisabled=true;idToDelete=${entity_name?uncap_first}.id;open(mymodal)">Delete</button>
+              <button type="button" class="btn btn-danger" (click)="isDisabled=true;idToDelete=${entity_name?uncap_first}.<#if id == "">id<#else>${id}</#if>;open(mymodal)">Delete</button>
           </td>
+          </#if>
       </tr>
      </tbody> 
    </table>
@@ -57,6 +66,7 @@
   </div>
 </div>
 
+<#if component.delete>
 <ng-template #mymodal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Delete</h4>
@@ -72,3 +82,4 @@
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Cancel</button>
   </div>
 </ng-template>	
+</#if>

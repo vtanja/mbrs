@@ -61,6 +61,8 @@ public class ModelGenerator extends BasicGenerator {
 					List<FMProperty> oneToOneProps = new ArrayList<FMProperty>();
 					
 					for (FMProperty prop : cl.getProperties()) {
+						FMProperty copy = new FMProperty(prop);
+						
 						if (prop instanceof FMOneToMany) {
 							oneToManyProps.add(prop);
 						}
@@ -73,14 +75,21 @@ public class ModelGenerator extends BasicGenerator {
 						else if (prop instanceof FMManytoMany) {
 							manyToManyProps.add(prop);
 						}
-						else if (prop instanceof FMIdentityProperty) {
-							context.put("identityProp", (FMIdentityProperty)prop);
-						}
-						else if (prop instanceof FMPersistentProperty) {
-							persistentProps.add(prop);
-						}
 						else if (prop instanceof FMLinkedProperty) {
 							linkedProps.add(prop);
+						}
+						else if (prop instanceof FMIdentityProperty) {
+							FMIdentityProperty idCopy = new FMIdentityProperty((FMPersistentProperty)prop);
+							idCopy.setStrategy(((FMIdentityProperty) prop).getStrategy());
+							idCopy.setType(getCorrectType(prop.getType(), "backend"));
+							context.put("identityProp", idCopy);
+						}
+						else if (prop instanceof FMPersistentProperty) {
+							copy.setType(getCorrectType(prop.getType(), "backend"));
+							FMPersistentProperty perCopy = new FMPersistentProperty(copy);
+							perCopy.setPrecision(((FMPersistentProperty) prop).getPrecision());
+							perCopy.setLength(((FMPersistentProperty) prop).getLength());
+							persistentProps.add(perCopy);
 						}
 						
 					}

@@ -3,7 +3,7 @@
 
 package com.example.${appName}.model;
 
-import java.util.Set;
+import java.util.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import com.example.${appName}.enums.*;
 
 @Getter
 @Setter
@@ -42,10 +44,11 @@ public class ${name}{
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 </#if>
 <#list persistentProps as prop>
 	<#if prop.upper == 1 >
-	@Column
+	@Column<#if prop.type.name == 'String'><#if prop.length??>(length = ${prop.length})</#if><#elseif prop.type.name == 'double' || prop.type.name == 'float'><#if prop.precision??>(precision = ${prop.precision})</#if></#if>
 	${prop.visibility} ${prop.type.name} ${prop.name};
 	
 	<#else>
