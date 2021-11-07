@@ -108,6 +108,14 @@ public class GeneratorFactory {
 		else if(entry.getKey().equals("EnumGenerator")) {
 			return new EnumGenerator(entry.getValue(), typeMappings);
 		}
+
+		else if(entry.getKey().equals("ListComponentGenerator")) {
+			return new ListComponentGenerator(entry.getValue(), typeMappings);
+		}
+		
+		else if(entry.getKey().equals("ListComponentHtmlGenerator")) {
+			return new ListComponentHtmlGenerator(entry.getValue(), typeMappings);
+		}
 		
 		return null;
 		

@@ -435,8 +435,10 @@ public class ModelAnalyzer {
 		if(propType == "PersistentProperty" || propType == "IdentityProperty") {
 			switch(name) {
 				case "columnName":{
-					String columnName = (String) value.get(0);
-					((FMPersistentProperty)property).setColumnName(columnName);
+					if(!value.isEmpty()) {
+					  String columnName = (String) value.get(0);
+					  ((FMPersistentProperty)property).setColumnName(columnName);
+					}
 				}
 				break;
 				case "precision":{
