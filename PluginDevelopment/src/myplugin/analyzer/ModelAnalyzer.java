@@ -434,18 +434,24 @@ public class ModelAnalyzer {
 		if(propType == "PersistentProperty" || propType == "IdentityProperty") {
 			switch(name) {
 				case "columnName":{
-					String columnName = (String) value.get(0);
-					((FMPersistentProperty)property).setColumnName(columnName);
+					if(!value.isEmpty()) {
+					  String columnName = (String) value.get(0);
+					  ((FMPersistentProperty)property).setColumnName(columnName);
+					}
 				}
 				break;
 				case "precision":{
-					Integer precision = (Integer) value.get(0);
-					((FMPersistentProperty)property).setPrecision(precision);
+					if(!value.isEmpty()) {
+					   Integer precision = (Integer) value.get(0);
+					  ((FMPersistentProperty)property).setPrecision(precision);
+					}
 				}
 				break;
 				case "length":{
-					Integer length = (Integer) value.get(0);
-					((FMPersistentProperty)property).setLength(length);
+					if(!value.isEmpty()) {
+					  Integer length = (Integer) value.get(0);
+					  ((FMPersistentProperty)property).setLength(length);
+					}
 				}
 				break;
 				default: break;

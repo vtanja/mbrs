@@ -28,10 +28,6 @@ public class GeneratorFactory {
 		else if(entry.getKey().equals("ControllerImplGenerator")) {
 			return new ControllerImplGenerator(entry.getValue(), typeMappings);
 		}
-		
-		else if(entry.getKey().equals("FrontModelGenerator")) {
-			return new FrontModelGenerator(entry.getValue(), typeMappings);
-		}
     
 		else if(entry.getKey().equals("DTODetailGenerator")) {
 			return new DTODetailGenerator(entry.getValue(), typeMappings);
@@ -102,6 +98,18 @@ public class GeneratorFactory {
 		}
 		
 		else if(entry.getKey().equals("AppModuleGenerator")) {
+			return new AppModuleGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("ListComponentGenerator")) {
+			return new ListComponentGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("ListComponentHtmlGenerator")) {
+			return new ListComponentHtmlGenerator(entry.getValue(), typeMappings);
+		}
+		
+		if(entry.getKey().equals("AppModuleGenerator")) {
 			return new AppModuleGenerator(entry.getValue(), typeMappings);
 		}
 		
