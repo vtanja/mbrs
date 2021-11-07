@@ -55,6 +55,17 @@ public class ListComponentGenerator extends BasicGenerator {
 							}
 						}
 						
+						Map<String, String> paths = new HashMap<String, String>();
+						for(FMField ass : associations) {
+							paths.put(ass.getFmType().getName(), formatInput(ass.getFmType().getName()).toLowerCase());
+						}
+						
+						paths.put(component.getName(), formatInput(component.getName()).toLowerCase());
+						
+						
+						context.put("paths", paths);
+
+						
 						context.put("component_name", formatInput(component.getName()).toLowerCase());
 
 						context.put("baseFields", baseFields);

@@ -54,6 +54,11 @@ export class ${entity_name}ListComponent implements OnInit {
 		this.${entity_name?uncap_first}Service.delete${entity_name}(id).subscribe(
 			data =>{
 				alert("${entity_name} has been successfully deleted!");
+				let path = '/${paths[entity_name]}';
+
+					this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+						this.router.navigate([path]);
+					});
 			},
 			error => {
 				if (error.status == 403)
